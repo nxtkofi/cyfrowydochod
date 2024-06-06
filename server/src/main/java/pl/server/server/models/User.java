@@ -2,10 +2,7 @@ package pl.server.server.models;
 
 import jakarta.persistence.*;
 import lombok.*;
-import org.hibernate.annotations.UuidGenerator;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Objects;
 
 @Entity
@@ -35,6 +32,8 @@ public class User {
         this.email = email;
         this.password = password;
     }
+//    @OneToMany(mappedBy = "user" )
+//    private List<Book> books = new ArrayList<>();
 
     @Override
     public boolean equals(Object o) {
