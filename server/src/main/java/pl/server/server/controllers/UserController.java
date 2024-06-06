@@ -53,6 +53,14 @@ public class UserController {
         }
         return users;
     }
+    @GetMapping("/{email}")
+    public List<User> findByEmail(@PathVariable String email) {  //Can two users have the same email address?
+        List<User> users = userRepository.findByEmail(email);
+        if (users == null || users.isEmpty()) {
+            throw new ResourceNotFoundException("User not found with email: " + email);
+        }
+        return users;
+    }
 
     @GetMapping("/{email}")
     public User findByEmail(@PathVariable String email) {  //Can two users have the same email address?
