@@ -26,19 +26,22 @@ public class UserController {
 
     @GetMapping("/{id}")
     public User getUserById(@PathVariable Long id) {
-        User user = userRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("User not found with id: " + id));
-        if (user != null) {
-            return user;
-        } else {
-            return null;
-        }
+        return userRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("User not found with id: " + id));
     }
-    
+
     @GetMapping
     public List<User> getAllUsers() {
         return userRepository.findAll();
     }
 
+    @GetMapping("/{username}")
+    public List<User> findByUsername(@PathVariable String username) {  //Optional
+        List<User> users = userRepository.findByUsername(username);
+        if (users == null || users.isEmpty()) {
+            throw new ResourceNotFoundException("User not found with username: " + username);
+        }
+        return users;
+    }
 
     @PostMapping
     public User createUser(@RequestBody User user) {
