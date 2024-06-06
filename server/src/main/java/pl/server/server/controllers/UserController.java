@@ -19,7 +19,7 @@ import pl.server.server.repositories.UserRepository;
 @RestController
 @RequestMapping("/api/users")
 public class UserController {
-//Crud - creat read update delete
+//Crud - create read update delete
 
     @Autowired
     private UserRepository userRepository;
