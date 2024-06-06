@@ -25,7 +25,7 @@ public class UserController {
     private UserRepository userRepository;
 
     @GetMapping("/{id}")
-    public User getUserById(@PathVariable Long id) {
+    public User getUserById(@PathVariable String id) {
         return userRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("User not found with id: " + id));
     }
 
@@ -49,7 +49,7 @@ public class UserController {
     }
 
     @PutMapping("{id}")
-    public User updateUser(@PathVariable Long id, @RequestBody User updatedUser) {
+    public User updateUser(@PathVariable String id, @RequestBody User updatedUser) {
         User userToUpdate = userRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("User not found with id: " + id));
         userToUpdate.setEmail(updatedUser.getEmail());
         userToUpdate.setUsername(updatedUser.getUsername());
@@ -58,7 +58,7 @@ public class UserController {
     }
 
     @DeleteMapping("{id}")
-    public void deleteUser(@PathVariable Long id) {
+    public void deleteUser(@PathVariable String  id) {
         User user = userRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("User not found with id: " + id));
         userRepository.delete(user);
     }
