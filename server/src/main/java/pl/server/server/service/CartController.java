@@ -8,10 +8,9 @@ import pl.server.server.models.User;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CartController implements Cart{
+public class CartController implements ICart{
     @Autowired
     UserController userController;
-    //private String customerId;
     User user;
     List<String> contents;
     @Override
@@ -21,8 +20,6 @@ public class CartController implements Cart{
         } else {
              user = (User) userController.findByUsername(userId
              );
-
-           // customerId = user.getId();
         }
 
         contents = new ArrayList<>();
