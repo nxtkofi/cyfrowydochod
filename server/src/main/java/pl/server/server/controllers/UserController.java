@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -54,12 +55,12 @@ public class UserController {
     }
 
     @GetMapping("/{email}")
-    public List<User> findByEmail(@PathVariable String email) {  //Can two users have the same email address?
-        List<User> users = userRepository.findByEmail(email);
-        if (users == null || users.isEmpty()) {
+    public User findByEmail(@PathVariable String email) {  //Can two users have the same email address?
+        User user = userRepository.findByEmail(email);
+        if (user == null) {
             throw new ResourceNotFoundException("User not found with email: " + email);
         }
-        return users;
+        return user;
     }
 
     @PostMapping("/register")
