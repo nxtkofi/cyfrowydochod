@@ -21,6 +21,7 @@ import pl.server.server.services.UserService;
 
 @RestController
 @RequestMapping("/api/users")
+@Component(value = "userController")
 public class UserController {
 
     private final UserService userService;
@@ -51,6 +52,7 @@ public class UserController {
         }
         return users;
     }
+
     @GetMapping("/{email}")
     public List<User> findByEmail(@PathVariable String email) {  //Can two users have the same email address?
         List<User> users = userRepository.findByEmail(email);
