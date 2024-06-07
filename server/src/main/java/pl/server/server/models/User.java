@@ -1,13 +1,17 @@
 package pl.server.server.models;
 
+import java.util.Objects;
+
+import org.hibernate.annotations.UuidGenerator;
+
 import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
-import lombok.*;
-
-import java.util.Objects;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
 
 @Entity
 @Table(name="users")
@@ -18,12 +22,14 @@ import java.util.Objects;
 @ToString
 public class User {
     @Id
-    @GeneratedValue(strategy =GenerationType.IDENTITY)
-    private Long id;
+    @UuidGenerator
+    private String id;
     private String username;
     private String email;
-    private String password;
+    private String password;    
     private String refreshToken;
+    private String role;
+    private String[] purchasedBooks;
     private String token;
 
     @Override
@@ -38,4 +44,5 @@ public class User {
     public int hashCode() {
         return Objects.hashCode(id);
     }
+        
 }
