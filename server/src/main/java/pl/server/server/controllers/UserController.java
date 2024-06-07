@@ -3,8 +3,6 @@ package pl.server.server.controllers;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -14,15 +12,12 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import pl.server.server.DTOs.LoginRequest;
 import pl.server.server.helpers.ResourceNotFoundException;
 import pl.server.server.models.User;
 import pl.server.server.repositories.UserRepository;
-import pl.server.server.services.UserService;
 
 @RestController
 @RequestMapping("/api/users")
-@Component(value = "userController")
 public class UserController {
 
     private final UserService userService;
@@ -53,6 +48,7 @@ public class UserController {
         }
         return users;
     }
+
     @GetMapping("/{email}")
     public List<User> findByEmail(@PathVariable String email) {  //Can two users have the same email address?
         List<User> users = userRepository.findByEmail(email);
@@ -107,5 +103,4 @@ public class UserController {
         User user = userRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("User not found with id: " + id));
         userRepository.delete(user);
     }
-
 }
