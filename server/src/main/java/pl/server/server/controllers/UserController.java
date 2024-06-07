@@ -3,6 +3,7 @@ package pl.server.server.controllers;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -18,8 +19,8 @@ import pl.server.server.repositories.UserRepository;
 
 @RestController
 @RequestMapping("/api/users")
+@Component(value = "userController")
 public class UserController {
-//Crud - create read update delete
 
     @Autowired
     private UserRepository userRepository;
@@ -42,6 +43,7 @@ public class UserController {
         }
         return users;
     }
+
     @GetMapping("/{email}")
     public List<User> findByEmail(@PathVariable String email) {  //Can two users have the same email address?
         List<User> users = userRepository.findByEmail(email);
@@ -70,5 +72,4 @@ public class UserController {
         User user = userRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("User not found with id: " + id));
         userRepository.delete(user);
     }
-
 }
