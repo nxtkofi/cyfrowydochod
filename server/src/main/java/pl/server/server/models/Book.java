@@ -22,9 +22,12 @@ public class Book {
     private String topic;
     private String author;
 
-//    @ManyToOne(fetch = FetchType.LAZY)
-//    @JoinColumn(name = "user_id")
-//    User user;
+
+    public Book(String title, String topic, String author) {
+        this.title = title;
+        this.topic = topic;
+        this.author = author;
+    }
 
     @Override
     public boolean equals(Object o) {
@@ -38,6 +41,4 @@ public class Book {
     public int hashCode() {
         return Objects.hashCode(id);
     }
-
-
 }

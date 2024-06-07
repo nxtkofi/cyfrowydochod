@@ -26,8 +26,15 @@ public class User {
     private String role;
     private String[] purchasedBooks;
     private String token;
-//    @OneToMany(mappedBy = "user" )
+//    @ManyToOne(targetEntity = Book.class)
+//    private Book book; in progress
 //    private List<Book> books = new ArrayList<>();
+
+    public User(String username, String email, String password) {
+        this.username = username;
+        this.email = email;
+        this.password = password;
+    }
 
     @Override
     public boolean equals(Object o) {
