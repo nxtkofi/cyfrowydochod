@@ -2,6 +2,7 @@ package pl.server.server.models;
 
 import jakarta.persistence.*;
 import lombok.*;
+import org.hibernate.annotations.UuidGenerator;
 
 import java.util.Objects;
 
