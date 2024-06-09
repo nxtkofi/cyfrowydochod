@@ -85,7 +85,7 @@ public class UserController {
         return userRepository.save(user);
     }
 
-    @PutMapping("{id}")
+    @PutMapping("/{id}")
     public User updateUser(@PathVariable String id, @RequestBody User updatedUser) {
         User userToUpdate = userRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("User not found with id: " + id));
         userToUpdate.setEmail(updatedUser.getEmail());
@@ -94,7 +94,7 @@ public class UserController {
         return userRepository.save(userToUpdate);
     }
 
-    @DeleteMapping("{id}")
+    @DeleteMapping("/{id}")
     public void deleteUser(@PathVariable String  id) {
         User user = userRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("User not found with id: " + id));
         userRepository.delete(user);
