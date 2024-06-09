@@ -5,8 +5,6 @@ import lombok.*;
 import org.hibernate.annotations.UuidGenerator;
 
 import java.util.List;
-import java.util.Objects;
-import java.util.Set;
 
 @Entity
 @Table(name = "books")
@@ -27,7 +25,7 @@ public class Book {
     private int price;
 
     @ManyToMany(mappedBy = "books")
-    private List<Orders> orders_books;
+    private List<Order> order_books;
 
 
     public Book(String title, String topic, String author, int price) {

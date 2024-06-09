@@ -4,10 +4,10 @@ import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.UuidGenerator;
 
-import javax.xml.crypto.Data;
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
-import java.util.Set;
+
 @Entity
 @Table(name = "orders")
 @Getter
@@ -16,11 +16,11 @@ import java.util.Set;
 @NoArgsConstructor
 @EqualsAndHashCode
 
-public class Orders {
+public class Order {
     @Id
     @UuidGenerator
     private String idOrder;
-    private Date orderDate;
+    private LocalDateTime orderDate;
     private int count;
     private double amount;
 
