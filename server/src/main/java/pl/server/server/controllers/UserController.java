@@ -55,7 +55,7 @@ public class UserController {
     }
 
     @GetMapping("/{email}")
-    public User findByEmail(@PathVariable String email) {  //Can two users have the same email address?
+    public User findByEmail(@PathVariable String email) {
         User user = userRepository.findByEmail(email);
         if (user == null) {
             throw new ResourceNotFoundException("User not found with email: " + email);
