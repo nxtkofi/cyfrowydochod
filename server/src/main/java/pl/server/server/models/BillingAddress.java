@@ -14,6 +14,7 @@ import org.hibernate.annotations.UuidGenerator;
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
+@EqualsAndHashCode
 public class BillingAddress {
     @Id
     @UuidGenerator
@@ -24,4 +25,11 @@ public class BillingAddress {
     private String ZipCode;
     private String City;
 
+    public BillingAddress(String fullName, String streetName, int houseNumber, String zipCode, String city) {
+        FullName = fullName;
+        StreetName = streetName;
+        HouseNumber = houseNumber;
+        ZipCode = zipCode;
+        City = city;
+    }
 }
