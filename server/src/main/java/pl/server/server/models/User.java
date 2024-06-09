@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.UuidGenerator;
 
+import java.util.List;
 import java.util.Objects;
 
 @Entity
@@ -22,11 +23,16 @@ public class User {
     private String password;
     private String refreshToken;
     private String role;
-    private String[] purchasedBooks;
     private String token;
-//    @ManyToOne(targetEntity = Book.class)
-//    private Book book; in progress
-//    private List<Book> books = new ArrayList<>();
+
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    @JoinColumn(name = "user_id")
+    private List<Orders> orders;
+
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    @JoinColumn(name = "user_id")
+    private List<BillingAddress> billingAddresses;
+    
 
     public User(String username, String email, String password) {
         this.username = username;

@@ -4,7 +4,9 @@ import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.UuidGenerator;
 
+import java.util.List;
 import java.util.Objects;
+import java.util.Set;
 
 @Entity
 @Table(name = "books")
@@ -13,6 +15,7 @@ import java.util.Objects;
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
+@EqualsAndHashCode
 public class Book {
 
     @Id
@@ -21,24 +24,16 @@ public class Book {
     private String title;
     private String topic;
     private String author;
+    private int price;
+
+    @ManyToMany(mappedBy = "books")
+    private List<Orders> orders_books;
 
 
-    public Book(String title, String topic, String author) {
+    public Book(String title, String topic, String author, int price) {
         this.title = title;
         this.topic = topic;
         this.author = author;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Book book = (Book) o;
-        return Objects.equals(id, book.id);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hashCode(id);
+        this.price = price;
     }
 }
