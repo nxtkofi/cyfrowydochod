@@ -10,27 +10,39 @@ import org.hibernate.annotations.UuidGenerator;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-@ToString
 @EqualsAndHashCode
+@Builder
 public class BillingAddress {
     @Id
     @UuidGenerator
-    private String AddressId;
-    private String FullName;
-    private String StreetName;
-    private int HouseNumber;
-    private String ZipCode;
-    private String City;
+    private String addressId;
+    private String fullName;
+    private String streetName;
+    private int houseNumber;
+    private String zipCode;
+    private String city;
 
-    @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
     private User user;
 
     public BillingAddress(String fullName, String streetName, int houseNumber, String zipCode, String city) {
-        FullName = fullName;
-        StreetName = streetName;
-        HouseNumber = houseNumber;
-        ZipCode = zipCode;
-        City = city;
+        this.fullName = fullName;
+        this.streetName = streetName;
+        this.houseNumber = houseNumber;
+        this.zipCode = zipCode;
+        this.city = city;
+    }
+
+    @Override
+    public String toString() {
+        return "BillingAddress{" +
+                "addressId='" + addressId + '\'' +
+                ", fullName='" + fullName + '\'' +
+                ", streetName='" + streetName + '\'' +
+                ", houseNumber=" + houseNumber +
+                ", zipCode='" + zipCode + '\'' +
+                ", city='" + city + '\'' +
+                '}';
     }
 }
