@@ -29,11 +29,6 @@ public class User {
     @JoinColumn(name = "user_id")
     private List<Order> orders;
 
-    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
-    @JoinColumn(name = "user_id")
-    private List<BillingAddress> billingAddresses;
-
-
     public User(String username, String email, String password) {
         this.username = username;
         this.email = email;
