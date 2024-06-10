@@ -14,6 +14,7 @@ import java.util.List;
 @NoArgsConstructor
 @ToString
 @EqualsAndHashCode
+@Builder
 public class User {
     @Id
     @UuidGenerator
@@ -28,6 +29,9 @@ public class User {
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "user_id")
     private List<Order> orders;
+
+    @OneToOne(mappedBy = "user", fetch = FetchType.LAZY)
+    private BillingAddress billingAddress;
 
     public User(String username, String email, String password) {
         this.username = username;
