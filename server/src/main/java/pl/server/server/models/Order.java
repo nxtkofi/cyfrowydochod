@@ -15,7 +15,7 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @EqualsAndHashCode
-
+@Builder
 public class Order {
     @Id
     @UuidGenerator
