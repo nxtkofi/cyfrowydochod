@@ -26,8 +26,7 @@ public class User {
     private String role;
     private String token;
 
-    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
-    @JoinColumn(name = "user_id")
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
     private List<Order> orders;
 
     @OneToOne(mappedBy = "user", fetch = FetchType.LAZY)
