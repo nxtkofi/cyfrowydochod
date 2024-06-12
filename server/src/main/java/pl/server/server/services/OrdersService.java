@@ -1,9 +1,13 @@
 package pl.server.server.services;
 
+import jakarta.persistence.Table;
+import jakarta.persistence.Transient;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import pl.server.server.models.*;
 import pl.server.server.repositories.BookRepository;
+import pl.server.server.repositories.OrderItemRepository;
 import pl.server.server.repositories.OrdersRepository;
 
 import java.time.LocalDateTime;
@@ -19,12 +23,13 @@ public class OrdersService {
     @Autowired
     private BookRepository bookRepository;
 
+    @Autowired
+    private OrderItemRepository orderItemRepository;
+    @Transactional
     public Order createOrderFromCart(List<String> bookIds, User user) {
-
         List<Book> books = bookRepository.findAllById(bookIds);
 
         double totalAmount = books.stream().mapToDouble(Book::getPrice).sum();
-
 
         Order order = Order.builder()
                 .orderDate(LocalDateTime.now())
@@ -33,19 +38,16 @@ public class OrdersService {
                 .build();
 
         List<OrderItem> orderItems = books.stream()
-                .map(book -> {
-                    OrderItem orderItem = new OrderItem();
-                    orderItem.setBook(book);
-                    orderItem.setCount(1);  // Zakładając jedną sztukę każdej książki
-                    orderItem.setOrder(order);
-                    return orderItem;
-                })
+                .map(book -> OrderItem.builder()
+                        .book(book)
+                        .count(1)
+                        .order(order)
+                        .build())
                 .collect(Collectors.toList());
 
-        // Powiąż pozycje zamówienia z zamówieniem
-        order.setOrderItems(orderItems);
+        orderItems.forEach(orderItem -> orderItemRepository.save(orderItem));
+        order.setOrderItem(orderItems);
 
-        // Zapisz zamówienie w repozytorium
         return orderRepository.save(order);
     }
 }

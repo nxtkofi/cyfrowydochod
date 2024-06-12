@@ -10,12 +10,15 @@ import pl.server.server.controllers.BookController;
 import pl.server.server.controllers.OrdersController;
 import pl.server.server.controllers.UserController;
 import pl.server.server.models.BillingAddress;
+import pl.server.server.models.Book;
 import pl.server.server.models.User;
 import pl.server.server.repositories.BillingAddressRepository;
 import pl.server.server.repositories.BookRepository;
 import pl.server.server.repositories.OrdersRepository;
 import pl.server.server.repositories.UserRepository;
+import pl.server.server.services.OrdersService;
 
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -35,19 +38,32 @@ public class ServerApplication implements CommandLineRunner {
 	BillingAddressController billingAddressController;
 	@Autowired
 	OrdersController ordersController;
+
+	@Autowired
+	OrdersService ordersService;
+
 	@Override
 	public void run(String... args) throws Exception {
 
 //		userController.createUser(new User("Jakub","@gra.pl","xyz"));
 
 //		billingAddressController.addBillingAddress(String.valueOf(userController.findByEmail("@gra.pl").getId()),new BillingAddress("Jakub Kaczyński","ul.publiczna",8,"42-986","Warszawa"));
-//		var user = userController.findByEmail("@gra.pl").getId();
+		var user = userController.findByEmail("@gra.pl").getId();
 //		billingAddressController.UpdateBillingAddress(user,new BillingAddress("Jakub Kaczyński","ul.publiczna",10,"42-986","Warszawa"));
 //
 //		var cos = billingAddressController.getBillingAddress(userController.findByEmail("@gra.pl").getId());
 //		System.out.println(cos.getStreetName());
 
 //		billingAddressController.deleteBillingAddress(userController.findByEmail("@gra.pl").getBillingAddress().getAddressId());
-		// for tests
+
+
+//		List<String> allBooks = new ArrayList<>();
+//		allBooks.add(bookController.getBookById("39396fc7-7da1-4c6c-a686-7d249c7a51d1").getId());
+//		allBooks.add(bookController.getBookById("73899dcd-5291-4c6c-8c69-ba9c845f6a4b").getId());
+//		allBooks.add(bookController.getBookById("aff07518-faa0-4504-bca5-80245fb354da").getId());
+//		ordersService.createOrderFromCart(allBooks , userRepository.findByEmail("@gra.pl"));
+
+//		bookController.createBook(new Book("Harry Potter","Fantasy","R.K.Ktośtam",20));
+// 		for tests
 	}
 }
