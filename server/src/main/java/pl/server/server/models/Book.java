@@ -5,8 +5,6 @@ import lombok.*;
 import org.hibernate.annotations.UuidGenerator;
 
 import java.util.List;
-import java.util.Objects;
-import java.util.Set;
 
 @Entity
 @Table(name = "books")
@@ -16,6 +14,7 @@ import java.util.Set;
 @NoArgsConstructor
 @ToString
 @EqualsAndHashCode
+@Builder
 public class Book {
 
     @Id
@@ -25,9 +24,10 @@ public class Book {
     private String topic;
     private String author;
     private int price;
+    private int count;
 
-    @ManyToMany(mappedBy = "books")
-    private List<Orders> orders_books;
+    @OneToMany(mappedBy = "book")
+    private List<OrderItem> orderItems;
 
 
     public Book(String title, String topic, String author, int price) {

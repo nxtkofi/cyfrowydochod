@@ -26,7 +26,7 @@ public class BookController {
     }
 
     @GetMapping("/{title}")
-    public List<Book> findByTitle(@PathVariable String title) {  //Optional
+    public List<Book> findByTitle(@PathVariable String title) {
         List<Book> books = bookRepository.findByTitle(title);
         if (books == null || books.isEmpty()) {
             throw new ResourceNotFoundException("Book not found with title: " + title);
@@ -53,5 +53,4 @@ public class BookController {
         Book book = bookRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Book not found with id: " + id));
         bookRepository.delete(book);
     }
-
 }

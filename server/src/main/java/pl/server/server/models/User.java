@@ -5,7 +5,6 @@ import lombok.*;
 import org.hibernate.annotations.UuidGenerator;
 
 import java.util.List;
-import java.util.Objects;
 
 @Entity
 @Table(name="users")
@@ -15,6 +14,7 @@ import java.util.Objects;
 @NoArgsConstructor
 @ToString
 @EqualsAndHashCode
+@Builder
 public class User {
     @Id
     @UuidGenerator
@@ -26,14 +26,11 @@ public class User {
     private String role;
     private String token;
 
-    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
-    @JoinColumn(name = "user_id")
-    private List<Orders> orders;
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
+    private List<Order> orders;
 
-    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
-    @JoinColumn(name = "user_id")
-    private List<BillingAddress> billingAddresses;
-
+    @OneToOne(mappedBy = "user", fetch = FetchType.LAZY)
+    private BillingAddress billingAddress;
 
     public User(String username, String email, String password) {
         this.username = username;
