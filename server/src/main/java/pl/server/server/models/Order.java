@@ -21,7 +21,6 @@ public class Order {
     @UuidGenerator
     private String idOrder;
     private LocalDateTime orderDate;
-    private int count;
     private double amount;
 
     @OneToMany(mappedBy = "order")
@@ -29,12 +28,4 @@ public class Order {
 
     @ManyToOne
     private User user;
-
-//    @ManyToMany
-//    @JoinTable(
-//            name = "order_book",
-//            joinColumns = @JoinColumn(name = "order_id"),
-//            inverseJoinColumns = @JoinColumn(name = "book_id")
-//    )
-//    private List<Book> books;
 }

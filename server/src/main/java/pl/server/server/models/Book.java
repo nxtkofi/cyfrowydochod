@@ -24,6 +24,7 @@ public class Book {
     private String topic;
     private String author;
     private int price;
+    private int count;
 
     @OneToMany(mappedBy = "book")
     private List<OrderItem> orderItems;
