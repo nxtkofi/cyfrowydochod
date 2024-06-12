@@ -25,8 +25,8 @@ public class Book {
     private String author;
     private int price;
 
-    @ManyToMany(mappedBy = "books")
-    private List<Order> order_books;
+    @OneToMany(mappedBy = "book")
+    private List<OrderItem> orderItems;
 
 
     public Book(String title, String topic, String author, int price) {

@@ -24,11 +24,17 @@ public class Order {
     private int count;
     private double amount;
 
-    @ManyToMany
-    @JoinTable(
-            name = "order_book",
-            joinColumns = @JoinColumn(name = "order_id"),
-            inverseJoinColumns = @JoinColumn(name = "book_id")
-    )
-    private List<Book> books;
+    @OneToMany(mappedBy = "order")
+    private List<OrderItem> orderItem;
+
+    @ManyToOne
+    private User user;
+
+//    @ManyToMany
+//    @JoinTable(
+//            name = "order_book",
+//            joinColumns = @JoinColumn(name = "order_id"),
+//            inverseJoinColumns = @JoinColumn(name = "book_id")
+//    )
+//    private List<Book> books;
 }
