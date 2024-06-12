@@ -5,9 +5,7 @@ import org.springframework.web.bind.annotation.*;
 import pl.server.server.helpers.ResourceNotFoundException;
 import pl.server.server.models.Order;
 import pl.server.server.repositories.OrdersRepository;
-
 import java.time.LocalDateTime;
-import java.util.Date;
 import java.util.List;
 
 @RestController
@@ -36,16 +34,21 @@ public class OrdersController {
         return orders;
     }
 
-    @PostMapping
-    public Order createOrder(@RequestBody Order order) {
-        return ordersRepository.save(order);
-    }
+//    @PostMapping("/create")
+//    public Order createOrder(@RequestBody List<String> booksId, @RequestParam String userId) {
+//        User user = userRepository.findById(userId).orElseThrow(() -> new RuntimeException("User not found"));
+//        return ordersService.createOrderFromCart(booksId, user);
+//    }
+//                                                                      To delete
+//    @PostMapping
+//    public Order createOrder(@RequestBody Order order) {
+//        return ordersRepository.save(order);
+//    }
 
     @PutMapping("{id}")
     public Order updateOrder(@PathVariable String id, @RequestBody Order updatedOrder) {
         Order orderToUpdate = ordersRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Order not found with id: " + id));
         orderToUpdate.setOrderDate(updatedOrder.getOrderDate());
-        orderToUpdate.setCount(updatedOrder.getCount());
         orderToUpdate.setAmount(updatedOrder.getAmount());
         return ordersRepository.save(updatedOrder);
     }
