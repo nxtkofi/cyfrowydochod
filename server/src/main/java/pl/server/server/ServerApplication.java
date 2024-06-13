@@ -67,4 +67,4 @@ public class ServerApplication implements CommandLineRunner {
 //		bookController.createBook(new Book("Harry Potter","Fantasy","R.K.Ktośtam",20));
 // 		for tests
 	}
-//}
+}

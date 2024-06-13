@@ -42,8 +42,6 @@ public class User implements UserDetails{
     private String username;
     private String email;
     private String password;
-
-    @Column(name="refresh_token",columnDefinition="TEXT")
     private String refreshToken;
     private String role;
     private String token;
@@ -61,15 +59,7 @@ public class User implements UserDetails{
         this.username = username;
         this.email = email;
         this.password = password;
-        this.role = "User";
-    }
-
-    public User(String username, String email, String password, String role) {
-        this.username = username;
-        this.email = email;
-        this.password = password;
-        this.role = role;
-    }
+        }
 
     @JsonIgnore
     @Override
