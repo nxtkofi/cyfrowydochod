@@ -7,11 +7,9 @@ import java.util.List;
 import org.hibernate.annotations.UuidGenerator;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.userdetails.UserDetails;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
-import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.Id;
@@ -25,6 +23,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
+import org.springframework.security.core.userdetails.UserDetails;
 
 @Entity
 @Table(name="users")
@@ -35,7 +34,7 @@ import lombok.ToString;
 @ToString
 @EqualsAndHashCode
 @Builder
-public class User implements UserDetails{
+public class User implements UserDetails {
     @Id
     @UuidGenerator
     private String id;
@@ -59,22 +58,12 @@ public class User implements UserDetails{
         this.username = username;
         this.email = email;
         this.password = password;
-<<<<<<< HEAD
         }
 
     @JsonIgnore
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return Collections.singletonList(new SimpleGrantedAuthority(role));
-=======
-        this.role = "User";
-    }
 
-    public User(String username, String email, String password, String role) {
-        this.username = username;
-        this.email = email;
-        this.password = password;
-        this.role = role;
->>>>>>> a8aedee (Added Message to models and optional constructor to User.)
     }
 }
