@@ -1,8 +1,6 @@
 package pl.server.server.models;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.UuidGenerator;
 
@@ -17,4 +15,9 @@ public class Ticket {
     @UuidGenerator
     private String id;
     private String text;
+
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private User user;
+
 }
