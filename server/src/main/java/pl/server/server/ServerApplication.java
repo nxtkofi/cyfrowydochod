@@ -47,9 +47,8 @@ public class ServerApplication implements CommandLineRunner {
 
 //		userController.createUser(new User("Jakub","@gra.pl","xyz"));
 
-//		billingAddressController.addBillingAddress(String.valueOf(userController.findByEmail("@gra.pl").g0etId()),new BillingAddress("Jakub Kaczyński","ul.publiczna",8,"42-986","Warszawa"));
-//		billingAddressController.addBillingAddress(userController.findByEmail("KrzysztofKrawczyk@onet.pl").getId(),new BillingAddress("Krzysztof Krawczyk","ul.Słonecznikowa",3,"32-456","Kraków"));
-//		var user = userController.findByEmail("@gra.pl").getId();
+//		billingAddressController.addBillingAddress(String.valueOf(userController.findByEmail("@gra.pl").getId()),new BillingAddress("Jakub Kaczyński","ul.publiczna",8,"42-986","Warszawa"));
+		var user = userController.findByEmail("@gra.pl").getId();
 //		billingAddressController.UpdateBillingAddress(user,new BillingAddress("Jakub Kaczyński","ul.publiczna",10,"42-986","Warszawa"));
 //
 //		var cos = billingAddressController.getBillingAddress(userController.findByEmail("@gra.pl").getId());
