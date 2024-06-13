@@ -32,6 +32,9 @@ public class User {
     @OneToOne(mappedBy = "user", fetch = FetchType.LAZY)
     private BillingAddress billingAddress;
 
+    @OneToMany(mappedBy = "user",fetch = FetchType.LAZY)
+    private List<Ticket> tickets;
+
     public User(String username, String email, String password) {
         this.username = username;
         this.email = email;

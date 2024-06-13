@@ -77,10 +77,5 @@ public class ServerApplication implements CommandLineRunner {
 
 //		bookController.createBook(new Book("Harry Potter","Fantasy","R.K.Ktośtam",20));
 // 		for tests
-
-//		userController.deleteUser("610e5576-8c7a-4916-b970-72bb2798a0d2");
-//		User user = userController.getUserById("f5c00e6f-744f-464d-8792-a21ed064b172");
-//		user.setRole("User");
-
 	}
 }
