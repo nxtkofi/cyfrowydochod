@@ -41,11 +41,12 @@ public class User implements UserDetails{
     private String id;
     private String username;
     private String email;
-    private String password;    
+    private String password;
 
     @Column(name="refresh_token",columnDefinition="TEXT")
     private String refreshToken;
     private String role;
+    private String token;
 
     @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
     private List<Order> orders;
