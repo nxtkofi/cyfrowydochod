@@ -1,8 +1,16 @@
 package pl.server.server.controllers;
 
-import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import jakarta.transaction.Transactional;
 import pl.server.server.helpers.ResourceNotFoundException;
 import pl.server.server.models.BillingAddress;
 import pl.server.server.models.User;
@@ -44,12 +52,6 @@ public class BillingAddressController {
     @Transactional
     public BillingAddress UpdateBillingAddress(@PathVariable String userId, @RequestBody BillingAddress billingAddress) {
         User user = userRepository.findById(userId).orElseThrow(() -> new ResourceNotFoundException("User not found"));
-//        if (user.getBillingAddress() == null) {
-//            throw new ResourceNotFoundException("Provided billing address does not exist.");
-//        }
-//        if (!billingAddress.getUser().getId().equals(user.getId())) { in progress!!
-//            throw new ResourceNotFoundException("Provided billing address does not belong to the user.");
-//        }
 
         BillingAddress addressToUpdate = user.getBillingAddress();
 

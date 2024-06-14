@@ -3,7 +3,6 @@ package pl.server.server.controllers;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,23 +13,16 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import pl.server.server.DTOs.LoginRequest;
 import pl.server.server.helpers.ResourceNotFoundException;
 import pl.server.server.models.User;
 import pl.server.server.repositories.UserRepository;
-import pl.server.server.services.UserService;
 
 @RestController
 @RequestMapping("/api/users")
 @Component(value = "userController")
 public class UserController {
 
-    private final UserService userService;
-
-    @Autowired
-    public UserController(UserService userService) {
-        this.userService = userService;
-    }
+    
 
     @Autowired
     private UserRepository userRepository;
@@ -45,7 +37,7 @@ public class UserController {
         return userRepository.findAll();
     }
 
-    @GetMapping("/{username}")
+    @GetMapping("/username/{username}")
     public List<User> findByUsername(@PathVariable String username) {  //Optional
         List<User> users = userRepository.findByUsername(username);
         if (users == null || users.isEmpty()) {
@@ -54,7 +46,7 @@ public class UserController {
         return users;
     }
 
-    @GetMapping("/{email}")
+    @GetMapping("/email/{email}")
     public User findByEmail(@PathVariable String email) {
         User user = userRepository.findByEmail(email);
         if (user == null) {
@@ -63,29 +55,14 @@ public class UserController {
         return user;
     }
 
-    @PostMapping("/register")
-    public ResponseEntity<User> registerUser(@RequestBody User user) {
-        User registeredUser = userService.registerUser(user);
-        return ResponseEntity.ok(registeredUser);
-    }
-
-    @PostMapping("/login")
-    public ResponseEntity<User> loginUser(@RequestBody LoginRequest loginRequest) {
-        User user = userService.loginUser(loginRequest.getEmail(), loginRequest.getPassword());
-        if (user != null) {
-            return ResponseEntity.ok(user);
-        } else {
-            return ResponseEntity.notFound().build();
-        }
-
-    }
+    
 
     @PostMapping
     public User createUser(@RequestBody User user) {
         return userRepository.save(user);
     }
 
-    @PutMapping("/{id}")
+    @PutMapping("/id/{id}")
     public User updateUser(@PathVariable String id, @RequestBody User updatedUser) {
         User userToUpdate = userRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("User not found with id: " + id));
         userToUpdate.setEmail(updatedUser.getEmail());
@@ -94,7 +71,7 @@ public class UserController {
         return userRepository.save(userToUpdate);
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/id/{id}")
     public void deleteUser(@PathVariable String  id) {
         User user = userRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("User not found with id: " + id));
         userRepository.delete(user);
