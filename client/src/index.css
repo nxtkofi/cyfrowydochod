@@ -2,6 +2,12 @@
   @tailwind components;
   @tailwind utilities;
 
+  section {
+    height: 100vh;
+  }
+  .lucide-badge-check{
+    @apply my-[2px] w-5;
+  }
   @layer base {
     :root {
       --background: 0 0% 100%;
