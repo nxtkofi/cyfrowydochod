@@ -49,7 +49,7 @@ public class ServerApplication {
 //		userController.createUser(new User("Jakub","@gra.pl","xyz"));
 
 //		billingAddressController.addBillingAddress(String.valueOf(userController.findByEmail("@gra.pl").getId()),new BillingAddress("Jakub Kaczyński","ul.publiczna",8,"42-986","Warszawa"));
-		var user = userController.findByEmail("@gra.pl").getId();
+//		var user = userController.findByEmail("@gra.pl").getId();
 //		billingAddressController.UpdateBillingAddress(user,new BillingAddress("Jakub Kaczyński","ul.publiczna",10,"42-986","Warszawa"));
 //
 //		var cos = billingAddressController.getBillingAddress(userController.findByEmail("@gra.pl").getId());
@@ -67,4 +67,4 @@ public class ServerApplication {
 //		bookController.createBook(new Book("Harry Potter","Fantasy","R.K.Ktośtam",20));
 // 		for tests
 	}
-}
+//}
