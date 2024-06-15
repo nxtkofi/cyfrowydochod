@@ -47,12 +47,8 @@ public class ServerApplication {
 // 	public void run(String... args) throws Exception {
 
 //		userController.createUser(new User("Jakub","@gra.pl","xyz"));
-//		userController.createUser(new User("Krzysztof Krawczyk","KrzysztofKrawczyk@onet.pl","Krawczykthebest123@"));
-//		userService.registerUser(userRepository.findByEmail("KrzysztofKrawczyk@onet.pl"));
-//		userService.registerUser(userController.findByEmail("@gra.pl"));
 
-//		billingAddressController.addBillingAddress(String.valueOf(userController.findByEmail("@gra.pl").g0etId()),new BillingAddress("Jakub Kaczyński","ul.publiczna",8,"42-986","Warszawa"));
-//		billingAddressController.addBillingAddress(userController.findByEmail("KrzysztofKrawczyk@onet.pl").getId(),new BillingAddress("Krzysztof Krawczyk","ul.Słonecznikowa",3,"32-456","Kraków"));
+//		billingAddressController.addBillingAddress(String.valueOf(userController.findByEmail("@gra.pl").getId()),new BillingAddress("Jakub Kaczyński","ul.publiczna",8,"42-986","Warszawa"));
 //		var user = userController.findByEmail("@gra.pl").getId();
 //		billingAddressController.UpdateBillingAddress(user,new BillingAddress("Jakub Kaczyński","ul.publiczna",10,"42-986","Warszawa"));
 //
