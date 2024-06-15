@@ -59,14 +59,12 @@ public class User implements UserDetails{
         this.username = username;
         this.email = email;
         this.password = password;
-<<<<<<< HEAD
-        }
+    }
 
     @JsonIgnore
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return Collections.singletonList(new SimpleGrantedAuthority(role));
-=======
         this.role = "User";
     }
 
@@ -75,6 +73,6 @@ public class User implements UserDetails{
         this.email = email;
         this.password = password;
         this.role = role;
->>>>>>> a8aedee (Added Message to models and optional constructor to User.)
+
     }
 }
