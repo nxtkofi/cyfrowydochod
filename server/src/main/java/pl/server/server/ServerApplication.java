@@ -22,8 +22,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 
+
 @SpringBootApplication(exclude = { SecurityAutoConfiguration.class })
-public class ServerApplication implements CommandLineRunner {
+public class ServerApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(ServerApplication.class, args);
