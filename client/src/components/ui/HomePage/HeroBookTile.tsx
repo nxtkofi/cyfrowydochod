@@ -8,8 +8,9 @@ type HeroBookTileProps = {
   bookFeatures: string[];
   gradient:string;
   imagePath:string;
+  textBlack?:boolean
 };
-function HeroBookTile({ bookTitle, price, author, bookFeatures,gradient,imagePath }:HeroBookTileProps) {
+function HeroBookTile({ bookTitle, price, author, bookFeatures,gradient,imagePath,textBlack }:HeroBookTileProps) {
   return (
     <div className="bg-[#FBFBFB] w-80 rounded-2xl shadow-lg flex flex-col p-4">
       <TextDefault variant="default" title center>
@@ -26,7 +27,7 @@ function HeroBookTile({ bookTitle, price, author, bookFeatures,gradient,imagePat
       <TextDefault className={"ml-8 -mb-4"} variant="default" title>
         {price + ",-"}
       </TextDefault>
-      <ChecksTable gradient={gradient} features={bookFeatures}/>
+      <ChecksTable gradient={gradient} features={bookFeatures} textBlack={textBlack}/>
     </div>
   );
 }

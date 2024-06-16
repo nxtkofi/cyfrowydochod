@@ -1,8 +1,12 @@
 import HeroBook from "@/components/ui/HomePage/HeroBook";
 import TextDefault from "@/components/ui/HomePage/textDefault";
+import TrustSection from "@/components/ui/HomePage/TrustSection";
 import Navbar from "@/components/ui/navbar";
 import Wrapper from "@/components/ui/wrapper";
-import { HeroBooks } from "@/constants";
+import { HeroBooks } from "@/constants.ts";
+import { TrustReviews } from "@/constants";
+import Footer from "@/components/ui/footer";
+
 
 function HomePage() {
   return (
@@ -28,11 +32,17 @@ function HomePage() {
           <img src="public/EmojiBundle.jpg" className="w-2/3 self-center rounded-xl" alt="" />
         </Wrapper>
       </section>
+        <Wrapper>
+          {HeroBooks.map((Book, index)=>
+          <section>
+            <HeroBook key={index} book={Book}/></section>)}
+        </Wrapper>
       <section>
         <Wrapper>
-          {HeroBooks.map((Book, index)=><HeroBook key={index} book={Book}/>)}
+        <TrustSection trustReviews={TrustReviews}/>
         </Wrapper>
       </section>
+        <Footer/>
     </>
   );
 }
