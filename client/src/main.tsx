@@ -3,10 +3,14 @@ import ReactDOM from 'react-dom/client'
 import './index.css'
 import { RouterProvider, createBrowserRouter } from 'react-router-dom'
 import HomePage from './pages/HomePage'
+import AccessPage from './pages/AccessPage'
 
 const router = createBrowserRouter([{
   path:"/",
   element: <HomePage/>
+},{
+  path:"/accessPage",
+  element:<AccessPage/>
 }])
 
 ReactDOM.createRoot(document.getElementById('root')!).render(

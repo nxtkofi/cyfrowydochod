@@ -12,7 +12,7 @@ type HeroBookTileProps = {
 };
 function HeroBookTile({ bookTitle, price, author, bookFeatures,gradient,imagePath,textBlack }:HeroBookTileProps) {
   return (
-    <div className="bg-[#FBFBFB] w-80 rounded-2xl shadow-lg flex flex-col p-4">
+    <div className="self-center bg-[#FBFBFB] w-80 rounded-2xl shadow-lg flex flex-col p-4 mt-4">
       <TextDefault variant="default" title center>
         {bookTitle}
       </TextDefault>

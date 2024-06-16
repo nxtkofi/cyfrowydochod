@@ -7,7 +7,6 @@ import { HeroBooks } from "@/constants.ts";
 import { TrustReviews } from "@/constants";
 import Footer from "@/components/ui/footer";
 
-
 function HomePage() {
   return (
     <>
@@ -29,20 +28,26 @@ function HomePage() {
             ...or not. Because if you want to keep going you absolutely can. Buy
             one of our eBooks and actually make a decision!
           </TextDefault>
-          <img src="public/EmojiBundle.jpg" className="w-2/3 self-center rounded-xl" alt="" />
+          <img
+            src="public/EmojiBundle.jpg"
+            className="w-2/3 self-center rounded-xl"
+            alt=""
+          />
         </Wrapper>
       </section>
-        <Wrapper>
-          {HeroBooks.map((Book, index)=>
+      <Wrapper>
+        {HeroBooks.map((Book, index) => (
           <section>
-            <HeroBook key={index} book={Book}/></section>)}
-        </Wrapper>
+            <HeroBook key={index} book={Book} />
+          </section>
+        ))}
+      </Wrapper>
       <section>
         <Wrapper>
-        <TrustSection trustReviews={TrustReviews}/>
+          <TrustSection trustReviews={TrustReviews} />
         </Wrapper>
       </section>
-        <Footer/>
+      <Footer />
     </>
   );
 }

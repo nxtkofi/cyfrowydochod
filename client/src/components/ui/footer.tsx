@@ -3,13 +3,13 @@ import { FunctionComponent } from "react";
 
 
 const NavigationOptions = () => {
-    return (<div className="flex self-center flex-row text-white text-base font-extrabold leading-[4rem]">
+    return (<div className="flex  flex-row text-white text-base font-extrabold leading-[4rem]">
         <div className="flex-col">
             <p>Home</p>
             <p>All eBooks</p>
             <p>Contact</p>
         </div>
-        <div className="flex-cold ml-16">
+        <div className="flex-cold ml-20">
             <p>Login/Register</p>
             <p>Terms & Conditions</p>
             <p>Privacy Policy</p>
@@ -31,12 +31,12 @@ const CompanyAddress = () => {
 };
 const Footer: FunctionComponent = () => {
   return (
-    <div className="flex flex-col bg-slate-900 p-4 w-screen">
+    <div className="flex flex-col bg-slate-900 p-8 w-screen">
       <CompanyAddress />
       <img src="/MainLogoWhite.png" className="w-2/3 self-center" alt="" />
       <NavigationOptions/>
-      <div className="flex flex-row">
-        <Instagram /><Facebook/> <FontAwesomeIcon icon="fa-brands fa-x-twitter" />
+      <div className="flex flex-row mt-4">
+        <Instagram className="mr-4" color="#FFF"/><Facebook className="mr-4"color="#FFF"/> <i className="fa-brands fa-x-twitter text-white text-2xl" />
       </div>
     </div>
   );
