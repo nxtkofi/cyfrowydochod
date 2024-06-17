@@ -14,8 +14,6 @@ import pl.server.server.repositories.UserRepository;
 @Component(value = "userController")
 public class UserController {
 
-    
-
     @Autowired
     private UserRepository userRepository;
 
@@ -46,8 +44,6 @@ public class UserController {
         }
         return user;
     }
-
-    
 
     @PostMapping
     public User createUser(@RequestBody User user) {
