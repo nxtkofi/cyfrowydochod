@@ -10,6 +10,8 @@ import org.hibernate.annotations.UuidGenerator;
 @Setter
 @EqualsAndHashCode
 @Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class OrderItem {
     @Id
     @UuidGenerator
