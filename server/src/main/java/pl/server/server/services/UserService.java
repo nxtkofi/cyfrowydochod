@@ -16,7 +16,7 @@ public class UserService {
     private final PasswordEncoder passwordEncoder;
     
 
-    @Autowired
+    @Autowired      //I think that constructor doesn't need @Autowired
     public UserService(UserRepository userRepository, PasswordEncoder passwordEncoder) {
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
