@@ -1,4 +1,5 @@
-import { XIcon } from "lucide-react";
+
+import Menu from "./Menu";
 
 type SideBarProps = {
     shown:boolean;
@@ -6,12 +7,10 @@ type SideBarProps = {
 }
 
 function SideBar({shown,showSideBar}:SideBarProps) {
-    return ( <div className={`fixed w-64 right-0 top-0 bg-white h-full transition-all transform
-    ${shown ? "" : "-right-64"}
+    return ( <div className={`fixed w-60 right-0 top-0 bg-white h-full transition-all transform 
+    ${shown ? "" : "-right-60"}
     `}>
-        <div className="flex flex-col">
- <XIcon onClick={showSideBar} className="m-8 self-end"/> asuohfgaiusft8asga
- </div>
+        <Menu wihtCloseIcon showSideBar={showSideBar}/>
     </div> );
 }
 

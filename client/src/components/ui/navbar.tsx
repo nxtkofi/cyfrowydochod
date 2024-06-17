@@ -1,10 +1,11 @@
-import { HomeIcon, BookIcon, PencilIcon, UserIcon, XIcon } from "lucide-react";
+import { HomeIcon, BookIcon, PencilIcon, UserIcon } from "lucide-react";
 import SideBar from "./SideBar";
 import { useState } from "react";
 
 function Navbar() {
-const [sideBarVisible, setSideBarVisible]= useState<boolean>(false)
+  const [sideBarVisible, setSideBarVisible] = useState<boolean>(true);
   const showSideBar = () => {
+    console.log(sideBarVisible);
     setSideBarVisible(!sideBarVisible);
   };
   return (
@@ -21,7 +22,7 @@ const [sideBarVisible, setSideBarVisible]= useState<boolean>(false)
           <PencilIcon />
         </a>
         <UserIcon onClick={showSideBar} />
-        <SideBar showSideBar={showSideBar} shown={sideBarVisible}/>
+        <SideBar showSideBar={showSideBar} shown={sideBarVisible} />
       </div>
       <div className=" border-b-2"></div>
     </>
