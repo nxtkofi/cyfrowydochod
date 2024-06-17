@@ -26,7 +26,7 @@ public class Book {
     private int price;
     private int count;
 
-    @OneToMany(mappedBy = "book")
+    @OneToMany(mappedBy = "book",fetch = FetchType.EAGER)
     private List<OrderItem> orderItems;
 
 
