@@ -7,6 +7,7 @@ export const commonUserCredentials = {
 
 export const HeroBooks: HeroBookType[] = [
   {
+    shortDescription: "Great starter. This book contains every important money-making concept that’s out there!",
     subTitle:
       "Simple, fast and easy way to earn money while sitting in your comfortable chair at home?",
     firstText: "Buy this e-book if you’re interested in earning money online!",
@@ -26,6 +27,7 @@ export const HeroBooks: HeroBookType[] = [
       "var(--BlueGradient, linear-gradient(180deg, #2B769D 0%, #276E98 34%, #174E84 100%))",
   },
   {
+    shortDescription:"This book will take you straight to action. We’re saying it’s gonna allow you to leave your 9-5.",
     subTitle:
       "Do you want to escape your boring 9-5 job? Would you like to try and experience something new?",
     firstText:
@@ -61,6 +63,7 @@ export const HeroBooks: HeroBookType[] = [
     imagePath: "/EbookMoney.jpg",
   },
   {
+    shortDescription:"We call it The Bible of online money making. Infinite knowledge awaits within.",
     subTitle:
       "Souds stupid? Who, and WHY, would name their book by an ironic acronym like that? Well, let me cook below.",
     firstText:

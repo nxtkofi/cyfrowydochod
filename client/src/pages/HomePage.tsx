@@ -1,16 +1,13 @@
 import HeroBook from "@/components/ui/HomePage/HeroBook";
 import TextDefault from "@/components/ui/HomePage/textDefault";
 import TrustSection from "@/components/ui/HomePage/TrustSection";
-import Navbar from "@/components/ui/navbar";
 import Wrapper from "@/components/ui/wrapper";
 import { HeroBooks } from "@/constants.ts";
 import { TrustReviews } from "@/constants";
-import Footer from "@/components/ui/footer";
 
 function HomePage() {
   return (
     <>
-      <Navbar />
       <section>
         <Wrapper className="text-slate-900">
           <TextDefault variant="default" title center>
@@ -47,7 +44,6 @@ function HomePage() {
           <TrustSection trustReviews={TrustReviews} />
         </Wrapper>
       </section>
-      <Footer />
     </>
   );
 }

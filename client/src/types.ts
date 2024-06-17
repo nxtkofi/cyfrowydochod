@@ -6,6 +6,7 @@ export interface IconProps extends Omit<LucideProps, 'ref'> {
 }
 
 export type HeroBookType = {
+  shortDescription:string;
   subTitle: string;
   firstText: string;
   secondText:string;

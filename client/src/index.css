@@ -1,17 +1,25 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
- html,body{
-  margin:0;
-  padding:0;
- }
+html,
+body {
+  margin: 0;
+  padding: 0;
+}
 #landmark {
   color: url(#platinum-gradient);
   fill: url(#platinum-gradient);
   stroke: url(#platinum-gradient);
 }
 
-section{
+.uiinput:focus ~ .uiinputspan {
+  @apply  transform -translate-y-9 -translate-x-2.5 scale-90;
+}
+
+.uiinput:not(:placeholder-shown) ~ .uiinputspan {
+  @apply  transform -translate-y-9 -translate-x-2.5 scale-90;
+}
+section {
   @apply mb-20 flex flex-col;
 }
 .lucide-badge-check {
