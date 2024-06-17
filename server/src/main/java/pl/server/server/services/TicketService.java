@@ -28,13 +28,13 @@ public class TicketService {
 
     public void createTicket(Ticket ticket, String userId) {
 
-        User user = userRepository.findById(userId).orElseThrow(() -> new ResourceNotFoundException(""));
+       User user = userRepository.findById(userId).orElseThrow(() -> new ResourceNotFoundException(""));
 
-        ticket.setUser(user);
-        ticketRepository.save(ticket);
+         ticket.setUser(user);
+         ticketRepository.save(ticket);
 
-        user.getTickets().add(ticket);
-        userRepository.save(user);
+         user.getTickets().add(ticket);
+         userRepository.save(user);
     }
 
     public Ticket getTicketById(String id) {
@@ -44,7 +44,7 @@ public class TicketService {
     public List<Ticket> findAllTicket() {
         return ticketRepository.findAll();
     }
-    
+
 
     public List<Ticket> findTicketByDate(LocalDateTime localDateTime) {
         return ticketRepository.findByDate(localDateTime);
@@ -58,7 +58,7 @@ public class TicketService {
         return ticketRepository.save(ticket);
     }
 
-    public void deleteTicket(Ticket ticketToDelete) {
+    public void deleteTicket( Ticket ticketToDelete){
         ticketRepository.delete(ticketToDelete);
     }
 }
