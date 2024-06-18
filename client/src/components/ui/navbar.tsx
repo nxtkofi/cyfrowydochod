@@ -3,7 +3,7 @@ import SideBar from "./SideBar";
 import { useState } from "react";
 
 function Navbar() {
-  const [sideBarVisible, setSideBarVisible] = useState<boolean>(true);
+  const [sideBarVisible, setSideBarVisible] = useState<boolean>(false);
   const showSideBar = () => {
     console.log(sideBarVisible);
     setSideBarVisible(!sideBarVisible);

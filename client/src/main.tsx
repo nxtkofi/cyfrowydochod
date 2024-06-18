@@ -8,6 +8,11 @@ import OfferPage from "./pages/OfferPage";
 import ErrorPage from "./pages/ErrorPage";
 import Navbar from "./components/ui/navbar";
 import Footer from "./components/ui/footer";
+import BillingPage from "./pages/Profile/BillingPage";
+import OrdersPage from "./pages/Profile/OrdersPage";
+import SupportPage from "./pages/Profile/SupportPage";
+import SettingsPage from "./pages/Profile/SettingsPage";
+import ProfilePage from "./pages/Profile/ProfilePage";
 
 const router = createBrowserRouter([
   {
@@ -26,6 +31,23 @@ const router = createBrowserRouter([
         path: "/offer",
         element: <OfferPage />,
       },
+      {path:"/profile",element:<ProfilePage/>},
+      {
+        path: "/profile/billing",
+        element: <BillingPage />,
+      },
+      {
+        path: "/profile/orders",
+        element: <OrdersPage />,
+      },
+      {
+        path: "/profile/Support",
+        element: <SupportPage />,
+      },
+      {
+        path: "/profile/settings",
+        element: <SettingsPage />,
+      },
       {
         path: "*",
         element: <ErrorPage />,
@@ -39,7 +61,7 @@ function StaticElementsWrapper() {
     <div>
       <Navbar />
       <Outlet />
-      <Footer/>
+      <Footer />
     </div>
   );
 }

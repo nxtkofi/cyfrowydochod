@@ -3,12 +3,15 @@ import * as React from "react";
 import { cn } from "@/lib/utils";
 
 export interface InputProps
-  extends React.InputHTMLAttributes<HTMLInputElement> {}
+  extends React.InputHTMLAttributes<HTMLInputElement> {
+    guiName?:string;
+    divClassName?:string;
+  }
 
 const Input = React.forwardRef<HTMLInputElement, InputProps>(
-  ({ className, type, name, ...props }, ref) => {
+  ({ className, type, divClassName, guiName, ...props }, ref) => {
     return (
-      <div className="relative">
+      <div className={`relative ${divClassName ? divClassName : ""}`}>
         <input
           type={type}
           placeholder=""
@@ -20,7 +23,7 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
           {...props}
         />
         <span className="font-medium transform transition-transform translate uiinputspan absolute top-2 left-2">
-          {name}
+          {guiName}
         </span>
       </div>
     );

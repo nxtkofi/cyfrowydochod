@@ -10,10 +10,10 @@ interface RegisterFormProps {
 const RegisterForm: FunctionComponent<RegisterFormProps> = () => {
     return (<>
      <p className="text-slate-500">Register new account.</p>
-      <Input name="Email" className="mt-12" />
-      <Input name="Username" className="my-8" />
-      <Input name="Password" type="password" className="my-8" />
-      <Input name="Repeat password" type="password" className="my-8" />
+      <Input guiName="Email" name="email" className="mt-12" />
+      <Input guiName="Username" name="username" className="my-8" />
+      <Input guiName="Password" name="password" type="password" className="my-8" />
+      <Input guiName="Repeat password" type="password" className="my-8" />
       <div className="flex flex-row items-center  justify-between">
         <Button>Register</Button>
         <HoverCard>

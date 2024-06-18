@@ -1,7 +1,7 @@
 type TextDefaultProps = {
-  children: String;
+  children: string;
   variant: "default" | "secondary";
-  className?: String;
+  className?: string;
   title?: boolean;
   center?:boolean
   bigTitle?:boolean

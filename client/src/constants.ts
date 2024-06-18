@@ -1,4 +1,9 @@
-import { HeroBookType, MenuOptionsType, TrustReviewsType } from "./types";
+import {
+  HeroBookType,
+  MenuOptionsType,
+  TicketType,
+  TrustReviewsType,
+} from "./types";
 
 export const commonUserCredentials = {
   email: "test123@gmail",
@@ -157,5 +162,25 @@ export const MenuOptions: MenuOptionsType[] = [
     optionName: "Log out",
     iconName: "log-out",
     path: "/logout",
+  },
+];
+
+export const Tickets: TicketType[] = [
+  {
+    subject: "My ebook won't open",
+    orderId: "102412f-129giud81-sf875gag",
+    messages: [
+      {
+        sender: "User",
+        message:
+          "Hi I'm having trouble with Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam sit amet vestibulum mi, eget efficitur odio. Sed porta turpis quis erat gravida, eu lobortis ligula tincidunt. Phasellus iaculis lorem in eros maximus, ac ullamcorper nibh sagittis. Mauris ultricies malesuada sem, eget malesuada diam scelerisque imperdiet. Quisque at vehicula mi. Fusce ac fringilla libero. Sed sed auctor felis. Vestibulum elementum lorem magna, eget aliquam orci dapibus ut. Cras ultrices justo a eleifend blandit. Praesent quis nunc et magna ultricies sodales. Quisque sapien diam, fringilla vel egestas at, congue ut massa. Quisque justo nulla, pretium placerat elementum a, semper nec mauris. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. ",
+      },{
+        sender: "Support",
+        message:
+          "Hi! Thanks for reaching out. Could you please describe your problem in details so that I could proceed with helping you? This ticket will automatically close within 4 days of no response. ",
+      },
+    ],
+    creationDate: 1718726671,
+    status: "Waiting for support response",
   },
 ];

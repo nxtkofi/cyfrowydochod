@@ -13,8 +13,8 @@ const LoginForm: FunctionComponent<LoginFormProps> = () => {
   return (
     <>
       <p className="text-slate-500"> Login to your account.</p>
-      <Input name="Email" className="mt-12" />
-      <Input name="Password" type="password" className="my-8" />
+      <Input guiName="Email" name="email" className="mt-12" />
+      <Input guiName="Password" name="password" type="password" className="my-8" />
       <div className="flex flex-row items-center justify-between">
         <Button>Login</Button>
         <HoverCard>
