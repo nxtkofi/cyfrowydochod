@@ -1,7 +1,15 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import "./index.css";
-import { Outlet, RouterProvider, createBrowserRouter } from "react-router-dom";
+import {
+  BrowserRouter,
+  Outlet,
+  Route,
+  RouterProvider,
+  Routes,
+  createBrowserRouter,
+  createRoutesFromElements,
+} from "react-router-dom";
 import HomePage from "./pages/HomePage";
 import AccessPage from "./pages/AccessPage";
 import OfferPage from "./pages/OfferPage";
@@ -13,60 +21,37 @@ import OrdersPage from "./pages/Profile/OrdersPage";
 import SupportPage from "./pages/Profile/SupportPage";
 import SettingsPage from "./pages/Profile/SettingsPage";
 import ProfilePage from "./pages/Profile/ProfilePage";
+import { AuthProvider } from "./context/AuthProvider";
+import RequireAuth from "./helpers/requireAuth";
+import AdminPage from "./pages/Profile/AdminPage";
+import UnauthPage from "./pages/UnauthPage";
 
-const router = createBrowserRouter([
-  {
-    path: "/",
-    element: <StaticElementsWrapper />,
-    children: [
-      {
-        path: "/",
-        element: <HomePage />,
-      },
-      {
-        path: "/access",
-        element: <AccessPage />,
-      },
-      {
-        path: "/offer",
-        element: <OfferPage />,
-      },
-      {path:"/profile",element:<ProfilePage/>},
-      {
-        path: "/profile/billing",
-        element: <BillingPage />,
-      },
-      {
-        path: "/profile/orders",
-        element: <OrdersPage />,
-      },
-      {
-        path: "/profile/Support",
-        element: <SupportPage />,
-      },
-      {
-        path: "/profile/settings",
-        element: <SettingsPage />,
-      },
-      {
-        path: "*",
-        element: <ErrorPage />,
-      },
-    ],
-  },
-]);
-
-function StaticElementsWrapper() {
-  return (
-    <div>
-      <Navbar />
-      <Outlet />
-      <Footer />
-    </div>
-  );
-}
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
-    <RouterProvider router={router} />
+    <BrowserRouter>
+      <AuthProvider>
+        <Navbar />
+        <Routes>
+          <Route path="/" element={<HomePage />} />
+          <Route path="/access" element={<AccessPage />} />
+          <Route path="/offer" element={<OfferPage />} />
+          <Route
+            element={<RequireAuth allowedRoles={["commonUser", "admin"]} />}
+          >
+            <Route path="/profile" element={<ProfilePage />} />
+            <Route path="/profile/billing" element={<BillingPage />} />
+            <Route path="/profile/orders" element={<OrdersPage />} />
+            <Route path="/profile/settings" element={<SettingsPage />} />
+            <Route path="/profile/support" element={<SupportPage />} />
+          </Route>
+          <Route element={<RequireAuth allowedRoles={["admin"]} />}>
+            <Route path="/profile/adminpanel" element={<AdminPage />} />
+          </Route>
+          <Route path="/unauthorized" element={<UnauthPage/> }/>
+          <Route path="*" element={<ErrorPage />} />
+        </Routes>
+        <Footer />
+      </AuthProvider>
+    </BrowserRouter>
   </React.StrictMode>
 );
