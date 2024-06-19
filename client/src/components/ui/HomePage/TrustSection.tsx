@@ -16,8 +16,8 @@ const TrustSection: FunctionComponent<TrustSectionProps> = ({trustReviews}) => {
         <TrustHeader text="They trusted us"/>
         <div className="mb-12"><TrustHeader text="We delivered"/></div>
 
-        {trustReviews.map((review)=>(
-                <div className="w-full flex flex-row p-4 text-slate-900 bg-[#FFF] border border-[#E5E7EB] rounded-sm shadow-md my-4">
+        {trustReviews.map((review, index)=>(
+                <div key={index+review.book+review.username} className="w-full flex flex-row p-4 text-slate-900 bg-[#FFF] border border-[#E5E7EB] rounded-sm shadow-md my-4">
                     <img className="bg-black w-10 h-10 rounded-full" src="/LaptopWheel.jpg"/> {/* Image here */}
                     <div className="flex flex-col ml-4"> {/* Content here */}
                         <p className="text-sm font-semibold">{ "@" + review.username}</p>

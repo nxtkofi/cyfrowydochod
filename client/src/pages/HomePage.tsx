@@ -4,8 +4,14 @@ import TrustSection from "@/components/ui/HomePage/TrustSection";
 import Wrapper from "@/components/ui/wrapper";
 import { HeroBooks } from "@/constants.ts";
 import { TrustReviews } from "@/constants";
+import { useEffect } from "react";
+import useAuth from "@/hooks/useAuth";
 
 function HomePage() {
+  const {auth} = useAuth()
+  useEffect(() => {
+    console.log(auth);
+  }, []);
   return (
     <>
       <section>
@@ -34,8 +40,8 @@ function HomePage() {
       </section>
       <Wrapper>
         {HeroBooks.map((Book, index) => (
-          <section>
-            <HeroBook key={index} book={Book} />
+          <section key={index}>
+            <HeroBook book={Book} />
           </section>
         ))}
       </Wrapper>

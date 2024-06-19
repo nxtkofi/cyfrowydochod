@@ -11,11 +11,11 @@ import { Input } from "../../input";
 
 function EditCard() {
   return (
-    <Card className="max-w-96 mt-8">
+    <Card className="w-full md:max-w-96 mt-8">
       <CardHeader className="flex self-center">
         <CardTitle>Edit profile</CardTitle>
         <CardDescription>
-          Make changes to your profile here. Click <i>save</i> when you're done
+          Make changes to your profile here. Click <i>Save changes</i> when you're done
         </CardDescription>
       </CardHeader>
       <CardContent>
@@ -24,13 +24,13 @@ function EditCard() {
             <label className="w-24 text-right mr-4" htmlFor="email">
               Email
             </label>
-            <Input  className="w-full" name="email" id="email" />
+            <Input className="w-72 md:w-fit " name="email" id="email" />
           </div>
           <div className="flex items-center">
             <label className="w-24 text-right mr-4" htmlFor="username">
               Username
             </label>
-            <Input name="username" id="username" />
+            <Input className="w-72 md:w-fit" name="username" id="username" />
           </div>
         </div>
       </CardContent>

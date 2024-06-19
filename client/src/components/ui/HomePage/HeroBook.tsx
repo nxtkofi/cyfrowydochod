@@ -24,10 +24,10 @@ function HeroBook({ book }: HeroBookProps) {
       <TextDefault variant="default" center>
         {book.secondText}
       </TextDefault>
-      
+
       {book.iconElements &&
-        book.iconElements.map((element) => (
-          <div className="flex flex-col py-[2px]">
+        book.iconElements.map((element, index) => (
+          <div key={index + element.icon} className="flex flex-col py-[2px]">
             <div className="flex flex-row">
               {book.gradientUrl && (
                 <LucideIcon
