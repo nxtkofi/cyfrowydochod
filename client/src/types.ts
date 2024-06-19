@@ -4,7 +4,7 @@ import dynamicIconImports from "lucide-react/dynamicIconImports";
 export interface IconProps extends Omit<LucideProps, "ref"> {
   name: keyof typeof dynamicIconImports;
 }
-
+export type RoleType = "commonUser" | "admin";
 export type HeroBookType = {
   shortDescription: string;
   subTitle: string;
