@@ -35,7 +35,6 @@ public class User implements UserDetails {
 
     @Column(name="refresh_token",columnDefinition="TEXT") // is require?
     private String refreshToken;
-    @Column(nullable = false)
     private String role;
 
     @OneToMany(mappedBy = "user", fetch = FetchType.EAGER)

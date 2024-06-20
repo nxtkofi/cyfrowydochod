@@ -1,4 +1,5 @@
 package pl.server.server.models;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.UuidGenerator;
 import jakarta.persistence.*;
 import lombok.*;
@@ -9,7 +10,6 @@ import lombok.*;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-@EqualsAndHashCode
 @Builder
 public class BillingAddress {
     @Id
@@ -23,6 +23,8 @@ public class BillingAddress {
 
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
+    @ToString.Exclude
+    @JsonIgnore
     private User user;
 
     public BillingAddress(String fullName, String streetName, int houseNumber, String zipCode, String city) {
@@ -31,17 +33,5 @@ public class BillingAddress {
         this.houseNumber = houseNumber;
         this.zipCode = zipCode;
         this.city = city;
-    }
-
-    @Override
-    public String toString() {
-        return "BillingAddress{" +
-                "addressId='" + addressId + '\'' +
-                ", fullName='" + fullName + '\'' +
-                ", streetName='" + streetName + '\'' +
-                ", houseNumber=" + houseNumber +
-                ", zipCode='" + zipCode + '\'' +
-                ", city='" + city + '\'' +
-                '}';
     }
 }
