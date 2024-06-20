@@ -12,6 +12,9 @@ export const commonUserCredentials = {
 
 export const HeroBooks: HeroBookType[] = [
   {
+    semiLongDescription:
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec sed tincidunt augue, vitae pharetra purus. Ut semper orci justo, sit amet consequat neque iaculis eu. Nam elit sapien, finibus sit amet libero in, varius luctus lorem. Donec lobortis, est consequat facilisis vestibulum, nulla dolor tincidunt nibh, nec fringilla eros justo et ligula. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Etiam at sapien ornare, tempus quam eu at sapien ornare, tempus quam eu",
+    bookId: "12345",
     shortDescription:
       "Great starter. This book contains every important money-making concept that’s out there!",
     subTitle:
@@ -21,7 +24,7 @@ export const HeroBooks: HeroBookType[] = [
       "With our unique 5 small steps technique after reading this book you’ll be thriving in online earning techniques and you’ll be able to find your own special niche!",
     title: "Earn money online!",
     author: "@idslw",
-    price: "49$",
+    price: 49,
     imagePath: "/LaptopWheel.jpg",
     bookFeatures: [
       "Unique 5 step learning process",
@@ -33,6 +36,9 @@ export const HeroBooks: HeroBookType[] = [
       "var(--BlueGradient, linear-gradient(180deg, #2B769D 0%, #276E98 34%, #174E84 100%))",
   },
   {
+    semiLongDescription:
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec sed tincidunt augue, vitae pharetra purus. Ut semper orci justo, sit amet consequat neque iaculis eu. Nam elit sapien, finibus sit amet libero in, varius luctus lorem. Donec lobortis, est consequat facilisis vestibulum, nulla dolor tincidunt nibh, nec fringilla eros justo et ligula. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Etiam at sapien ornare, tempus quam eu at sapien ornare, tempus quam eu",
+    bookId: "12346",
     shortDescription:
       "This book will take you straight to action. We’re saying it’s gonna allow you to leave your 9-5.",
     subTitle:
@@ -43,7 +49,7 @@ export const HeroBooks: HeroBookType[] = [
       "Let us show you the easiest way to escape the office-hours job. This book features:",
     title: "Easy way to escape",
     author: "@idslw",
-    price: "79$",
+    price: 79,
     bookFeatures: [
       "Unique 5 step learning process",
       "Find multiple niches",
@@ -52,7 +58,7 @@ export const HeroBooks: HeroBookType[] = [
     ],
     gradient:
       "var(--OrangeGradient, linear-gradient(180deg, #ED5100 20%, #C25200 100%))",
-    gradientUrl: "url(#orange-gradient)",
+    emojiGradientUrl: "url(#orange-gradient)",
     iconElements: [
       {
         icon: "compass",
@@ -70,6 +76,9 @@ export const HeroBooks: HeroBookType[] = [
     imagePath: "/EbookMoney.jpg",
   },
   {
+    semiLongDescription:
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec sed tincidunt augue, vitae pharetra purus. Ut semper orci justo, sit amet consequat neque iaculis eu. Nam elit sapien, finibus sit amet libero in, varius luctus lorem. Donec lobortis, est consequat facilisis vestibulum, nulla dolor tincidunt nibh, nec fringilla eros justo et ligula. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Etiam at sapien ornare, tempus quam eu at sapien ornare, tempus quam eu",
+    bookId: "12347",
     shortDescription:
       "We call it The Bible of online money making. Infinite knowledge awaits within.",
     subTitle:
@@ -80,7 +89,7 @@ export const HeroBooks: HeroBookType[] = [
     title: "Monkey Business",
     checksTableTextBlack: true,
     author: "@idslw",
-    price: "99$",
+    price: 99,
     bookFeatures: [
       "Unique 5 step learning process",
       "Find multiple niches",
@@ -89,7 +98,7 @@ export const HeroBooks: HeroBookType[] = [
     ],
     gradient:
       "var(--PlatinumGradient, linear-gradient(256deg, #F2D7FF 20%, #A2E3FF 100%))",
-    gradientUrl: "url(#platinum-gradient)",
+    emojiGradientUrl: "url(#platinum-gradient)",
     iconElements: [
       {
         icon: "banknote",
@@ -108,57 +117,64 @@ export const TrustReviews: TrustReviewsType[] = [
     username: "aniafata",
     book: "Monkey Business",
     purchaseDate: "01.01.2023",
-    avatar: "url(#orange-gradient)",
+    avatar: "koza",
     text: "It was the greatest decision in my life to buy the platinum eBook. It changed everything.",
   },
   {
     username: "agata.sakurska",
     book: "Easy way to escape!",
     purchaseDate: "04.04.2024",
-    avatar: "??",
+    avatar: "kodi",
     text: 'The "Easy way to escape" purchase was really a salvation for me. Now I can travel and work from the back of my van!',
   },
   {
     username: "micholinski",
     book: "Monkey Business",
     purchaseDate: "03.05.2024",
-    avatar: "??",
+    avatar: "axolotl",
     text: "I managed to efficiently scale my business with techniques provided in the Monkey Business. A real game-changer.",
   },
 ];
 
 export const MenuOptions: MenuOptionsType[] = [
   {
+    access: ["commonUser", "admin"],
     optionName: "Profile",
     iconName: "user",
     path: "/profile",
   },
   {
+    access: ["commonUser", "admin"],
     optionName: "Billing",
     iconName: "archive",
     path: "/profile/billing",
   },
   {
+    access: ["commonUser", "admin"],
     optionName: "Settings",
     iconName: "settings",
     path: "/profile/settings",
   },
   {
+    access: ["commonUser", "admin"],
     optionName: "Orders",
     iconName: "book-copy",
     path: "/profile/orders",
   },
   {
+    access: ["admin"],
     optionName: "Admin panel",
     iconName: "user-round-cog",
     path: "/profile/adminpanel",
   },
   {
+    access: ["commonUser", "admin"],
     optionName: "Support",
     iconName: "smile",
     path: "/profile/support",
   },
   {
+    access: ["commonUser", "admin"],
     optionName: "Log out",
     iconName: "log-out",
     path: "/logout",
