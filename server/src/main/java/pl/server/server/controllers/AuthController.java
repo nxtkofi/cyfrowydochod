@@ -38,5 +38,11 @@ public class AuthController {
 
         return authService.refreshAccessToken(request, response);
     }
+    @GetMapping("/logout")
+    public ResponseEntity logoutUser(HttpServletRequest request, HttpServletResponse response){
+        System.out.println("LOGGING OUT ");
+
+        return authService.handleLogOut(request, response);
+    }
 }
 

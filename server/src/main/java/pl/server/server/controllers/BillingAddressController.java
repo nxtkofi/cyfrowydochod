@@ -24,15 +24,9 @@ public class BillingAddressController {
     @Autowired
     private UserRepository userRepository;
 
-    @GetMapping("/street/{streetName}")
-    public BillingAddress getBillingAddressByStreetName(@PathVariable String streetName){
-        return billingAddressRepository.findByStreetName(streetName);
-    }
-
-    @GetMapping
+    @GetMapping("/{userId}")
     public BillingAddress getBillingAddress(@PathVariable String userId){
-        User user = userRepository.findById(userId).orElseThrow(() -> new ResourceNotFoundException("User not found"));
-        return billingAddressRepository.findByUserId(user.getId());
+        return billingAddressRepository.findByUserId(userId);
     }
 
     @PostMapping("/{userId}")
@@ -43,7 +37,8 @@ public class BillingAddressController {
 
         billingAddress.setUser(user);
         billingAddressRepository.save(billingAddress);
-
+        System.out.println("Billing address from reqBody: "+billingAddress);
+        System.out.println("userId from pathvariable: "+userId);
         user.setBillingAddress(billingAddress);
         userRepository.save(user);
     }
