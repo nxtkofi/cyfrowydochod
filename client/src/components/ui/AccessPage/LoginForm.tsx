@@ -1,5 +1,5 @@
 import { jwtDecode } from "jwt-decode";
-import { FunctionComponent, useContext, useState } from "react";
+import { FunctionComponent, useEffect, useState } from "react";
 import { Input } from "../input";
 import { Button } from "../button";
 import {
@@ -13,13 +13,14 @@ import useAuth from "@/hooks/useAuth";
 import { AxiosError } from "axios";
 import useNavigation from "@/hooks/useNavigation";
 import { useLocation, useNavigate } from "react-router-dom";
+import { Checkbox } from "../checkbox";
 
 interface LoginFormProps {}
 
 const LoginForm: FunctionComponent<LoginFormProps> = () => {
   const location = useLocation();
   const [errMsg, setErrMsg] = useState<string>();
-  const { auth, setAuth } = useAuth();
+  const { persist, setPersist, setAuth } = useAuth();
   const [userInput, setUserInput] = useState<userInputType>({
     email: "",
     password: "",
@@ -30,7 +31,9 @@ const LoginForm: FunctionComponent<LoginFormProps> = () => {
 
   const handleLogin = async () => {
     try {
-      const response = axios.post("/api/auth/login", userInput);
+      const response = axios.post("/api/auth/login", userInput, {
+        withCredentials: true,
+      });
       const accessToken = (await response).data;
       const decodedToken = jwtDecode(accessToken);
       const userId = decodedToken.sub;
@@ -59,6 +62,12 @@ const LoginForm: FunctionComponent<LoginFormProps> = () => {
     const value = e.target.value.trim();
     setUserInput((prev) => ({ ...prev, [inputName]: value }));
   };
+  const togglePersist = () => {
+    setPersist((prev) => !prev);
+  };
+  useEffect(() => {
+    localStorage.setItem("persist", persist.toString());
+  }, [persist]);
   return (
     <>
       <p className="text-slate-500"> Login to your account.</p>
@@ -73,14 +82,23 @@ const LoginForm: FunctionComponent<LoginFormProps> = () => {
         guiName="Password"
         name="password"
         type="password"
-        className="my-8"
+        className="mt-8"
       />
+      <div className="flex flex-row items-center">
+        <Checkbox
+          id="persist"
+          onClick={togglePersist}
+          checked={persist as boolean}
+          className="my-8"
+        />
+        <p className="ml-2">Trust this device.</p>
+      </div>
       <div className="flex flex-row items-center justify-between">
         <Button onClick={handleLogin}>Login</Button>
         <HoverCard>
           <HoverCardTrigger>
             <div
-              onClick={() => navigate({path:"/restorePassword"})}
+              onClick={() => navigate({ path: "/restorePassword" })}
               className="hover:underline relative"
             >
               Forgot password?

@@ -2,8 +2,10 @@ import { HomeIcon, BookIcon, PencilIcon, UserIcon } from "lucide-react";
 import SideBar from "./SideBar";
 import { useState } from "react";
 import useNavigation from "@/hooks/useNavigation";
+import useAuth from "@/hooks/useAuth";
 
 function Navbar() {
+  const { auth } = useAuth();
   const navigate = useNavigation();
   const [sideBarVisible, setSideBarVisible] = useState<boolean>(false);
   const showSideBar = () => {
@@ -11,20 +13,28 @@ function Navbar() {
     setSideBarVisible(!sideBarVisible);
   };
 
+  const handleMenuClick = () => {
+    if (!auth?.accessToken) {
+      navigate({ path: "/access" });
+    } else {
+      showSideBar();
+    }
+  };
+  
   return (
     <>
       <div className="flex flex-row justify-between m-8">
-        <div onClick={() => navigate({path:"/"})}>
+        <div onMouseDown={() => navigate({ path: "/" })}>
           <HomeIcon />
         </div>
 
-        <div onClick={() => navigate({path:"/offer"})}>
+        <div onMouseDown={() => navigate({ path: "/offer" })}>
           <BookIcon className="ml-16" />
         </div>
-        <div onClick={() => navigate({path:"/contact"})}>
+        <div onMouseDown={() => navigate({ path: "/contact" })}>
           <PencilIcon />
         </div>
-        <UserIcon onClick={showSideBar} />
+        <UserIcon onMouseDown={handleMenuClick} />
         <SideBar showSideBar={showSideBar} shown={sideBarVisible} />
       </div>
       <div className=" border-b-2"></div>

@@ -3,7 +3,12 @@ import SearchBar from "@/components/ui/OfferPage/SearchBar";
 import { Button } from "@/components/ui/button";
 import Wrapper from "@/components/ui/wrapper";
 import { HeroBooks } from "@/constants";
+import useNavigation from "@/hooks/useNavigation";
 function OfferPage() {
+  const navigate = useNavigation()
+  const handleNavigate = (path:string)=>{
+    navigate({path:path})
+  }
   return (
     <>
       <Wrapper className="flex flex-col">
@@ -26,15 +31,15 @@ function OfferPage() {
                       alt=""
                       className="w-28 rounded-lg"
                     />
-                    <Button size={"sm"} className=" self-center w-fit mt-4">
+                    <Button onClick={()=>handleNavigate(`/offer/book/${book.bookId}`)} size={"sm"} className=" self-center w-fit mt-4">
                       More info
                     </Button>
                   </div>
                 </div>
               </div>
               <div className="flex flex-row">
-                <p className="text-3xl font-semibold">{book.price}</p>{" "}
-                <TextDefault className="ml-1  font-medium text-lg" variant="secondary">Tax included</TextDefault>
+                <p className="text-3xl font-semibold">{book.price}$,-</p>{" "}
+                <TextDefault className="ml-2  font-medium text-lg" variant="secondary">Tax included</TextDefault>
               </div>
             </div>
           ))}

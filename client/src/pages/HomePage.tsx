@@ -16,7 +16,7 @@ function HomePage() {
     <>
       <section>
         <Wrapper className="text-slate-900">
-          <TextDefault variant="default" title center>
+          <TextDefault variant="default" bigTitle center className="leading-[3.5rem]">
             Have you ever dreamed about online money-making?
           </TextDefault>
           <TextDefault variant={"secondary"} center>

@@ -8,7 +8,6 @@ import {
   CardFooter,
 } from "../../card";
 import { Input } from "../../input";
-
 function EditCard() {
   return (
     <Card className="w-full md:max-w-96 mt-8">

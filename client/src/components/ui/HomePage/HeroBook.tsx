@@ -29,10 +29,10 @@ function HeroBook({ book }: HeroBookProps) {
         book.iconElements.map((element, index) => (
           <div key={index + element.icon} className="flex flex-col py-[2px]">
             <div className="flex flex-row">
-              {book.gradientUrl && (
+              {book.emojiGradientUrl && (
                 <LucideIcon
                   className="mr-2"
-                  style={{ stroke: book.gradientUrl }}
+                  style={{ stroke: book.emojiGradientUrl }}
                   name={element.icon}
                 />
               )}

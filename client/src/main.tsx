@@ -25,6 +25,11 @@ import { AuthProvider } from "./context/AuthProvider";
 import RequireAuth from "./helpers/requireAuth";
 import AdminPage from "./pages/Profile/AdminPage";
 import UnauthPage from "./pages/UnauthPage";
+import BookPage from "./pages/BookPage";
+import PersistLogin from "./helpers/persistLogin";
+import LogoutPage from "./pages/LogoutPage";
+import ContactPage from "./pages/ContactPage";
+import AccessFirst from "./helpers/accessFirst";
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
@@ -34,20 +39,27 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="/access" element={<AccessPage />} />
+          <Route element={<AccessFirst />}>
+            <Route path="/contact" element={<ContactPage  />} />
+          </Route>
           <Route path="/offer" element={<OfferPage />} />
-          <Route
-            element={<RequireAuth allowedRoles={["commonUser", "admin"]} />}
-          >
-            <Route path="/profile" element={<ProfilePage />} />
-            <Route path="/profile/billing" element={<BillingPage />} />
-            <Route path="/profile/orders" element={<OrdersPage />} />
-            <Route path="/profile/settings" element={<SettingsPage />} />
-            <Route path="/profile/support" element={<SupportPage />} />
+          <Route path="/offer/book/:id" element={<BookPage />} />
+          <Route element={<PersistLogin />}>
+            <Route
+              element={<RequireAuth allowedRoles={["commonUser", "admin"]} />}
+            >
+              <Route path="/profile" element={<ProfilePage />} />
+              <Route path="/profile/billing" element={<BillingPage />} />
+              <Route path="/profile/orders" element={<OrdersPage />} />
+              <Route path="/profile/settings" element={<SettingsPage />} />
+              <Route path="/profile/support" element={<SupportPage />} />
+            </Route>
           </Route>
           <Route element={<RequireAuth allowedRoles={["admin"]} />}>
             <Route path="/profile/adminpanel" element={<AdminPage />} />
           </Route>
-          <Route path="/unauthorized" element={<UnauthPage/> }/>
+          <Route path="/unauthorized" element={<UnauthPage />} />
+          <Route path="/logout" element={<LogoutPage />} />
           <Route path="*" element={<ErrorPage />} />
         </Routes>
         <Footer />
