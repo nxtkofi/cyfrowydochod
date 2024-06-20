@@ -11,6 +11,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -39,28 +40,31 @@ public class User implements UserDetails {
     @Id
     @UuidGenerator
     private String id;
+    @Column(nullable = false)
     private String username;
+    @Column(nullable = false)
     private String email;
+    @Column(nullable = false)
     private String password;
 
-    @Column(name="refresh_token",columnDefinition="TEXT")
+    @Column(name="refresh_token",columnDefinition="TEXT") // is require?
     private String refreshToken;
     private String role;
 
-    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "user", fetch = FetchType.EAGER)
     private List<Order> orders;
 
-    @OneToOne(mappedBy = "user", fetch = FetchType.LAZY)
+    @OneToOne(mappedBy = "user", fetch = FetchType.EAGER)
     private BillingAddress billingAddress;
 
-    @OneToMany(mappedBy = "user",fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "user",fetch = FetchType.EAGER)
     private List<Ticket> tickets;
 
     public User(String username, String email, String password) {
         this.username = username;
         this.email = email;
         this.password = password;
-        }
+    }
 
     @JsonIgnore
     @Override

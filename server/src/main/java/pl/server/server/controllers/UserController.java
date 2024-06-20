@@ -4,15 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-
+import org.springframework.web.bind.annotation.*;
 import pl.server.server.helpers.ResourceNotFoundException;
 import pl.server.server.models.User;
 import pl.server.server.repositories.UserRepository;
@@ -21,8 +13,6 @@ import pl.server.server.repositories.UserRepository;
 @RequestMapping("/api/users")
 @Component(value = "userController")
 public class UserController {
-
-    
 
     @Autowired
     private UserRepository userRepository;
@@ -54,8 +44,6 @@ public class UserController {
         }
         return user;
     }
-
-    
 
     @PostMapping
     public User createUser(@RequestBody User user) {

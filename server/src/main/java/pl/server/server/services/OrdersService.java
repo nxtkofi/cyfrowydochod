@@ -42,7 +42,6 @@ public class OrdersService {
         List<OrderItem> orderItems = books.stream()
                 .map(book -> OrderItem.builder()
                         .book(book)
-                        .count(1)
                         .order(order)
                         .build())
                 .collect(Collectors.toList());

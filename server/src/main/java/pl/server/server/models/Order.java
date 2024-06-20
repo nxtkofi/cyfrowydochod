@@ -3,19 +3,11 @@ package pl.server.server.models;
 import java.time.LocalDateTime;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.UuidGenerator;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToMany;
-import jakarta.persistence.Table;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import jakarta.persistence.*;
+import lombok.*;
 
 @Entity
 @Table(name = "orders")
@@ -33,8 +25,12 @@ public class Order {
     private double amount;
 
     @OneToMany(mappedBy = "order")
+    @JsonIgnore
     private List<OrderItem> orderItem;
 
     @ManyToOne
+    @ToString.Exclude
+    @JsonIgnore
     private User user;
+
 }
