@@ -17,7 +17,7 @@ import pl.server.server.models.Order;
 import pl.server.server.repositories.OrdersRepository;
 
 @RestController
-@RequestMapping("/api/Orders")
+@RequestMapping("/api/orders")
 public class OrdersController {
 
     @Autowired

@@ -23,7 +23,6 @@ public class AuthController {
 
     @PostMapping("/login")
     public ResponseEntity<String> authenticateUser(@RequestBody LoginRequest loginRequest, HttpServletResponse response) {
-        System.out.println("HALO");
 
         return authService.loginUser(loginRequest,response);
     }
@@ -34,13 +33,11 @@ public class AuthController {
         }
     @GetMapping("/refresh")
     public ResponseEntity<String> refreshAccessToken(HttpServletRequest request, HttpServletResponse response) {
-        System.out.println("HALO");
 
         return authService.refreshAccessToken(request, response);
     }
     @GetMapping("/logout")
     public ResponseEntity logoutUser(HttpServletRequest request, HttpServletResponse response){
-        System.out.println("LOGGING OUT ");
 
         return authService.handleLogOut(request, response);
     }
