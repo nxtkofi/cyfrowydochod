@@ -26,12 +26,16 @@ public class User implements UserDetails {
     @Id
     @UuidGenerator
     private String id;
+    @Column(nullable = false)
     private String username;
+    @Column(nullable = false)
     private String email;
+    @Column(nullable = false)
     private String password;
 
     @Column(name="refresh_token",columnDefinition="TEXT") // is require?
     private String refreshToken;
+    @Column(nullable = false)
     private String role;
 
     @OneToMany(mappedBy = "user", fetch = FetchType.EAGER)
