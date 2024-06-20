@@ -29,9 +29,9 @@ public class JwtTokenProvider {
 
     private String doGenerateToken(Map<String, Object> claims, String userId, String tokenType) {
         if(tokenType.equals("refreshToken")){
-            expirationTime = 86400000; //24 hours
+            expirationTime = 86400000; //24 hours = 86400000
         } else {
-            expirationTime = 60000;
+            expirationTime = 60000; // 
         }
         return Jwts.builder()
                 .setClaims(claims)
