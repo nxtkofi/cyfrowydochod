@@ -1,14 +1,15 @@
 package pl.server.server.models;
 
-import java.time.LocalDateTime;
+import java.util.List;
 
 import org.hibernate.annotations.UuidGenerator;
 
-import jakarta.persistence.Column;
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -30,22 +31,22 @@ public class Ticket {
     @UuidGenerator
     private String id;
     private String subject;
-    @Column(columnDefinition="TEXT")
     private String email;
-    private String text;
     private String status;
-    private LocalDateTime date;
+    private long date;
     private String keyWord;
 
+@OneToMany(mappedBy = "ticket", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Message> messages;
+    
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
 
-    public Ticket(String subject, String text, String status, String keyWord) {
+    public Ticket(String subject, String status, String keyWord) {
         this.subject = subject;
-        this.text = text;
         this.status = status;
-        date = LocalDateTime.now();
+        this.date = System.currentTimeMillis();
         this.keyWord = keyWord;
     }
 }

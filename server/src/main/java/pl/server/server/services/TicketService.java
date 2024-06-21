@@ -1,6 +1,5 @@
 package pl.server.server.services;
 
-import java.time.LocalDateTime;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,6 +7,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import pl.server.server.DTOs.Status;
 import pl.server.server.helpers.ResourceNotFoundException;
 import pl.server.server.models.Ticket;
 import pl.server.server.models.User;
@@ -19,13 +19,16 @@ public class TicketService {
 
     @Autowired
     TicketRepository ticketRepository;
+    
     @Autowired
     UserRepository userRepository;
+   
 
     public ResponseEntity createTicket(Ticket ticket) {
         try {
-            System.out.println("we're here boys!");
-            
+            ticket.setDate(System.currentTimeMillis()) ; 
+            ticket.setStatus(Status.WAITING_FOR_SUPP_RES);  
+                   
             User user = userRepository.findByEmail(ticket.getEmail());
             if(user == null){
                 return ResponseEntity.notFound().build();
@@ -39,6 +42,7 @@ public class TicketService {
             return ResponseEntity.status(HttpStatus.CREATED).build();
             
         } catch (Exception e) {
+            System.out.print(e);
             return ResponseEntity.badRequest().build();
         }
     }
@@ -51,14 +55,10 @@ public class TicketService {
         return ticketRepository.findAll();
     }
 
-    public List<Ticket> findTicketByDate(LocalDateTime localDateTime) {
-        return ticketRepository.findByDate(localDateTime);
-    }
 
     public Ticket updateTicket(String id, Ticket UpdateTicket) {
         Ticket ticket = ticketRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException(""));
-        ticket.setText(UpdateTicket.getText());
-        ticket.setDate(LocalDateTime.now());
+        ticket.setMessages(UpdateTicket.getMessages());
         ticket.setKeyWord(UpdateTicket.getKeyWord());
         return ticketRepository.save(ticket);
     }
