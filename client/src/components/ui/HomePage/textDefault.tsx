@@ -1,5 +1,7 @@
+import { ReactNode } from "react";
+
 type TextDefaultProps = {
-  children: string;
+  children: string|ReactNode;
   variant: "default" | "secondary";
   className?: string;
   title?: boolean;

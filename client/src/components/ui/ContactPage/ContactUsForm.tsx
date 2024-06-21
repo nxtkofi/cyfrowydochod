@@ -32,36 +32,34 @@ function ContactUsForm({ accessDisabled }: ContactUsFormProps) {
     }
   };
 
-  const handleChange = (
-    event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
-    name: string
-  ) => {
-    const value = event.target.value;
-    setTicket((prev) => {
-      return { ...prev, [name]: value };
-    });
+  const handleChange =
+    (name: string) =>
+    (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+      const { value } = event.target;
+      setTicket((prev) => {
+        return { ...prev, [name]: value };
+      });
+    };
 
-    console.log(ticket);
-  };
   return (
     <div>
       <Input
-        onChange={(e) => handleChange(e, "subject")}
+        onChange={handleChange("subject")}
         value={ticket?.subject}
         className="my-8"
         guiName="Subject*"
         required
-        disabled={accessDisabled}
+        accessDisabled={accessDisabled}
       />
       <Input
-        onChange={(e) => handleChange(e, "orderId")}
+        onChange={handleChange("orderId")}
         value={ticket?.orderId}
         className=" my-8"
         guiName="OrderId (not required)"
-        disabled={accessDisabled}
+        accessDisabled={accessDisabled}
       />
       <Textarea
-        onChange={(e) => handleChange(e, "message")}
+        onChange={handleChange("message")}
         value={ticket?.message}
         className="my-4"
         rows={8}
@@ -70,13 +68,13 @@ function ContactUsForm({ accessDisabled }: ContactUsFormProps) {
         disabled={accessDisabled}
       />
       <Input
-        onChange={(e) => handleChange(e, "email")}
+        onChange={handleChange("email")}
         value={ticket?.email}
         name="email"
         className="my-8"
         guiName="Email*"
         required
-        disabled={accessDisabled}
+        accessDisabled={accessDisabled}
       />
       <div className="flex">
         <Button
