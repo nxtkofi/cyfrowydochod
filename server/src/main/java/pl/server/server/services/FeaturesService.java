@@ -1,5 +1,6 @@
 package pl.server.server.services;
 
+import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -10,6 +11,8 @@ import pl.server.server.models.Feature;
 import pl.server.server.repositories.BookFeaturesRepository;
 import pl.server.server.repositories.BookRepository;
 import pl.server.server.repositories.FeatureRepository;
+
+import java.util.List;
 
 @Service
 public class FeaturesService {
@@ -38,7 +41,17 @@ public class FeaturesService {
 
     }
 
+    @Transactional
+    public void removeFeatureFromBook(String bookId, String description) { //in progress
+        Book book = bookRepository.findById(bookId)
+                .orElseThrow(() -> new EntityNotFoundException("Book not found"));
+        Feature feature = featureRepository.findByDescription(description).getFirst();
 
+        BookFeatures bookFeatures = bookFeaturesRepository.findByBookIdAndFeatureId(book.getId(), feature.getId());
 
+        book.getBookFeatures().remove(bookFeatures);
+        feature.getBookFeatures().remove(bookFeatures);
 
+        bookFeaturesRepository.delete(bookFeatures);
+    }
 }

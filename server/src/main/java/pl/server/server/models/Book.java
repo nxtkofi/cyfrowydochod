@@ -1,12 +1,16 @@
 package pl.server.server.models;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.annotation.Nullable;
+
 import jakarta.persistence.*;
+
 import lombok.*;
+
 import org.hibernate.annotations.UuidGenerator;
 
-import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name = "books")
@@ -16,7 +20,6 @@ import java.util.List;
 @NoArgsConstructor
 @ToString
 @EqualsAndHashCode
-@Builder
 public class Book {
 
     @Id
@@ -61,13 +64,12 @@ public class Book {
     }
     @JsonIgnore
     @OneToMany(mappedBy = "book",fetch = FetchType.EAGER)
-    private List<OrderItem> orderItems;
+    private Set<OrderItem> orderItems;
 
     @OneToMany(mappedBy = "book",fetch = FetchType.EAGER)
     @Nullable
-    private List<IconElements> iconElements;
+    private Set<IconElements> iconElements;
 
     @OneToMany(mappedBy = "book",fetch = FetchType.EAGER)
-    private List<BookFeatures> bookFeatures;
-
+    private Set<BookFeatures> bookFeatures;
 }
