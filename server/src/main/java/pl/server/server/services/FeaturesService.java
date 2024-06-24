@@ -12,7 +12,6 @@ import pl.server.server.repositories.BookFeaturesRepository;
 import pl.server.server.repositories.BookRepository;
 import pl.server.server.repositories.FeatureRepository;
 
-import java.util.List;
 
 @Service
 public class FeaturesService {

@@ -4,6 +4,46 @@ import dynamicIconImports from "lucide-react/dynamicIconImports";
 export interface IconProps extends Omit<LucideProps, "ref"> {
   name: keyof typeof dynamicIconImports;
 }
+export type UserModel = {
+  id: string;
+  username: string;
+  email: string;
+  password: string;
+  refreshToken: string;
+  role: RoleType;
+  orders?: string[];
+  billingAddress?: {};
+  tickets?: {};
+};
+export type UserUpdateModel = Pick<
+  UserModel,
+  "username" | "email" | "password"
+>;
+
+export type handleInputChangeType = (
+  e: string,
+  name: "email" | "username" | "password" | "repeatPassword"
+) => void;
+export type ValidationPresetsType = {
+  email: ValidationRulesType;
+  username: ValidationRulesType;
+  password: ValidationRulesType;
+};
+export type userInputType = {
+  email: string;
+  password: string;
+  username?: string;
+};
+export type ValidationRulesType = {
+  min: number;
+  max: number;
+  spaceAllowed: boolean;
+  mustContain: {
+    bigLetter: boolean;
+    number: boolean;
+    specialChar: boolean;
+  };
+};
 export type RoleType = "commonUser" | "admin";
 export type HeroBookType = {
   semiLongDescription: string;

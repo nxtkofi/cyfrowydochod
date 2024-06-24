@@ -11,4 +11,5 @@ import pl.server.server.models.User;
 public interface UserRepository extends JpaRepository<User,String> {
     List<User> findByUsername(String username);
     User findByEmail(String email);
+    
 }

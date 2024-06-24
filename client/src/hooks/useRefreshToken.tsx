@@ -11,9 +11,15 @@ function useRefreshToken() {
     });
     const newAccessToken = res.data;
     const decoded = jwtDecode(newAccessToken);
-    const role = decoded.role;
     setAuth((prev) => {
-      return { ...prev, accessToken: newAccessToken, role: role };
+      return {
+        ...prev,
+        accessToken: newAccessToken,
+        role: decoded.role,
+        id: decoded.sub,
+        username: decoded.username,
+        email: decoded.email,
+      };
     });
 
     return res.data;

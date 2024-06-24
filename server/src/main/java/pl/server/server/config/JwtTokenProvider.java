@@ -20,10 +20,12 @@ public class JwtTokenProvider {
     private long expirationTime;
 
     
-    public String generateToken(UserDetails userDetails, String userId, String email, String userRole, String tokenType) {
+    public String generateToken(UserDetails userDetails, String userId, String email, String userRole,String username, String tokenType) {
         Map<String, Object> claims = new HashMap<>();
         claims.put("role",userRole);
         claims.put("email",email);
+        claims.put("username",username);
+        System.out.println(username);
         return doGenerateToken(claims, userId, tokenType);
     }
 

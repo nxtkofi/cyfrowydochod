@@ -47,36 +47,39 @@ public class AuthService {
             Authentication authentication = authenticationManager.authenticate(
                     new UsernamePasswordAuthenticationToken(
                             loginRequest.getEmail(),
-                            loginRequest.getPassword()
-                    )
-            );
+                            loginRequest.getPassword()));
             UserDetails userDetails = (UserDetails) authentication.getPrincipal();
             User user = (User) userRepository.findByEmail(loginRequest.getEmail());
-    
-            String jwtAccessToken = tokenProvider.generateToken(userDetails, user.getId(), user.getEmail(), user.getRole(), "accessToken");
-            String jwtRefreshToken = tokenProvider.generateToken(userDetails, user.getId(), user.getEmail(), user.getRole(), "refreshToken");
+            String username = user.getUsername();
+            String jwtAccessToken = tokenProvider.generateToken(userDetails, user.getId(), user.getEmail(),
+                    user.getRole(), username, "accessToken");
+            String jwtRefreshToken = tokenProvider.generateToken(userDetails, user.getId(), user.getEmail(),
+                    user.getRole(), username, "refreshToken");
             user.setRefreshToken(jwtRefreshToken);
             userRepository.save(user);
-           
-            Cookie refreshTokenCookie = createRefreshTokenCookie(response,"refreshToken",true,false,jwtRefreshToken);           
+
+            Cookie refreshTokenCookie = createRefreshTokenCookie(response, "refreshToken", true, false,
+                    jwtRefreshToken);
             response.addCookie(refreshTokenCookie);
-            
+
             return ResponseEntity.ok(jwtAccessToken);
         } catch (Exception e) {
-            System.out.println("Error appeared"+e);
+            System.out.println("Error appeared" + e);
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid email or password");
         }
     }
-    public Cookie createRefreshTokenCookie(HttpServletResponse response, String name, boolean httpOnly,boolean secureFlag, String token){
 
+    public Cookie createRefreshTokenCookie(HttpServletResponse response, String name, boolean httpOnly,
+            boolean secureFlag, String token) {
 
-            Cookie cookie = new Cookie(name, token);
-            cookie.setHttpOnly(httpOnly);
-            cookie.setMaxAge(86400); // 1 day
-            cookie.setSecure(secureFlag); // Use true in production with HTTPS
-            cookie.setPath("/");
-            return cookie;
+        Cookie cookie = new Cookie(name, token);
+        cookie.setHttpOnly(httpOnly);
+        cookie.setMaxAge(86400); // 1 day
+        cookie.setSecure(secureFlag); // Use true in production with HTTPS
+        cookie.setPath("/");
+        return cookie;
     }
+
     public ResponseEntity<String> registerUser(@Valid RegistrationRequest registrationRequest) {
         UserRole userRole = new UserRole();
 
@@ -103,44 +106,46 @@ public class AuthService {
     }
 
     public ResponseEntity<String> refreshAccessToken(HttpServletRequest request, HttpServletResponse response) {
-        
+
         try {
             String refreshToken = getRefreshTokenFromCookie(request);
             System.out.println("refreshToken:" + refreshToken);
             if (refreshToken == null) {
                 return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Refresh token missing");
             }
-    
+
             String userId = jwtAuthenticationFilter.getUserIdFromToken(refreshToken);
             User user = userRepository.findById(userId).orElse(null);
-    
+
             if (user == null || !user.getRefreshToken().equals(refreshToken)) {
                 return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid refresh token");
             }
-    
+
             if (jwtAuthenticationFilter.isTokenExpired(refreshToken)) {
                 return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Refresh token expired");
             }
-    
-            UserDetails userDetails = new org.springframework.security.core.userdetails.User(user.getEmail(), user.getPassword(), new ArrayList<>());
-            String newAccessToken = tokenProvider.generateToken(userDetails, user.getId(), user.getEmail(), user.getRole(), "accessToken");
-    
+
+            UserDetails userDetails = new org.springframework.security.core.userdetails.User(user.getEmail(),
+                    user.getPassword(), new ArrayList<>());
+            String newAccessToken = tokenProvider.generateToken(userDetails, user.getId(), user.getEmail(),
+                    user.getRole(), user.getUsername(), "accessToken");
+
             return ResponseEntity.ok(newAccessToken);
-    
+
         } catch (Exception e) {
             System.err.println(e);
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid refresh token");
         }
     }
-    
-    public ResponseEntity<String> handleLogOut(HttpServletRequest request, HttpServletResponse response){
+
+    public ResponseEntity<String> handleLogOut(HttpServletRequest request, HttpServletResponse response) {
         String token = getRefreshTokenFromCookie(request);
-        if(token==null){ 
+        if (token == null) {
             return ResponseEntity.noContent().build();
         }
         String userId = jwtAuthenticationFilter.getUserIdFromToken(token);
         User user = userRepository.findById(userId).orElse(null);
-        if(user==null){
+        if (user == null) {
             Cookie emptyCookie = createEmptyCookie();
             response.addCookie(emptyCookie);
             return ResponseEntity.noContent().build();
@@ -151,7 +156,7 @@ public class AuthService {
         response.addCookie(emptyCookie);
         return ResponseEntity.noContent().build();
     }
-    
+
     private String getRefreshTokenFromCookie(HttpServletRequest request) {
         Cookie[] cookies = request.getCookies();
         if (cookies != null) {
@@ -163,13 +168,26 @@ public class AuthService {
         }
         return null;
     }
-    public Cookie createEmptyCookie(){
+
+    public Cookie createEmptyCookie() {
         Cookie cookie = new Cookie("refreshToken", "");
         cookie.setHttpOnly(true);
         cookie.setMaxAge(86400); // 1 day
         cookie.setSecure(false); // Use true in production with HTTPS
         cookie.setPath("/");
         return cookie;
-}
-   
+    }
+
+    public boolean verifyUserPassword(String password, String userId) {
+        User user = userRepository.findById(userId).orElse(null);
+        System.out.println("User found:" +user);
+        if (user == null) {
+            System.out.println("User not found!");
+            return false;
+            
+        }
+        System.out.println("Trying to match passwords...");
+        return passwordEncoder.matches(password, user.getPassword());
+    }
+
 }

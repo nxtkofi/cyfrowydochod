@@ -7,13 +7,13 @@ import {
   HoverCardTrigger,
   HoverCardContent,
 } from "@radix-ui/react-hover-card";
-import { handleInputChangeType, userInputType } from "./RegisterForm";
 import axios from "@/helpers/axios";
 import useAuth from "@/hooks/useAuth";
 import { AxiosError } from "axios";
 import useNavigation from "@/hooks/useNavigation";
 import { useLocation, useNavigate } from "react-router-dom";
 import { Checkbox } from "../checkbox";
+import { handleInputChangeType, userInputType } from "@/types";
 
 interface LoginFormProps {}
 
@@ -44,6 +44,7 @@ const LoginForm: FunctionComponent<LoginFormProps> = () => {
           id: userId,
           email: userEmail,
           accessToken: accessToken,
+          username: decodedToken.username,
           role: userRole,
         });
         ogNavigation(from, { replace: true });
@@ -58,9 +59,9 @@ const LoginForm: FunctionComponent<LoginFormProps> = () => {
       }
     }
   };
-  const handleInputChange: handleInputChangeType = (e, inputName) => {
-    const value = e.target.value.trim();
-    setUserInput((prev) => ({ ...prev, [inputName]: value }));
+  const handleInputChange: handleInputChangeType = (inputValue, inputName) => {
+    setUserInput((prev) => ({ ...prev, [inputName]: inputValue }));
+    console.log(userInput);
   };
   const togglePersist = () => {
     setPersist((prev) => !prev);
@@ -72,17 +73,26 @@ const LoginForm: FunctionComponent<LoginFormProps> = () => {
     <>
       <p className="text-slate-500"> Login to your account.</p>
       <Input
-        onChange={(e) => handleInputChange(e, "email")}
+        handleChange={(value: string) =>
+          handleInputChange(value, "email")
+        }
         guiName="Email"
         name="email"
         className="mt-12"
+        preset="email"
+        isLoading={false}
       />
       <Input
-        onChange={(e) => handleInputChange(e, "password")}
+        handleChange={(value: string) =>
+          handleInputChange(value, "password")
+        }
+        preset="username"
         guiName="Password"
         name="password"
         type="password"
         className="mt-8"
+        
+        isLoading={false}
       />
       <div className="flex flex-row items-center">
         <Checkbox

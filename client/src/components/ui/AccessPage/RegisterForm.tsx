@@ -3,24 +3,14 @@ import {
   HoverCardTrigger,
   HoverCardContent,
 } from "@radix-ui/react-hover-card";
-import { ChangeEvent, FunctionComponent, useState } from "react";
+import { FunctionComponent, useState } from "react";
 import { Button } from "../button";
 import { Input } from "../input";
 import axios from "@/helpers/axios";
 import useNavigation from "@/hooks/useNavigation";
+import { userInputType, handleInputChangeType } from "@/types";
 
 interface RegisterFormProps {}
-
-export type handleInputChangeType = (
-  e: ChangeEvent<HTMLInputElement>,
-  name: "email" | "username" | "password" | "repeatPassword"
-) => void;
-
-export type userInputType = {
-  email: string;
-  password: string;
-  username?: string;
-};
 
 const RegisterForm: FunctionComponent<RegisterFormProps> = () => {
   const navigate = useNavigation();
@@ -30,8 +20,8 @@ const RegisterForm: FunctionComponent<RegisterFormProps> = () => {
     password: "",
   });
 
-  const handleInputChange: handleInputChangeType = (e, inputName) => {
-    const value = e.target.value.trim();
+  const handleInputChange: handleInputChangeType = (inputValue, inputName) => {
+    const value = inputValue.trim();
     setUserInput((prev) => ({ ...prev, [inputName]: value }));
   };
 
@@ -47,34 +37,49 @@ const RegisterForm: FunctionComponent<RegisterFormProps> = () => {
     <>
       <p className="text-slate-500">Register new account.</p>
       <Input
-        onChange={(e) => handleInputChange(e, "email")}
+        handleChange={(value: string) => handleInputChange(value, "email")}
         value={userInput.email}
         guiName="Email"
         name="email"
         className="mt-12"
+        preset="email"
+        isLoading={false}
       />
       <Input
-        onChange={(e) => handleInputChange(e, "username")}
+        handleChange={(value: string) => handleInputChange(value, "username")}
         value={userInput.username}
         guiName="Username"
         name="username"
         className="my-8"
+        preset="username"
+        isLoading={false}
       />
       <Input
-        onChange={(e) => handleInputChange(e, "password")}
+        handleChange={(value: string) => handleInputChange(value, "password")}
         value={userInput.password}
         guiName="Password"
         name="password"
         type="password"
         className="my-8"
+        preset="password"
+        isLoading={false}
       />
-      <Input guiName="Repeat password" type="password" className="my-8" />
+      <Input
+        handleChange={(value: string) =>
+          handleInputChange(value, "repeatPassword")
+        }
+        guiName="Repeat password"
+        type="password"
+        className="my-8"
+        preset="password"
+        isLoading={false}
+      />
       <div className="flex flex-row items-center  justify-between">
         <Button onClick={handleRegister}>Register</Button>
         <HoverCard>
           <HoverCardTrigger className="w-1/2">
             <div
-              onClick={() => navigate({path:""})}
+              onClick={() => navigate({ path: "" })}
               className="hover:underline relative"
             >
               By registering you accept our privacy policy and agreements.
