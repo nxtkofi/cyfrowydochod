@@ -2,8 +2,6 @@ package pl.server.server.models;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
-import jakarta.annotation.Nullable;
-
 import jakarta.persistence.*;
 
 import lombok.*;
@@ -67,9 +65,11 @@ public class Book {
     private Set<OrderItem> orderItems;
 
     @OneToMany(mappedBy = "book",fetch = FetchType.EAGER)
-    @Nullable
     private Set<IconElements> iconElements;
 
     @OneToMany(mappedBy = "book",fetch = FetchType.EAGER)
     private Set<BookFeatures> bookFeatures;
+
+    @OneToMany
+    private Set<Reviews> reviews;
 }
