@@ -2,8 +2,8 @@ package pl.server.server.services;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import pl.server.server.helpers.BookException;
 import pl.server.server.helpers.ResourceNotFoundException;
 import pl.server.server.models.Book;
 import pl.server.server.repositories.BookRepository;
@@ -19,8 +19,13 @@ public class BookService {
     public List<Book> getAllBooks() {
         try {
             return bookRepository.findAll();
-        } catch (Exception ex) {
+        } catch (ResourceNotFoundException ex) {
             System.err.println(ex);
+            ResponseEntity.notFound().build();
+            return null;
+        }catch (Exception ex2) {
+            System.err.println(ex2);
+            ResponseEntity.badRequest().build();
             return null;
         }
     }
@@ -28,8 +33,13 @@ public class BookService {
     public Book getBookById(String id) {
         try {
             return bookRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Book not found with id: " + id));
-        }catch (Exception ex) {
+        } catch (ResourceNotFoundException ex) {
             System.err.println(ex);
+            ResponseEntity.notFound().build();
+            return null;
+        }catch (Exception ex2) {
+            System.err.println(ex2);
+            ResponseEntity.badRequest().build();
             return null;
         }
     }
@@ -41,9 +51,13 @@ public class BookService {
                 throw new ResourceNotFoundException("Book not found with title: " + title);
             }
             return book;
-        }
-        catch (Exception ex) {
+        }catch (ResourceNotFoundException ex) {
             System.err.println(ex);
+            ResponseEntity.notFound().build();
+            return null;
+        }catch (Exception ex2) {
+            System.err.println(ex2);
+            ResponseEntity.badRequest().build();
             return null;
         }
     }
@@ -51,8 +65,13 @@ public class BookService {
     public Book createBook(Book newBook) {
         try {
             return bookRepository.save(newBook);
-        }catch (Exception ex) {
+        } catch (ResourceNotFoundException ex) {
             System.err.println(ex);
+            ResponseEntity.notFound().build();
+            return null;
+        }catch (Exception ex2) {
+            System.err.println(ex2);
+            ResponseEntity.badRequest().build();
             return null;
         }
     }
@@ -63,18 +82,27 @@ public class BookService {
             BeanUtils.copyProperties(updatedBook, bookToUpdate, "id");
 
             return bookRepository.save(bookToUpdate);
-        }catch (Exception ex) {
+        } catch (ResourceNotFoundException ex) {
             System.err.println(ex);
+            ResponseEntity.notFound().build();
+            return null;
+        }catch (Exception ex2) {
+            System.err.println(ex2);
+            ResponseEntity.badRequest().build();
             return null;
         }
     }
 
-    public void deleteBook(String bookId) throws BookException {
+    public void deleteBook(String bookId) {
         try {
             Book book = bookRepository.findById(bookId).orElseThrow(() -> new ResourceNotFoundException("Book not found"));
             bookRepository.delete(book);
-        }catch (Exception ex) {
+        } catch (ResourceNotFoundException ex) {
             System.err.println(ex);
+            ResponseEntity.notFound().build();
+        }catch (Exception ex2) {
+            System.err.println(ex2);
+            ResponseEntity.badRequest().build();
         }
     }
 }

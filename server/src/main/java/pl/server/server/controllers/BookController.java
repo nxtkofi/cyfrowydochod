@@ -2,9 +2,14 @@ package pl.server.server.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
-import pl.server.server.helpers.BookException;
-import pl.server.server.helpers.ResourceNotFoundException;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 import pl.server.server.models.BillingAddress;
 import pl.server.server.models.Book;
 import pl.server.server.repositories.BookRepository;
@@ -50,7 +55,7 @@ public class BookController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<BillingAddress> deleteBook(@PathVariable String id) throws BookException {
+    public ResponseEntity<BillingAddress> deleteBook(@PathVariable String id) {
         bookService.deleteBook(id);
         return ResponseEntity.ok().build();
     }
