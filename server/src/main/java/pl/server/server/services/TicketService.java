@@ -38,7 +38,6 @@ public class TicketService {
             ticketRepository.save(ticket);
     
             user.getTickets().add(ticket);
-            userRepository.save(user);
             return ResponseEntity.status(HttpStatus.CREATED).build();
             
         } catch (Exception e) {

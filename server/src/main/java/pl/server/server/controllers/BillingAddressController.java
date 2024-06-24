@@ -43,7 +43,7 @@ public class BillingAddressController {
         userRepository.save(user);
     }
 
-    @PutMapping
+    @PutMapping("/{userId}")
     @Transactional
     public BillingAddress UpdateBillingAddress(@PathVariable String userId, @RequestBody BillingAddress billingAddress) {
         User user = userRepository.findById(userId).orElseThrow(() -> new ResourceNotFoundException("User not found"));
