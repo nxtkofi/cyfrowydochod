@@ -41,6 +41,6 @@ public class BillingAddressController {
     @DeleteMapping("/{billingAddressId}")
     public ResponseEntity<BillingAddress> deleteBillingAddress(@PathVariable String billingAddressId) {
         billingAddressService.deleteBillingAddress(billingAddressId);
-        return ResponseEntity.noContent().build();
+        return ResponseEntity.ok().build();
     }
 }
