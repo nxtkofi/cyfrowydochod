@@ -10,5 +10,5 @@ import java.util.List;
 @Repository
 public interface TicketRepository extends JpaRepository<Ticket,String> {
     List<Ticket> findByKeyWord(String KeyWord);
-    List<Ticket> findByDate(LocalDateTime localDateTime);
+    List<Ticket> findByDate(Long date);
 }
