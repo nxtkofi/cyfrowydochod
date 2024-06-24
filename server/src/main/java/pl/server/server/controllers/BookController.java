@@ -55,7 +55,7 @@ public class BookController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<BillingAddress> deleteBook(@PathVariable String id) {
+    public ResponseEntity<BillingAddress> deleteBook(@PathVariable String id) throws BookException {
         bookService.deleteBook(id);
         return ResponseEntity.ok().build();
     }

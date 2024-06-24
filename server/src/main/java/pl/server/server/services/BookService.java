@@ -4,6 +4,7 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import pl.server.server.helpers.BookException;
 import pl.server.server.helpers.ResourceNotFoundException;
 import pl.server.server.models.Book;
 import pl.server.server.repositories.BookRepository;
@@ -19,11 +20,7 @@ public class BookService {
     public List<Book> getAllBooks() {
         try {
             return bookRepository.findAll();
-        } catch (ResourceNotFoundException ex) {
-            System.err.println(ex);
-            ResponseEntity.notFound().build();
-            return null;
-        }catch (Exception ex2) {
+        } catch (Exception ex2) {
             System.err.println(ex2);
             ResponseEntity.badRequest().build();
             return null;
@@ -65,10 +62,6 @@ public class BookService {
     public Book createBook(Book newBook) {
         try {
             return bookRepository.save(newBook);
-        } catch (ResourceNotFoundException ex) {
-            System.err.println(ex);
-            ResponseEntity.notFound().build();
-            return null;
         }catch (Exception ex2) {
             System.err.println(ex2);
             ResponseEntity.badRequest().build();
