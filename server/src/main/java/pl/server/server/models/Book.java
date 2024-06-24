@@ -2,10 +2,18 @@ package pl.server.server.models;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
-import jakarta.persistence.*;
-
-import lombok.*;
-
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
+import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.Table;
+import lombok.AllArgsConstructor;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
 import org.hibernate.annotations.UuidGenerator;
 
 import java.util.Set;
@@ -61,15 +69,15 @@ public class Book {
         this.checksTableTextBlack = checksTableTextBlack;
     }
     @JsonIgnore
-    @OneToMany(mappedBy = "book",fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "book",fetch = FetchType.LAZY) //require tests
     private Set<OrderItem> orderItems;
 
-    @OneToMany(mappedBy = "book",fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "book",fetch = FetchType.LAZY) //require tests
     private Set<IconElements> iconElements;
 
-    @OneToMany(mappedBy = "book",fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "book",fetch = FetchType.LAZY) //require tests
     private Set<BookFeatures> bookFeatures;
 
-    @OneToMany
+    @OneToMany(fetch = FetchType.LAZY) //require tests
     private Set<Reviews> reviews;
 }

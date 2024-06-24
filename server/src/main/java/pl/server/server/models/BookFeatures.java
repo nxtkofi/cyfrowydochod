@@ -31,6 +31,4 @@ public class BookFeatures {
     @ManyToOne
     @ToString.Include
     Feature feature;
-
-
 }

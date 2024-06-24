@@ -3,6 +3,7 @@ package pl.server.server.services;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import pl.server.server.helpers.ResourceNotFoundException;
 import pl.server.server.models.BillingAddress;
@@ -23,8 +24,13 @@ public class BillingAddressService {
     public BillingAddress getBillingAddress(String userId){
         try {
             return billingAddressRepository.findByUserId(userId);
-        } catch (Exception ex){
+        } catch (ResourceNotFoundException ex) {
             System.err.println(ex);
+            ResponseEntity.notFound().build();
+            return null;
+        }catch (Exception ex2) {
+            System.err.println(ex2);
+            ResponseEntity.badRequest().build();
             return null;
         }
     }
@@ -38,8 +44,13 @@ public class BillingAddressService {
             newBillingAddress.setUser(user);
             userRepository.save(user);
             return billingAddressRepository.save(newBillingAddress);
-        } catch (Exception ex) {
+        } catch (ResourceNotFoundException ex) {
             System.err.println(ex);
+            ResponseEntity.notFound().build();
+            return null;
+        }catch (Exception ex2) {
+            System.err.println(ex2);
+            ResponseEntity.badRequest().build();
             return null;
         }
     }
@@ -57,8 +68,13 @@ public class BillingAddressService {
             BeanUtils.copyProperties(newBillingAddress,addressToUpdate,"addressId");
             billingAddressRepository.save(addressToUpdate);
             return addressToUpdate;
-        } catch (Exception ex) {
+        } catch (ResourceNotFoundException ex) {
             System.err.println(ex);
+            ResponseEntity.notFound().build();
+            return null;
+        }catch (Exception ex2) {
+            System.err.println(ex2);
+            ResponseEntity.badRequest().build();
             return null;
         }
     }
@@ -76,8 +92,12 @@ public class BillingAddressService {
             }
 
             billingAddressRepository.delete(billingAddress);
-        } catch (Exception ex) {
+        } catch (ResourceNotFoundException ex) {
             System.err.println(ex);
+            ResponseEntity.notFound().build();
+        }catch (Exception ex2) {
+            System.err.println(ex2);
+            ResponseEntity.badRequest().build();
         }
     }
 }

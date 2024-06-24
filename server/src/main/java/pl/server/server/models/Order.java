@@ -2,6 +2,7 @@ package pl.server.server.models;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Objects;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.UuidGenerator;
@@ -15,7 +16,6 @@ import lombok.*;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-@EqualsAndHashCode
 @Builder
 public class Order {
     @Id
@@ -33,4 +33,15 @@ public class Order {
     @JsonIgnore
     private User user;
 
+    @Override
+    public boolean equals(Object object) {
+        if (this == object) return true;
+        if (!(object instanceof Order order)) return false;
+        return Objects.equals(idOrder, order.idOrder);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hashCode(idOrder);
+    }
 }

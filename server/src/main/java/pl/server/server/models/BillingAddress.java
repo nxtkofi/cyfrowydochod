@@ -35,7 +35,6 @@ public class BillingAddress {
     @JsonIgnore
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
-    
     private User user;
 
     public BillingAddress(String fullName, String streetName, int houseNumber, String zipCode, String city) {
