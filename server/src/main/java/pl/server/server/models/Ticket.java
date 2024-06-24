@@ -39,6 +39,7 @@ public class Ticket {
     private long date;
     private String keyWord;
     private String orderId;
+    private Boolean isUser;
 
     @OneToMany(mappedBy = "ticket", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonManagedReference // Używane na właścicielu (Ticket), kontroluje serializację
@@ -54,5 +55,6 @@ public class Ticket {
         this.status = status;
         this.date = System.currentTimeMillis();
         this.keyWord = keyWord;
+        this.isUser = true;
     }
 }
