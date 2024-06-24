@@ -66,7 +66,7 @@ public class User implements UserDetails {
 
     private String role;
 
-    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY) //require tests
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)//require tests
     private Set<Order> orders;
 
     @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
@@ -75,7 +75,7 @@ public class User implements UserDetails {
     @OneToOne(mappedBy = "user", fetch = FetchType.LAZY)//require tests
     private BillingAddress billingAddress;
 
-    @OneToMany(mappedBy = "user", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY) //require tests
     private Set<Ticket> tickets;
 
     @OneToMany(mappedBy = "user",fetch = FetchType.LAZY) //require tests

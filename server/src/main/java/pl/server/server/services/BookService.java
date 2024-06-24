@@ -4,7 +4,6 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import pl.server.server.helpers.BookException;
 import pl.server.server.helpers.ResourceNotFoundException;
 import pl.server.server.models.Book;
 import pl.server.server.repositories.BookRepository;
