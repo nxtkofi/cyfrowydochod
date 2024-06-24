@@ -1,6 +1,5 @@
 package pl.server.server.services;
 
-import java.time.LocalDateTime;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -51,14 +50,14 @@ public class TicketService {
         return ticketRepository.findAll();
     }
 
-    public List<Ticket> findTicketByDate(LocalDateTime localDateTime) {
-        return ticketRepository.findByDate(localDateTime);
+    public List<Ticket> findTicketByDate(Long date) {
+        return ticketRepository.findByDate(date);
     }
 
     public Ticket updateTicket(String id, Ticket UpdateTicket) {
         Ticket ticket = ticketRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException(""));
         ticket.setText(UpdateTicket.getText());
-        ticket.setDate(LocalDateTime.now());
+        ticket.setDate(UpdateTicket.getDate());
         ticket.setKeyWord(UpdateTicket.getKeyWord());
         return ticketRepository.save(ticket);
     }

@@ -25,8 +25,8 @@ public class TicketController {
         return ticketService.findAllTicket();
     }
 
-    public List<Ticket> findByDate(LocalDateTime localDateTime) {
-        return ticketService.findTicketByDate(localDateTime);
+    public List<Ticket> findByDate(Long date) {
+        return ticketService.findTicketByDate(date);
     }
     @PostMapping
     public ResponseEntity createTicket(@RequestBody Ticket ticket){        

@@ -34,18 +34,21 @@ public class Ticket {
     private String email;
     private String text;
     private String status;
-    private LocalDateTime date;
+    private Long date;
     private String keyWord;
+    private Boolean isUser;
 
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
 
-    public Ticket(String subject, String text, String status, String keyWord) {
+    public Ticket(String subject, String email, String text, String status, Long date, String keyWord) {
         this.subject = subject;
+        this.email = email;
         this.text = text;
         this.status = status;
-        date = LocalDateTime.now();
+        this.date = date;
         this.keyWord = keyWord;
+        this.isUser = true;
     }
 }
