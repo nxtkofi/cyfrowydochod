@@ -35,10 +35,11 @@ public class Ticket {
     private String status;
     private long date;
     private String keyWord;
+    private Boolean isUser;
 
 @OneToMany(mappedBy = "ticket", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Message> messages;
-    
+
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
@@ -48,5 +49,6 @@ public class Ticket {
         this.status = status;
         this.date = System.currentTimeMillis();
         this.keyWord = keyWord;
+        this.isUser = true;
     }
 }

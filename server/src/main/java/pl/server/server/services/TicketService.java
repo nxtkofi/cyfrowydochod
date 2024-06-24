@@ -19,16 +19,16 @@ public class TicketService {
 
     @Autowired
     TicketRepository ticketRepository;
-    
+
     @Autowired
     UserRepository userRepository;
-   
+
 
     public ResponseEntity createTicket(Ticket ticket) {
         try {
-            ticket.setDate(System.currentTimeMillis()) ; 
-            ticket.setStatus(Status.WAITING_FOR_SUPP_RES);  
-                   
+            ticket.setDate(System.currentTimeMillis()) ;
+            ticket.setStatus(Status.WAITING_FOR_SUPP_RES);
+
             User user = userRepository.findByEmail(ticket.getEmail());
             if(user == null){
                 return ResponseEntity.notFound().build();

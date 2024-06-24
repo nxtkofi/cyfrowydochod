@@ -35,7 +35,7 @@ public class TicketController {
         if (ticket == null) {
             return ResponseEntity.notFound().build();
         }
-        
+
         return ResponseEntity.ok(ticket);
     }
 
