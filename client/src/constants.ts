@@ -202,13 +202,13 @@ export const Tickets: TicketType[] = [
   },
 ];
 export const avatars: string[] = [
-  "/avatars/axolotl.jpg",
-  "/avatars/koza.jpg",
-  "/avatars/moneymouse.jpg",
-  "/avatars/panda.jpg",
-  "/avatars/rooster.jpg",
-  "/avatars/snake.jpg",
-  "/avatars/turtle.jpg",
-  "/avatars/kodi.jpg",
-  "/avatars/shark.jpg",
+  "axolotl",
+  "koza",
+  "moneymouse",
+  "panda",
+  "rooster",
+  "snake",
+  "turtle",
+  "kodi",
+  "shark",
 ];

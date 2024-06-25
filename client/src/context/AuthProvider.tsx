@@ -1,13 +1,5 @@
-import { RoleType } from "@/types";
+import { AuthType } from "@/types";
 import { PropsWithChildren, createContext, useState } from "react";
-
-type AuthType = {
-  id: string;
-  email: string;
-  accessToken: string;
-  role: RoleType;
-  username: string;
-};
 
 type AuthContextType = {
   auth: AuthType | undefined;

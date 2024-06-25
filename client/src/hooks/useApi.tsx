@@ -6,8 +6,8 @@ import { useToast } from "@/components/ui/use-toast";
 
 type HttpMethod = "GET" | "POST" | "PUT" | "DELETE";
 type ToastType = {
-  title: string;
-  description: string;
+  title?: string;
+  description?: string;
   variant?: "default" | "destructive";
 };
 function useApi() {

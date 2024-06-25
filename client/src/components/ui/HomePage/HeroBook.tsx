@@ -27,7 +27,7 @@ function HeroBook({ book }: HeroBookProps) {
 
       {book.iconElements &&
         book.iconElements.map((element, index) => (
-          <div key={index + element.icon} className="flex flex-col py-[2px]">
+          <div key={index + element.icon} className="flex flex-col py-[2px] self-center">
             <div className="flex flex-row">
               {book.emojiGradientUrl && (
                 <LucideIcon

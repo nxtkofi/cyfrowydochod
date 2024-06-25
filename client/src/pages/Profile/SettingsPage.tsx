@@ -1,11 +1,24 @@
 import ProfileHeader from "@/components/ui/Profile/ProfileHeader";
 import AccountAction from "@/components/ui/Profile/Settings/AccountAction";
 import ThemeSwitch from "@/components/ui/Profile/Settings/ThemeSwitch";
-import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
 import Wrapper from "@/components/ui/wrapper";
+import useAuth from "@/hooks/useAuth";
+import { UserPreferences } from "@/types";
+import { useState } from "react";
+
 
 function SettingsPage() {
+  const { auth } = useAuth();
+  const [checks, setChecks] = useState<UserPreferences>(auth!.preferences);
+
+  const handleClick = (name: keyof UserPreferences) => (event: React.MouseEvent<HTMLButtonElement>) => {
+    setChecks((prev) => {
+      if (!prev) return prev;
+      return { ...prev, [name]: !prev[name] }; // Toggle the specific property
+    });
+  };
+     
   return (
     <Wrapper>
       <ProfileHeader
@@ -15,14 +28,27 @@ function SettingsPage() {
 
       <div className="mt-8 flex flex-col">
         <div className="flex flex-row my-2 items-center">
-          <Checkbox /> <p className="ml-2">I want to receive newsletters</p>
+          <Checkbox
+            onClick={handleClick("getNewsLetter")}
+            checked={checks.getNewsLetter}
+            defaultChecked={auth?.preferences.getNewsLetter}
+          />{" "}
+          <p className="ml-2">I want to receive newsletters</p>
         </div>
         <div className="flex flex-row my-2 items-center">
-          <Checkbox />{" "}
+          <Checkbox
+            onClick={handleClick("getPriceDrops")}
+            checked={checks.getPriceDrops}
+            
+          />{" "}
           <p className="ml-2">I want to be notified about price drops</p>
         </div>
         <div className="flex flex-row my-2">
-          <Checkbox className="mt-1" />{" "}
+          <Checkbox
+            onClick={handleClick("getTrendingEbooks")}
+            checked={checks.getTrendingEbooks}
+            className="mt-1"
+          />{" "}
           <p className="ml-2">
             I want to be notified about recently added eBooks and trending
             eBooks

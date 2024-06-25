@@ -19,6 +19,8 @@ const ADMIN_PASS = {
   password: "admin",
 };
 const AccessPage: FunctionComponent<AccessPageProps> = () => {
+
+  //---------------- TO DELETE BEFORE LAUNCH ----------------------
   const ogNavigation = useNavigate();
   const location = useLocation();
 
@@ -36,6 +38,8 @@ const AccessPage: FunctionComponent<AccessPageProps> = () => {
     const userId = decodedToken.sub;
     const userRole = decodedToken.role;
     const userEmail = decodedToken.email;
+    const userPreferences = decodedToken.userPrefs;
+
     if (userId != null && userRole != null && userEmail != null) {
       setAuth({
         id: userId,
@@ -43,10 +47,12 @@ const AccessPage: FunctionComponent<AccessPageProps> = () => {
         accessToken: accessToken,
         username: decodedToken.username,
         role: userRole,
+        preferences: userPreferences,
       });
       ogNavigation(from, { replace: true });
     }
   };
+  //---------------- TO DELETE BEFORE LAUNCH ----------------------
   return (
     <>
       <div className="flex flex-col h-screen">

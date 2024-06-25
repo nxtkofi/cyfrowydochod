@@ -24,13 +24,17 @@ import pl.server.server.DTOs.RegistrationRequest;
 import pl.server.server.config.JwtAuthenticationFilter;
 import pl.server.server.config.JwtTokenProvider;
 import pl.server.server.models.User;
+import pl.server.server.models.UserPreferences;
 import pl.server.server.models.UserRole;
+import pl.server.server.repositories.UserPreferencesRepository;
 import pl.server.server.repositories.UserRepository;
 
 @Service
 @Validated
 public class AuthService {
 
+    @Autowired
+    private UserPreferencesRepository userPreferencesRepository;
     @Autowired
     private PasswordEncoder passwordEncoder;
     @Autowired
@@ -51,10 +55,11 @@ public class AuthService {
             UserDetails userDetails = (UserDetails) authentication.getPrincipal();
             User user = (User) userRepository.findByEmail(loginRequest.getEmail());
             String username = user.getUsername();
+            UserPreferences userPrefs = userPreferencesRepository.findByUserId(user.getId());
             String jwtAccessToken = tokenProvider.generateToken(userDetails, user.getId(), user.getEmail(),
-                    user.getRole(), username, "accessToken");
+                    user.getRole(), username, "accessToken",userPrefs);
             String jwtRefreshToken = tokenProvider.generateToken(userDetails, user.getId(), user.getEmail(),
-                    user.getRole(), username, "refreshToken");
+                    user.getRole(), username, "refreshToken",userPrefs);
             user.setRefreshToken(jwtRefreshToken);
             userRepository.save(user);
 
@@ -64,7 +69,6 @@ public class AuthService {
 
             return ResponseEntity.ok(jwtAccessToken);
         } catch (Exception e) {
-            System.out.println("Error appeared" + e);
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid email or password");
         }
     }
@@ -81,29 +85,44 @@ public class AuthService {
     }
 
     public ResponseEntity<String> registerUser(@Valid RegistrationRequest registrationRequest) {
-        UserRole userRole = new UserRole();
+        try{
+            UserRole userRole = new UserRole();
+    
+            @Size(min = 2, max = 20, message = "Username size is not between 2 and 20")
+            String newUserUsername = registrationRequest.getUsername();
+            @Size(min = 4, max = 30, message = "Password size is not between 4 and 30")
+            String newUserPass = registrationRequest.getPassword();
+            @Email
+            String newUserEmail = registrationRequest.getEmail();
+    
+            if (userRepository.findByEmail(newUserEmail) != null) {
+                return ResponseEntity.status(HttpStatus.CONFLICT).body("Email is taken!");
+            }
+            if (!userRepository.findByUsername(newUserUsername).isEmpty()) {
+                return ResponseEntity.status(HttpStatus.CONFLICT).body("Username is taken!");
+            }
+            User user = new User();
+            UserPreferences userPrefs = new UserPreferences();
+            userPrefs.setAvatar("axolotl");
+            userPrefs.setGetNewsLetter(false);
+            userPrefs.setGetPriceDrops(false);
+            userPrefs.setGetTrendingEbooks(false);
+            userPrefs.setTheme("light");
+            userPrefs.setUser(user); // Set user in preferences
+    
+            user.setUserPreferences(userPrefs);
+            user.setEmail(newUserEmail);
+            user.setUsername(newUserUsername);
+            user.setPassword(passwordEncoder.encode(newUserPass));
+            user.setRole(userRole.getUserRole());
+    
+            userRepository.save(user);
+    
+            return ResponseEntity.status(HttpStatus.CREATED).body("User registered successfully!");
 
-        @Size(min = 2, max = 20, message = "Username size is not between 2 and 20")
-        String newUserUsername = registrationRequest.getUsername();
-        @Size(min = 4, max = 30, message = "Password size is not between 4 and 30")
-        String newUserPass = registrationRequest.getPassword();
-        @Email
-        String newUserEmail = registrationRequest.getEmail();
-
-        if (userRepository.findByEmail(newUserEmail) != null) {
-            return ResponseEntity.status(HttpStatus.CONFLICT).body("Email is taken!");
+        } catch(Exception ex){
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Exception thrown:" + ex);
         }
-        if (!userRepository.findByUsername(newUserUsername).isEmpty()) {
-            return ResponseEntity.status(HttpStatus.CONFLICT).body("Username is taken!");
-        }
-        User user = new User();
-        user.setAvatar("axolotl");
-        user.setEmail(newUserEmail);
-        user.setUsername(newUserUsername);
-        user.setPassword(passwordEncoder.encode(newUserPass));
-        user.setRole(userRole.getUserRole());
-        userRepository.save(user);
-        return ResponseEntity.status(HttpStatus.CREATED).body("User registered successfully!");
     }
 
     public ResponseEntity<String> refreshAccessToken(HttpServletRequest request, HttpServletResponse response) {
@@ -128,8 +147,9 @@ public class AuthService {
 
             UserDetails userDetails = new org.springframework.security.core.userdetails.User(user.getEmail(),
                     user.getPassword(), new ArrayList<>());
+                    UserPreferences userPreferences = userPreferencesRepository.findByUserId(userId);
             String newAccessToken = tokenProvider.generateToken(userDetails, user.getId(), user.getEmail(),
-                    user.getRole(), user.getUsername(), "accessToken");
+                    user.getRole(), user.getUsername(), "accessToken",userPreferences);
 
             return ResponseEntity.ok(newAccessToken);
 

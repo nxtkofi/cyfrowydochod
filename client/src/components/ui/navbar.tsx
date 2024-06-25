@@ -20,10 +20,10 @@ function Navbar() {
       showSideBar();
     }
   };
-  
+
   return (
     <>
-      <div className="flex flex-row justify-between m-8 md:mx-[25%]">
+      <div className="flex flex-row justify-between m-8 md:mx-[25%] items-center">
         <div onMouseDown={() => navigate({ path: "/" })}>
           <HomeIcon />
         </div>
@@ -34,7 +34,16 @@ function Navbar() {
         <div onMouseDown={() => navigate({ path: "/contact" })}>
           <PencilIcon />
         </div>
-        <UserIcon onMouseDown={handleMenuClick} />
+
+        {auth?.preferences ? (
+          <img
+            src={`/avatars/${auth?.preferences.avatar}.jpg`}
+            className="w-10 h-10 rounded-full"
+            onMouseDown={handleMenuClick}
+          />
+        ) : (
+          <UserIcon onMouseDown={handleMenuClick} />
+        )}
         <SideBar showSideBar={showSideBar} shown={sideBarVisible} />
       </div>
       <div className=" border-b-2"></div>

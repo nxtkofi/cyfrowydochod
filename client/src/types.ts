@@ -116,8 +116,29 @@ export type TicketType = {
 };
 
 export type MessageType = {
-  id:string,
-  createdAt:Date;
+  id: string;
+  createdAt: Date;
   sender: "User" | "Support" | "Admin";
   message: string;
+};
+
+export type UserPreferences = {
+  avatar: avatarType;
+  getNewsLetter: boolean;
+  getPriceDrops: boolean;
+  getTrendingEbooks: boolean;
+  theme: "light" | "dark";
+};
+export type UserPreferencesChecks = {
+  getNewsLetter: boolean;
+  getPriceDrops: boolean;
+  getTrendingEbooks: boolean;
+}
+export type AuthType = {
+  id: string;
+  email: string;
+  accessToken: string;
+  role: RoleType;
+  username: string;
+  preferences: UserPreferences;
 };

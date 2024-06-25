@@ -30,7 +30,7 @@ public class TicketService {
     @Autowired
     UserRepository userRepository;
 
-    public ResponseEntity createTicket(TicketRequest TicketRequest, HttpServletRequest request) {
+    public ResponseEntity<?> createTicket(TicketRequest TicketRequest, HttpServletRequest request) {
         try {
             Ticket ticket = new Ticket();
             ticket.setDate(System.currentTimeMillis());
@@ -87,7 +87,7 @@ public class TicketService {
         return ResponseEntity.ok(tickets);
     }
 
-    public ResponseEntity updateTicket(String ticketId, String newMessage, HttpServletRequest request) {
+    public ResponseEntity<?> updateTicket(String ticketId, String newMessage, HttpServletRequest request) {
         Ticket ticket = ticketRepository.findById(ticketId).orElseThrow(() -> new ResourceNotFoundException(""));
         String token = jwtAuth.extractTokenFromHeader(request);
         String role = jwtAuth.getRoleFromToken(token);

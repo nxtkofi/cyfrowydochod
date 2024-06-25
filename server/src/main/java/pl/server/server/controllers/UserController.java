@@ -1,11 +1,14 @@
 package pl.server.server.controllers;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import jakarta.servlet.http.HttpServletRequest;
 import pl.server.server.helpers.ResourceNotFoundException;
@@ -23,34 +26,8 @@ public class UserController {
     @Autowired
     UserService userService;
 
-    @GetMapping("/{id}")
-    public User getUserById(@PathVariable String id) {
-        return userRepository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("User not found with id: " + id));
-    }
-
-    @GetMapping
-    public List<User> getAllUsers() {
-        return userRepository.findAll();
-    }
-
-    @GetMapping("/username/{username}")
-    public List<User> findByUsername(@PathVariable String username) { // Optional
-        List<User> users = userRepository.findByUsername(username);
-        if (users == null || users.isEmpty()) {
-            throw new ResourceNotFoundException("User not found with username: " + username);
-        }
-        return users;
-    }
-
-    @GetMapping("/email/{email}")
-    public User findByEmail(@PathVariable String email) {
-        User user = userRepository.findByEmail(email);
-        if (user == null) {
-            throw new ResourceNotFoundException("User not found with email: " + email);
-        }
-        return user;
-    }
+    
+    
 
     @PutMapping("/id/{id}")
     public ResponseEntity<String> updateUser(@PathVariable String id, @RequestBody User updatedUser,

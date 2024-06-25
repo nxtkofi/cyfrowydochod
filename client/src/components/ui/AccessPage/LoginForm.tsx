@@ -38,6 +38,8 @@ const LoginForm: FunctionComponent<LoginFormProps> = () => {
       const userId = decodedToken.sub;
       const userRole = decodedToken.role;
       const userEmail = decodedToken.email;
+      const userPreferences = decodedToken.userPrefs;
+      console.log(userPreferences);
       if (userId != null && userRole != null && userEmail != null) {
         setAuth({
           id: userId,
@@ -45,7 +47,9 @@ const LoginForm: FunctionComponent<LoginFormProps> = () => {
           accessToken: accessToken,
           username: decodedToken.username,
           role: userRole,
+          preferences: userPreferences,
         });
+
         ogNavigation(from, { replace: true });
       }
     } catch (error) {

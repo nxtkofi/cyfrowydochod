@@ -10,6 +10,7 @@ import org.springframework.stereotype.Component;
 
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
+import pl.server.server.models.UserPreferences;
 
 @Component
 public class JwtTokenProvider {
@@ -20,12 +21,12 @@ public class JwtTokenProvider {
     private long expirationTime;
 
     
-    public String generateToken(UserDetails userDetails, String userId, String email, String userRole,String username, String tokenType) {
+    public String generateToken(UserDetails userDetails, String userId, String email, String userRole,String username, String tokenType,UserPreferences userPrefs) {
         Map<String, Object> claims = new HashMap<>();
         claims.put("role",userRole);
         claims.put("email",email);
         claims.put("username",username);
-        System.out.println(username);
+        claims.put("userPrefs",userPrefs);
         return doGenerateToken(claims, userId, tokenType);
     }
 
