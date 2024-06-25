@@ -64,7 +64,13 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
                 .getBody();
         return claims.get("username",String.class);
     }
-
+    public String getRoleFromToken(String token){
+        Claims claims = Jwts.parser()
+        .setSigningKey(secretKey)
+        .parseClaimsJws(token)
+        .getBody();
+        return claims.get("role",String.class);
+    }
     private boolean validateToken(String token, UserDetails userDetails) {
         String username = getEmailFromToken(token);
         return username.equals(userDetails.getUsername()) && !isTokenExpired(token);

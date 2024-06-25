@@ -4,6 +4,8 @@ import java.util.Date;
 
 import org.hibernate.annotations.UuidGenerator;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
@@ -21,14 +23,14 @@ public class Message {
     @Id
     @UuidGenerator
     private String id;
-    
-    @ManyToOne
+   @ManyToOne
     @JoinColumn(name = "ticket_id")
+    @JsonBackReference // Używane na odwrotnym połączeniu (Message), kontroluje deserializację
     private Ticket ticket;
-    
+
     private String sender;
     private String message;
-    
+
     @Temporal(TemporalType.TIMESTAMP)
     private Date createdAt;
 

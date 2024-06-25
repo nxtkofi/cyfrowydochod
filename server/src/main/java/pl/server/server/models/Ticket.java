@@ -4,6 +4,9 @@ import java.util.List;
 
 import org.hibernate.annotations.UuidGenerator;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
@@ -35,12 +38,15 @@ public class Ticket {
     private String status;
     private long date;
     private String keyWord;
+    private String orderId;
 
-@OneToMany(mappedBy = "ticket", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "ticket", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonManagedReference // Używane na właścicielu (Ticket), kontroluje serializację
     private List<Message> messages;
-    
+
     @ManyToOne
     @JoinColumn(name = "user_id")
+    @JsonIgnore
     private User user;
 
     public Ticket(String subject, String status, String keyWord) {
