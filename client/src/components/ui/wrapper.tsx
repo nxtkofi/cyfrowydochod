@@ -5,7 +5,7 @@ type WrapperProps = {
     className?:string,
 }
 function Wrapper({children,className}:WrapperProps ) {
-    return ( <div className={`mx-8 my-8 flex flex-col ${className ? className : ""} `}>{children}</div> );
+    return ( <div className={`mx-8 my-8 flex flex-col md:mx-[25%] ${className ? className : ""} `}>{children}</div> );
 }
 
 export default Wrapper;

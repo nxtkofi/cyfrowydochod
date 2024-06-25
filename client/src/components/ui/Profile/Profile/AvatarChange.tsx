@@ -11,13 +11,27 @@ import {
 } from "@/components/ui/alert-dialog";
 import { Button } from "@/components/ui/button";
 import { avatars } from "@/constants";
+import useApi from "@/hooks/useApi";
+import useAuth from "@/hooks/useAuth";
+import { useEffect, useState } from "react";
 
 function AvatarChange() {
+  const { sendReq, apiLoading } = useApi();
+  const { auth } = useAuth();
+  const [avatar, setAvatar] = useState();
+  useEffect(() => {
+    const getUserInfo = async () => {
+      const { response, err } = await sendReq(`/api/users/${auth?.id}`, "GET");
+      console.log(response);
+      setAvatar(response?.data.avatar);
+    };
+    getUserInfo();
+  }, []);
   return (
     <>
       <div className="flex flex-col justify-center items-center my-8">
         <img
-          src="https://github.com/shadcn.png"
+          src={`/avatars/${avatar}.jpg`}
           className="w-52 h-52 rounded-full"
         />
         <div className="w-fit my-8">

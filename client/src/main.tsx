@@ -1,15 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import "./index.css";
-import {
-  BrowserRouter,
-  Outlet,
-  Route,
-  RouterProvider,
-  Routes,
-  createBrowserRouter,
-  createRoutesFromElements,
-} from "react-router-dom";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 import HomePage from "./pages/HomePage";
 import AccessPage from "./pages/AccessPage";
 import OfferPage from "./pages/OfferPage";
@@ -41,7 +33,7 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
           <Route path="/" element={<HomePage />} />
           <Route path="/access" element={<AccessPage />} />
           <Route element={<AccessFirst />}>
-            <Route path="/contact" element={<ContactPage  />} />
+            <Route path="/contact" element={<ContactPage />} />
           </Route>
           <Route path="/offer" element={<OfferPage />} />
           <Route path="/offer/book/:id" element={<BookPage />} />
@@ -56,8 +48,10 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
               <Route path="/profile/support" element={<SupportPage />} />
             </Route>
           </Route>
-          <Route element={<RequireAuth allowedRoles={["admin"]} />}>
-            <Route path="/profile/adminpanel" element={<AdminPage />} />
+          <Route element={<PersistLogin />}>
+            <Route element={<RequireAuth allowedRoles={["admin"]} />}>
+              <Route path="/profile/adminpanel" element={<AdminPage />} />
+            </Route>
           </Route>
           <Route path="/unauthorized" element={<UnauthPage />} />
           <Route path="/logout" element={<LogoutPage />} />

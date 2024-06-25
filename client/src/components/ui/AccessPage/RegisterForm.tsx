@@ -18,6 +18,7 @@ const RegisterForm: FunctionComponent<RegisterFormProps> = () => {
     username: "",
     email: "",
     password: "",
+    avatar: "axolotl",
   });
 
   const handleInputChange: handleInputChangeType = (inputValue, inputName) => {
@@ -40,36 +41,28 @@ const RegisterForm: FunctionComponent<RegisterFormProps> = () => {
         handleChange={(value: string) => handleInputChange(value, "email")}
         guiName="Email"
         name="email"
-
         preset="email"
-        
       />
       <Input
         handleChange={(value: string) => handleInputChange(value, "username")}
         guiName="Username"
         name="username"
-
         preset="username"
-        
       />
       <Input
         handleChange={(value: string) => handleInputChange(value, "password")}
         guiName="Password"
         name="password"
-
         type="password"
         preset="password"
-        
       />
       <Input
         handleChange={(value: string) =>
           handleInputChange(value, "repeatPassword")
         }
-
         guiName="Repeat password"
         type="password"
         preset="password"
-        
       />
       <div className="flex flex-row items-center  justify-between">
         <Button onClick={handleRegister}>Register</Button>

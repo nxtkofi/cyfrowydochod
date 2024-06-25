@@ -26,11 +26,11 @@ public class TicketService {
     JwtAuthenticationFilter jwtAuth;
     @Autowired
     TicketRepository ticketRepository;
-    
+
     @Autowired
     UserRepository userRepository;
 
-    public ResponseEntity createTicket(TicketRequest TicketRequest,HttpServletRequest request) {
+    public ResponseEntity createTicket(TicketRequest TicketRequest, HttpServletRequest request) {
         try {
             Ticket ticket = new Ticket();
             ticket.setDate(System.currentTimeMillis());
@@ -50,13 +50,12 @@ public class TicketService {
             String role = jwtAuth.getRoleFromToken(token);
             String sender = role.equals("commonUser") ? "User" : role.equals("admin") ? "Admin" : "Unknown";
 
-
             Message message = new Message();
             message.setSender(sender);
             message.setMessage(TicketRequest.getMessage());
             System.out.println(message.getMessage());
             System.out.println(ticket.getMessages());
-            
+
             message.setTicket(ticket);
 
             ticket.getMessages().add(message);
@@ -72,7 +71,6 @@ public class TicketService {
         }
     }
 
-
     public Ticket getTicketById(String id) {
         return ticketRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException(""));
     }
@@ -83,22 +81,21 @@ public class TicketService {
 
     public ResponseEntity<List<Ticket>> getTicketsOfUser(String userId) {
         List<Ticket> tickets = ticketRepository.findByUserId(userId);
-        if(tickets.isEmpty()){
+        if (tickets.isEmpty()) {
             return ResponseEntity.notFound().build();
         }
         return ResponseEntity.ok(tickets);
     }
-
 
     public ResponseEntity updateTicket(String ticketId, String newMessage, HttpServletRequest request) {
         Ticket ticket = ticketRepository.findById(ticketId).orElseThrow(() -> new ResourceNotFoundException(""));
         String token = jwtAuth.extractTokenFromHeader(request);
         String role = jwtAuth.getRoleFromToken(token);
         List<Message> messages = ticket.getMessages();
-        if(messages!=null&&!messages.isEmpty()){
-            Message lastMessage = messages.get(messages.size()-1);
+        if (messages != null && !messages.isEmpty()) {
+            Message lastMessage = messages.get(messages.size() - 1);
             String senderOfLastMessage = lastMessage.getSender();
-            if(role.equals(senderOfLastMessage)){
+            if (role.equals(senderOfLastMessage)) {
                 return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("You can't submit message twice in a row!");
             }
         }
@@ -114,9 +111,7 @@ public class TicketService {
         ticketRepository.save(ticket);
 
         return ResponseEntity.ok(ticket);
-    }    
-
-
+    }
 
     public void deleteTicket(Ticket ticketToDelete) {
         ticketRepository.delete(ticketToDelete);

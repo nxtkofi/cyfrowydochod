@@ -97,6 +97,7 @@ public class AuthService {
             return ResponseEntity.status(HttpStatus.CONFLICT).body("Username is taken!");
         }
         User user = new User();
+        user.setAvatar("axolotl");
         user.setEmail(newUserEmail);
         user.setUsername(newUserUsername);
         user.setPassword(passwordEncoder.encode(newUserPass));

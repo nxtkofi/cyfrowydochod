@@ -34,6 +34,7 @@ public class UserService {
 
     public ResponseEntity<String> updateUser(@PathVariable String id, @RequestBody User updatedUser,
             HttpServletRequest request) {
+                
         Boolean passwordsMatch = authService.verifyUserPassword(updatedUser.getPassword(),id);
         if (passwordsMatch.equals(false)) {
             System.out.println("Passwords don't match:" + updatedUser.getPassword());
@@ -53,6 +54,7 @@ public class UserService {
         System.out.println("Email of updatedUser" + updatedUser.getEmail());
         User userToUpdate = userRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("User not found with id: " + id));
+        userToUpdate.setAvatar(updatedUser.getAvatar());
         userToUpdate.setEmail(updatedUser.getEmail());
         userToUpdate.setUsername(updatedUser.getUsername());
         userToUpdate.setPassword(passwordEncoder.encode(updatedUser.getPassword()));

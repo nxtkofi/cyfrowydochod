@@ -54,9 +54,8 @@ public class UserController {
 
     @PutMapping("/id/{id}")
     public ResponseEntity<String> updateUser(@PathVariable String id, @RequestBody User updatedUser,
-            HttpServletRequest request) {
+            HttpServletRequest request) {            
                 System.out.println("Updating user");
-
         return userService.updateUser(id, updatedUser, request);
     }
 

@@ -23,7 +23,7 @@ function Navbar() {
   
   return (
     <>
-      <div className="flex flex-row justify-between m-8">
+      <div className="flex flex-row justify-between m-8 md:mx-[25%]">
         <div onMouseDown={() => navigate({ path: "/" })}>
           <HomeIcon />
         </div>

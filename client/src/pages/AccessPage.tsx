@@ -15,7 +15,7 @@ const LOGIN_PASS = {
   password: "test",
 };
 const ADMIN_PASS = {
-  email: "admin@gmail.com",
+  email: "admin@email.com",
   password: "admin",
 };
 const AccessPage: FunctionComponent<AccessPageProps> = () => {

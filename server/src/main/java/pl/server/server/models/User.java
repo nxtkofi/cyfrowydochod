@@ -49,7 +49,7 @@ public class User implements UserDetails {
     @Column(name="refresh_token",columnDefinition="TEXT") // is require?
     private String refreshToken;
     private String role;
-
+    private String avatar;
     @OneToMany(mappedBy = "user", fetch = FetchType.EAGER)
     private Set<Order> orders;
 
