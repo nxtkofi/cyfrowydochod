@@ -3,7 +3,8 @@ import { Button } from "../button";
 import { Input } from "../input";
 import { Textarea } from "../textarea";
 import useAxiosPrivate from "@/hooks/useAxiosPrivate";
-import { MessageType, TicketType } from "@/types";
+import useApi from "@/hooks/useApi";
+import Loader from "../loader";
 
 type ContactUsFormProps = {
   accessDisabled: boolean;
@@ -17,49 +18,65 @@ type sendingTicketType = {
 };
 
 function ContactUsForm({ accessDisabled }: ContactUsFormProps) {
+  const { sendReq, apiLoading } = useApi();
   const [ticket, setTicket] = useState<sendingTicketType>({
     email: "",
     subject: "",
     orderId: "",
     message: "",
   });
-  const axios = useAxiosPrivate();
+
   const submitTicket = async () => {
-    try {
-      await axios.post("/api/tickets", ticket);
-    } catch (error) {
-      console.log(error);
-    }
+      await sendReq(
+      "/api/tickets",
+      "POST",
+      { title: "Success!", description: "Ticket submission successfull!" },
+      ticket
+    );
   };
 
-  const handleChange =
-    (name: string) =>
-    (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-      const { value } = event.target;
-      setTicket((prev) => {
-        return { ...prev, [name]: value };
-      });
-    };
+  const handleChange = (value: string, name: string) => {
+    setTicket((prev) => {
+      return { ...prev, [name]: value };
+    });
+    console.log(ticket);
+  };
 
   return (
-    <div>
+    <div className="flex flex-col">
       <Input
-        onChange={handleChange("subject")}
-        value={ticket?.subject}
-        className="my-8"
+        validationRules={{
+          min: 4,
+          max: 100,
+          spaceAllowed: true,
+          mustContain: {
+            specialChar: false,
+            number: false,
+            bigLetter: false,
+          },
+        }}
+        handleChange={(v) => handleChange(v, "subject")}
         guiName="Subject*"
         required
         accessDisabled={accessDisabled}
       />
       <Input
-        onChange={handleChange("orderId")}
-        value={ticket?.orderId}
-        className=" my-8"
+        validationRules={{
+          min: 36,
+          max: 36,
+          spaceAllowed: true,
+          mustContain: {
+            specialChar: false,
+            number: false,
+            bigLetter: false,
+          },
+        }}
+        handleChange={(v) => handleChange(v, "orderId")}
         guiName="OrderId (not required)"
         accessDisabled={accessDisabled}
       />
       <Textarea
-        onChange={handleChange("message")}
+        onChange={(e) => handleChange(e.target.value, "message")}
         value={ticket?.message}
         className="my-4"
         rows={8}
@@ -68,10 +85,9 @@ function ContactUsForm({ accessDisabled }: ContactUsFormProps) {
         disabled={accessDisabled}
       />
       <Input
-        onChange={handleChange("email")}
-        value={ticket?.email}
+        preset="email"
+        handleChange={(v) => handleChange(v, "email")}
         name="email"
-        className="my-8"
         guiName="Email*"
         required
         accessDisabled={accessDisabled}
@@ -82,7 +98,7 @@ function ContactUsForm({ accessDisabled }: ContactUsFormProps) {
           onClick={submitTicket}
           disabled={accessDisabled}
         >
-          Send
+          {apiLoading ? <Loader /> : "Send"}
         </Button>
       </div>
     </div>

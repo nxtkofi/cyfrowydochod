@@ -9,25 +9,29 @@ import {
 import { Button } from "../../button";
 import { DialogHeader, DialogFooter } from "../../dialog";
 import { Input } from "../../input";
-import { ChangeEventHandler, MouseEventHandler } from "react";
+import { MouseEventHandler } from "react";
 import { handleInputChangeType, UserUpdateModel } from "@/types";
+import Loader from "../../loader";
 
 type ConfirmPasswordProps = {
   input: UserUpdateModel;
   accessDisabled: boolean;
   onClick: MouseEventHandler<HTMLButtonElement>;
   handleInputChange: handleInputChangeType;
+  loading:boolean,
+
 };
 function ConfirmPassword({
   onClick,
   input,
   accessDisabled,
   handleInputChange,
+  loading,
 }: ConfirmPasswordProps) {
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <Button disabled={accessDisabled}>Save changes</Button>
+        <Button disabled={accessDisabled}>{loading ? <Loader/> : "Save changes"}</Button>
       </DialogTrigger>
       <DialogContent className="sm:max-w-md">
         <DialogHeader>
@@ -46,7 +50,7 @@ function ConfirmPassword({
               }
               type="password"
               id="link"
-              isLoading={false}
+              
             />
           </div>
         </div>

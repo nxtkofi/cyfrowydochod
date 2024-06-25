@@ -22,8 +22,8 @@ function useValidation(
     } else if (text.length > validationRules.max) {
       setError("Value is too long!");
     } else if (!validationRules.spaceAllowed && text.includes(" ")) {
-        setError("Space is not allowed!");
-      
+      setValue(text.trim());
+      setError("Space is not allowed!");
     } else if (validationRules.mustContain) {
       if (validationRules.mustContain.bigLetter && !/[A-Z]/.test(text)) {
         setError("Must contain at least one uppercase letter!");
@@ -40,14 +40,18 @@ function useValidation(
     setIsLoading(false);
   };
 
-  const handleChange = (newValue: string) => {
-    if(!validationRules.spaceAllowed){
-        newValue = newValue.trim();
+  const handleUseNavigationChange = (newValue: string) => {
+    if (!validationRules.spaceAllowed) {
+      newValue = newValue.trim();
+    } else {
+      if (newValue.includes("  ")) {
+        newValue = newValue.replace("  ", " ");
+      }
     }
-   setValue(newValue)
+    setValue(newValue);
   };
 
-  return { validate, value, handleChange, isLoading, error };
+  return { validate, value, handleUseNavigationChange, isLoading, error };
 }
 
 export default useValidation;

@@ -30,6 +30,7 @@ import PersistLogin from "./helpers/persistLogin";
 import LogoutPage from "./pages/LogoutPage";
 import ContactPage from "./pages/ContactPage";
 import AccessFirst from "./helpers/accessFirst";
+import { Toaster } from "./components/ui/toaster";
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
@@ -63,6 +64,7 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
           <Route path="*" element={<ErrorPage />} />
         </Routes>
         <Footer />
+        <Toaster />
       </AuthProvider>
     </BrowserRouter>
   </React.StrictMode>

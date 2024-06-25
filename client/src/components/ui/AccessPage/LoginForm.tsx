@@ -19,7 +19,6 @@ interface LoginFormProps {}
 
 const LoginForm: FunctionComponent<LoginFormProps> = () => {
   const location = useLocation();
-  const [errMsg, setErrMsg] = useState<string>();
   const { persist, setPersist, setAuth } = useAuth();
   const [userInput, setUserInput] = useState<userInputType>({
     email: "",
@@ -52,7 +51,7 @@ const LoginForm: FunctionComponent<LoginFormProps> = () => {
     } catch (error) {
       if (error instanceof AxiosError) {
         if (!error?.response) {
-          setErrMsg("No server response.");
+          console.log("No server response.");
         } else {
           console.log(error);
         }
@@ -71,35 +70,26 @@ const LoginForm: FunctionComponent<LoginFormProps> = () => {
   }, [persist]);
   return (
     <>
-      <p className="text-slate-500"> Login to your account.</p>
+      <p className="text-slate-500 mb-4"> Login to your account.</p>
       <Input
-        handleChange={(value: string) =>
-          handleInputChange(value, "email")
-        }
+        handleChange={(value: string) => handleInputChange(value, "email")}
         guiName="Email"
         name="email"
-        className="mt-12"
         preset="email"
-        isLoading={false}
       />
       <Input
-        handleChange={(value: string) =>
-          handleInputChange(value, "password")
-        }
+        handleChange={(value: string) => handleInputChange(value, "password")}
         preset="username"
         guiName="Password"
         name="password"
         type="password"
-        className="mt-8"
-        
-        isLoading={false}
       />
       <div className="flex flex-row items-center">
         <Checkbox
           id="persist"
           onClick={togglePersist}
           checked={persist as boolean}
-          className="my-8"
+          className="my-4"
         />
         <p className="ml-2">Trust this device.</p>
       </div>

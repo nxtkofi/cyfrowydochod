@@ -35,44 +35,41 @@ const RegisterForm: FunctionComponent<RegisterFormProps> = () => {
   };
   return (
     <>
-      <p className="text-slate-500">Register new account.</p>
+      <p className="text-slate-500 mb-4">Register new account.</p>
       <Input
         handleChange={(value: string) => handleInputChange(value, "email")}
-        value={userInput.email}
         guiName="Email"
         name="email"
-        className="mt-12"
+
         preset="email"
-        isLoading={false}
+        
       />
       <Input
         handleChange={(value: string) => handleInputChange(value, "username")}
-        value={userInput.username}
         guiName="Username"
         name="username"
-        className="my-8"
+
         preset="username"
-        isLoading={false}
+        
       />
       <Input
         handleChange={(value: string) => handleInputChange(value, "password")}
-        value={userInput.password}
         guiName="Password"
         name="password"
+
         type="password"
-        className="my-8"
         preset="password"
-        isLoading={false}
+        
       />
       <Input
         handleChange={(value: string) =>
           handleInputChange(value, "repeatPassword")
         }
+
         guiName="Repeat password"
         type="password"
-        className="my-8"
         preset="password"
-        isLoading={false}
+        
       />
       <div className="flex flex-row items-center  justify-between">
         <Button onClick={handleRegister}>Register</Button>

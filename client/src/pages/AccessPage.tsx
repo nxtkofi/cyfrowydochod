@@ -2,11 +2,51 @@ import LoginForm from "@/components/ui/AccessPage/LoginForm";
 import RegisterForm from "@/components/ui/AccessPage/RegisterForm";
 import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import axios from "@/helpers/axios";
+import useAuth from "@/hooks/useAuth";
+import { RoleType } from "@/types";
+import { jwtDecode } from "jwt-decode";
 import { FunctionComponent } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
 
 interface AccessPageProps {}
-
+const LOGIN_PASS = {
+  email: "test@email.com",
+  password: "test",
+};
+const ADMIN_PASS = {
+  email: "admin@gmail.com",
+  password: "admin",
+};
 const AccessPage: FunctionComponent<AccessPageProps> = () => {
+  const ogNavigation = useNavigate();
+  const location = useLocation();
+
+  const from = location.state?.from?.pathname || "/";
+
+  const { setAuth } = useAuth();
+  const login = async (role: RoleType) => {
+    const response = await axios.post(
+      `/api/auth/login`,
+      role === "commonUser" ? LOGIN_PASS : ADMIN_PASS,
+      { withCredentials: true }
+    );
+    const accessToken = (await response!).data;
+    const decodedToken = jwtDecode(accessToken);
+    const userId = decodedToken.sub;
+    const userRole = decodedToken.role;
+    const userEmail = decodedToken.email;
+    if (userId != null && userRole != null && userEmail != null) {
+      setAuth({
+        id: userId,
+        email: userEmail,
+        accessToken: accessToken,
+        username: decodedToken.username,
+        role: userRole,
+      });
+      ogNavigation(from, { replace: true });
+    }
+  };
   return (
     <>
       <div className="flex flex-col h-screen">
@@ -23,21 +63,27 @@ const AccessPage: FunctionComponent<AccessPageProps> = () => {
               className="border border-slate-200 p-6 rounded-lg w-screen"
               value="Login"
             >
-              <LoginForm />
+              <div className="flex flex-col">
+                <LoginForm />
+              </div>
             </TabsContent>
             <TabsContent
               className="border border-slate-200 p-6 rounded-lg w-screen"
               value="Register"
             >
-              <RegisterForm />
+              <div className="flex flex-col">
+                <RegisterForm />
+              </div>
             </TabsContent>
           </Tabs>
         </div>
         <div className="p-8 flex flex-col self-center text-center">
           <p>Dev options:</p>
-          <Button className="my-4">Login as user</Button>
-          <Button>Login as admin</Button>
-          </div>
+          <Button className="my-4" onClick={() => login("commonUser")}>
+            Login as user
+          </Button>
+          <Button onClick={() => login("admin")}>Login as admin</Button>
+        </div>
       </div>
     </>
   );

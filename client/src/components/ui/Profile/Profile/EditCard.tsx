@@ -11,11 +11,12 @@ import {
 import EditForm from "./EditForm";
 import { handleInputChangeType, UserUpdateModel } from "@/types";
 import useAuth from "@/hooks/useAuth";
-import useAxiosPrivate from "@/hooks/useAxiosPrivate";
+import useApi from "@/hooks/useApi";
 
 function EditCard() {
-  const axiosPrivate = useAxiosPrivate();
-  const { auth } = useAuth();
+  const [error, setError] = useState();
+  const { sendReq, apiLoading } = useApi();
+  const { auth, setAuth } = useAuth();
   let initialInput: UserUpdateModel = {
     email: auth!.email,
     username: auth!.username,
@@ -31,16 +32,20 @@ function EditCard() {
   };
 
   const handleUserUpdate = async (user: UserUpdateModel) => {
-    console.log(auth);
-    try {
-      const response = await axiosPrivate.put(
-        `/api/users/id/${auth?.id}`,
-        user
-      );
-      console.log("Updating user... Response:", await response.data);
-    } catch (error) {
-      console.log("Error occurred", error);
+    const { response, err } = await sendReq(
+      `/api/users/id/${auth?.id}`,
+      "PUT",
+      { title: "Success!", description: "Data update success!" },
+      user
+    );
+    if (response?.status === 200) {
+      setAuth((prev) => {
+        if (prev) {
+          return { ...prev, email: user.email };
+        }
+      });
     }
+    setError(err);
   };
 
   return (

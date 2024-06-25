@@ -4,6 +4,14 @@ import dynamicIconImports from "lucide-react/dynamicIconImports";
 export interface IconProps extends Omit<LucideProps, "ref"> {
   name: keyof typeof dynamicIconImports;
 }
+export type BillingType = {
+  fullName: string;
+  streetName: string;
+  houseNumber: string;
+  zipCode: string;
+  city: string;
+  addressId?: string;
+};
 export type UserModel = {
   id: string;
   username: string;
@@ -95,11 +103,12 @@ export type MenuOptionsType = {
 };
 
 export type TicketType = {
+  id?: string;
   email?: string;
   subject: string;
   orderId?: string;
   messages: MessageType[];
-  creationDate: number;
+  date: number;
   status:
     | "Waiting for support response"
     | "Waiting for user response"
@@ -107,6 +116,8 @@ export type TicketType = {
 };
 
 export type MessageType = {
-  sender: "User" | "Support";
+  id:string,
+  createdAt:Date;
+  sender: "User" | "Support" | "Admin";
   message: string;
 };
