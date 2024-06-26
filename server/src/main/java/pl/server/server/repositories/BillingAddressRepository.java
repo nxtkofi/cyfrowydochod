@@ -6,5 +6,4 @@ import org.springframework.stereotype.Repository;
 import pl.server.server.models.BillingAddress;
 @Repository
 public interface BillingAddressRepository extends JpaRepository<BillingAddress,String> {
-    BillingAddress findByUserId(String userId);
 }

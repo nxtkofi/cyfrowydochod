@@ -30,8 +30,6 @@ public class BookService {
     public List<Book> getAllBooks() {
         try {
             return bookRepository.findAll();
-        } catch (ResourceNotFoundException notFoundException) {
-            throw notFoundException;
         }catch (Exception ex) {
             System.err.println(ex);
             throw new RuntimeException(ex);
@@ -41,21 +39,6 @@ public class BookService {
     public Book getBookById(String id) {
         try {
             return bookRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Book not found with id: " + id));
-        } catch (ResourceNotFoundException notFoundException) {
-            throw notFoundException;
-        }catch (Exception ex) {
-            System.err.println(ex);
-            throw new RuntimeException(ex);
-        }
-    }
-
-    public Book getBookByTitle(String title) {
-        try {
-            Book book = bookRepository.findByTitle(title);
-            if (book == null) {
-                throw new ResourceNotFoundException("Book not found with title: " + title);
-            }
-            return book;
         } catch (ResourceNotFoundException notFoundException) {
             throw notFoundException;
         }catch (Exception ex) {
@@ -102,9 +85,6 @@ public class BookService {
 
         bookRepository.save(newBook);
         return newBook;
-        } catch (ResourceNotFoundException notFoundException) {
-            System.err.println(notFoundException);
-            throw notFoundException;
         }catch (Exception ex) {
             System.err.println(ex);
             throw new RuntimeException(ex);
@@ -113,13 +93,14 @@ public class BookService {
 
     public Book updateBook(String bookId, Book updatedBook) {
         try {
-            Book bookToUpdate = bookRepository.findById(bookId).orElseThrow(() -> new ResourceNotFoundException("Book not found with id: " + bookId));
+            Book bookToUpdate = bookRepository.findById(bookId)
+                    .orElseThrow(() -> new ResourceNotFoundException("Book not found with id: " + bookId));
             BeanUtils.copyProperties(updatedBook, bookToUpdate, "id");
 
             return bookRepository.save(bookToUpdate);
         } catch (ResourceNotFoundException notFoundException) {
             throw notFoundException;
-        }catch (Exception ex) {
+        } catch (Exception ex) {
             System.err.println(ex);
             throw new RuntimeException(ex);
         }
@@ -127,11 +108,12 @@ public class BookService {
 
     public void deleteBook(String bookId) {
         try {
-            Book book = bookRepository.findById(bookId).orElseThrow(() -> new ResourceNotFoundException("Book not found"));
+            Book book = bookRepository.findById(bookId)
+                    .orElseThrow(() -> new ResourceNotFoundException("Book not found"));
             bookRepository.delete(book);
         } catch (ResourceNotFoundException notFoundException) {
             throw notFoundException;
-        }catch (Exception ex) {
+        } catch (Exception ex) {
             System.err.println(ex);
             throw new RuntimeException(ex);
         }

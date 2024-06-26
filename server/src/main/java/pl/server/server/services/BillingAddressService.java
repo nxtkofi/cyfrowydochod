@@ -3,7 +3,6 @@ package pl.server.server.services;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import pl.server.server.helpers.ResourceNotFoundException;
 import pl.server.server.models.BillingAddress;
@@ -23,35 +22,31 @@ public class BillingAddressService {
 
     public BillingAddress getBillingAddress(String userId){
         try {
-            return billingAddressRepository.findByUserId(userId);
-        } catch (ResourceNotFoundException ex) {
+            return billingAddressRepository.findById(userId)
+                    .orElseThrow(() -> new ResourceNotFoundException("User not found"));
+        } catch (ResourceNotFoundException notFoundException) {
+            throw notFoundException;
+        }catch (Exception ex) {
             System.err.println(ex);
-            ResponseEntity.notFound().build();
-            return null;
-        }catch (Exception ex2) {
-            System.err.println(ex2);
-            ResponseEntity.badRequest().build();
-            return null;
+            throw new RuntimeException(ex);
         }
     }
 
     @Transactional
-    public BillingAddress createBillingAddress(String userId,BillingAddress newBillingAddress) {
+    public BillingAddress createBillingAddress(String userId, BillingAddress newBillingAddress) {
         try {
-            User user = userRepository.findById(userId).orElseThrow(() -> new ResourceNotFoundException("User not found"));
+            User user = userRepository.findById(userId)
+                    .orElseThrow(() -> new ResourceNotFoundException("User not found"));
 
             user.setBillingAddress(newBillingAddress);
             newBillingAddress.setUser(user);
             userRepository.save(user);
             return billingAddressRepository.save(newBillingAddress);
-        } catch (ResourceNotFoundException ex) {
+        } catch (ResourceNotFoundException notFoundException) {
+            throw notFoundException;
+        }catch (Exception ex) {
             System.err.println(ex);
-            ResponseEntity.notFound().build();
-            return null;
-        }catch (Exception ex2) {
-            System.err.println(ex2);
-            ResponseEntity.badRequest().build();
-            return null;
+            throw new RuntimeException(ex);
         }
     }
 
@@ -68,14 +63,11 @@ public class BillingAddressService {
             BeanUtils.copyProperties(newBillingAddress,addressToUpdate,"addressId");
             billingAddressRepository.save(addressToUpdate);
             return addressToUpdate;
-        } catch (ResourceNotFoundException ex) {
+        } catch (ResourceNotFoundException notFoundException) {
+            throw notFoundException;
+        }catch (Exception ex) {
             System.err.println(ex);
-            ResponseEntity.notFound().build();
-            return null;
-        }catch (Exception ex2) {
-            System.err.println(ex2);
-            ResponseEntity.badRequest().build();
-            return null;
+            throw new RuntimeException(ex);
         }
     }
 
@@ -92,12 +84,11 @@ public class BillingAddressService {
             }
 
             billingAddressRepository.delete(billingAddress);
-        } catch (ResourceNotFoundException ex) {
+        } catch (ResourceNotFoundException notFoundException) {
+            throw notFoundException;
+        }catch (Exception ex) {
             System.err.println(ex);
-            ResponseEntity.notFound().build();
-        }catch (Exception ex2) {
-            System.err.println(ex2);
-            ResponseEntity.badRequest().build();
+            throw new RuntimeException(ex);
         }
     }
 }

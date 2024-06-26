@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import pl.server.server.helpers.ResourceNotFoundException;
 import pl.server.server.models.BillingAddress;
 import pl.server.server.services.BillingAddressService;
 
@@ -22,25 +23,53 @@ public class BillingAddressController {
 
     @GetMapping("/{userId}")
     public ResponseEntity<BillingAddress> getBillingAddress(@PathVariable String userId) {
-        BillingAddress billingAddress = billingAddressService.getBillingAddress(userId);
-        return ResponseEntity.ok(billingAddress);
+        try {
+            BillingAddress billingAddress = billingAddressService.getBillingAddress(userId);
+            return ResponseEntity.ok(billingAddress);
+        } catch (ResourceNotFoundException notFoundException) {
+            return ResponseEntity.notFound().build();
+        } catch (RuntimeException exception) {
+            System.err.println(exception);
+            return ResponseEntity.badRequest().build();
+        }
     }
 
     @PostMapping("/{userId}")
     public ResponseEntity<BillingAddress> addBillingAddress(@PathVariable String userId, @RequestBody BillingAddress billingAddress) {
-        billingAddressService.createBillingAddress(userId,billingAddress);
-        return ResponseEntity.ok(billingAddress);
+        try {
+            billingAddressService.createBillingAddress(userId,billingAddress);
+            return ResponseEntity.ok(billingAddress);
+        } catch (ResourceNotFoundException notFoundException) {
+            return ResponseEntity.notFound().build();
+        } catch (RuntimeException exception) {
+            System.err.println(exception);
+            return ResponseEntity.badRequest().build();
+        }
     }
 
     @PutMapping("/{userId}")
     public ResponseEntity<BillingAddress> updateBillingAddress(@PathVariable String userId, @RequestBody BillingAddress billingAddress) {
-        billingAddressService.updateBillingAddress(userId,billingAddress);
-        return ResponseEntity.ok(billingAddress);
+        try {
+            billingAddressService.updateBillingAddress(userId,billingAddress);
+            return ResponseEntity.ok(billingAddress);
+        } catch (ResourceNotFoundException notFoundException) {
+            return ResponseEntity.notFound().build();
+        } catch (RuntimeException exception) {
+            System.err.println(exception);
+            return ResponseEntity.badRequest().build();
+        }
     }
 
     @DeleteMapping("/{billingAddressId}")
     public ResponseEntity<BillingAddress> deleteBillingAddress(@PathVariable String billingAddressId) {
-        billingAddressService.deleteBillingAddress(billingAddressId);
-        return ResponseEntity.ok().build();
+        try {
+            billingAddressService.deleteBillingAddress(billingAddressId);
+            return ResponseEntity.ok().build();
+        } catch (ResourceNotFoundException notFoundException) {
+            return ResponseEntity.notFound().build();
+        } catch (RuntimeException exception) {
+            System.err.println(exception);
+            return ResponseEntity.badRequest().build();
+        }
     }
 }
