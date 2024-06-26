@@ -10,7 +10,8 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import pl.server.server.models.BillingAddress;
+import pl.server.server.DTOs.BookRequest;
+import pl.server.server.helpers.ResourceNotFoundException;
 import pl.server.server.models.Book;
 import pl.server.server.repositories.BookRepository;
 import pl.server.server.services.BookService;
@@ -33,20 +34,23 @@ public class BookController {
         return ResponseEntity.ok(book);
     }
 
-    @GetMapping("/all")
+    @GetMapping
     public ResponseEntity<List<Book>> getAllBooks() {
         List<Book> books = bookService.getAllBooks();
         return ResponseEntity.ok(books);
     }
 
-    @GetMapping("/{title}")
-    public ResponseEntity<Book> findByTitle(@PathVariable String title) {
-        return ResponseEntity.ok(bookService.getBookByTitle(title));
-    }
-
     @PostMapping
-    public ResponseEntity<Book> createBook(@RequestBody Book book) {
-        return ResponseEntity.ok(bookService.createBook(book));
+    public ResponseEntity<Book> createBook(@RequestBody BookRequest request) {
+        try {
+            Book newBook = bookService.createBook(request);
+            return ResponseEntity.ok(newBook);
+        } catch (ResourceNotFoundException notFoundException) {
+            return ResponseEntity.notFound().build();
+        } catch (RuntimeException exception) {
+            System.err.println(exception);
+            return ResponseEntity.badRequest().build();
+        }
     }
 
     @PutMapping("/{id}")
@@ -54,8 +58,13 @@ public class BookController {
        return ResponseEntity.ok(bookService.updateBook(id,updatedBook));
     }
 
+    @PostMapping("/books/{bookId}/iconElements/{iconElementId}")
+    public ResponseEntity<?> addIconElementToBook(@PathVariable String bookId, @PathVariable String iconElementId) {
+        return ResponseEntity.ok(bookService.addIconElementToBook(bookId, iconElementId));
+    }
+
     @DeleteMapping("/{id}")
-    public ResponseEntity<BillingAddress> deleteBook(@PathVariable String id) {
+    public ResponseEntity<?> deleteBook(@PathVariable String id) {
         bookService.deleteBook(id);
         return ResponseEntity.ok().build();
     }
