@@ -3,22 +3,28 @@ import AccountAction from "@/components/ui/Profile/Settings/AccountAction";
 import ThemeSwitch from "@/components/ui/Profile/Settings/ThemeSwitch";
 import { Checkbox } from "@/components/ui/checkbox";
 import Wrapper from "@/components/ui/wrapper";
+import useApi from "@/hooks/useApi";
 import useAuth from "@/hooks/useAuth";
 import { UserPreferences } from "@/types";
-import { useState } from "react";
-
+import { useEffect, useState } from "react";
 
 function SettingsPage() {
+  const { sendReq, apiLoading } = useApi();
   const { auth } = useAuth();
   const [checks, setChecks] = useState<UserPreferences>(auth!.preferences);
 
-  const handleClick = (name: keyof UserPreferences) => (event: React.MouseEvent<HTMLButtonElement>) => {
-    setChecks((prev) => {
-      if (!prev) return prev;
-      return { ...prev, [name]: !prev[name] }; // Toggle the specific property
-    });
-  };
-     
+  const handleClick =
+    (name: keyof UserPreferences) =>
+    async (event: React.MouseEvent<HTMLButtonElement>) => {
+      setChecks((prev) => {
+        if (!prev) return prev;
+        return { ...prev, [name]: !prev[name] }; // Toggle the specific property
+      });
+    };
+  useEffect(() => {
+    sendReq(`/api/userpreferences/${auth!.id}/preferences`, "PUT", checks);
+  }, [checks,setChecks]);
+
   return (
     <Wrapper>
       <ProfileHeader
@@ -39,7 +45,6 @@ function SettingsPage() {
           <Checkbox
             onClick={handleClick("getPriceDrops")}
             checked={checks.getPriceDrops}
-            
           />{" "}
           <p className="ml-2">I want to be notified about price drops</p>
         </div>
@@ -55,7 +60,7 @@ function SettingsPage() {
           </p>
         </div>
       </div>
-      <ThemeSwitch />
+      <ThemeSwitch checks={checks} handleClick={handleClick} />
       <div className="mt-16">
         <AccountAction />
       </div>

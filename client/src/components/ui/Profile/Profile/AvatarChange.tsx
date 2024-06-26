@@ -1,27 +1,29 @@
 import useApi from "@/hooks/useApi";
 import useAuth from "@/hooks/useAuth";
-import { avatarType } from "@/types";
+import { AuthType, avatarType } from "@/types";
 import {  useEffect, useState } from "react";
 import { AvatarDialog } from "./AvatarDialog";
 
-function AvatarChange() {
+interface IAvatarChange {
+  auth:AuthType
+}
+
+function AvatarChange({auth}:IAvatarChange) {
   const { sendReq, apiLoading } = useApi();
-  const { auth, setAuth } = useAuth();
-  const [avatarImg, setAvatarImg] = useState<avatarType>(
-    auth!.preferences.avatar
-  );
+  const { setAuth } = useAuth();  
+  const [avatarImg, setAvatarImg] = useState<avatarType | undefined>(auth.preferences.avatar);
 
   useEffect(() => {
     const changeAvatar = async () => {
-      if (avatarImg !== auth!.preferences.avatar) {
+      if (avatarImg !== auth!.preferences.avatar && auth!.preferences.avatar) {
         const avatarChangeBody = {
           avatar: avatarImg,
         };
         await sendReq(
           `/api/userpreferences/${auth!.id}/preferences`,
           "PUT",
+          avatarChangeBody,
           { description: "Avatar changed successfully!" },
-          avatarChangeBody
         );
         setAuth((prev) => {
           if (!prev) return prev; // Handle the case where prev is undefined

@@ -20,7 +20,7 @@ function ProfilePage() {
         <EditCard />
       </div>
       <div>
-        <AvatarChange />
+        <AvatarChange auth={auth!} />
       </div>
     </>
   );

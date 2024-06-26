@@ -13,7 +13,6 @@ import {
 } from "../../alert-dialog";
 import { SetStateAction, useState } from "react";
 import { Button } from "../../button";
-import AvatarChange from "./AvatarChange";
 
 interface IAvatarDialogProps {
   avatarImg: avatarType;
