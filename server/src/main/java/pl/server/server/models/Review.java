@@ -1,5 +1,6 @@
 package pl.server.server.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
@@ -21,8 +22,7 @@ import org.hibernate.annotations.UuidGenerator;
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
-@EqualsAndHashCode
-public class Reviews {
+public class Review {
 
     @Id
     @UuidGenerator
@@ -36,7 +36,7 @@ public class Reviews {
     @Column(nullable = false,columnDefinition = "TEXT")
     private String text;
 
-    public Reviews(String username, Long purchaseDate, String avatarType, String text) {
+    public Review(String username, Long purchaseDate, String avatarType, String text) {
         this.username = username;
         this.purchaseDate = purchaseDate;
         this.avatarType = avatarType;
@@ -45,5 +45,13 @@ public class Reviews {
 
     @ManyToOne
     @JoinColumn(name = "user_id")
+    @JsonIgnore
+    @EqualsAndHashCode.Exclude
     User user;
+
+    @ManyToOne
+    @JoinColumn(name = "book_id")
+    @JsonIgnore
+    @EqualsAndHashCode.Exclude
+    Book book;
 }

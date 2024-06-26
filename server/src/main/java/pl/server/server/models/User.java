@@ -66,20 +66,20 @@ public class User implements UserDetails {
 
     private String role;
 
-    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)//require tests
+    @OneToMany(mappedBy = "user", fetch = FetchType.EAGER, cascade = CascadeType.ALL)//require tests
     private Set<Order> orders;
 
     @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
     private UserPreferences userPreferences;
 
-    @OneToOne(mappedBy = "user", fetch = FetchType.LAZY)//require tests
+    @OneToOne(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.ALL)//require tests
     private BillingAddress billingAddress;
 
-    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY) //require tests
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.ALL) //require tests
     private Set<Ticket> tickets;
 
-    @OneToMany(mappedBy = "user",fetch = FetchType.LAZY) //require tests
-    private Set<Reviews> reviews;
+    @OneToMany(mappedBy = "user",fetch = FetchType.LAZY, cascade = CascadeType.ALL) //require tests
+    private Set<Review> reviews;
 
     public User(String username, String email, String password) {
         this.username = username;

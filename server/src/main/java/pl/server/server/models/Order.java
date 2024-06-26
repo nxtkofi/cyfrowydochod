@@ -5,10 +5,15 @@ import java.util.List;
 import java.util.Objects;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import org.hibernate.annotations.UuidGenerator;
-
-import jakarta.persistence.*;
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
+import jakarta.persistence.Id;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.Table;
 import lombok.*;
+import org.hibernate.annotations.UuidGenerator;
 
 @Entity
 @Table(name = "orders")
@@ -24,24 +29,13 @@ public class Order {
     private LocalDateTime orderDate;
     private double amount;
 
-    @OneToMany(mappedBy = "order")
+    @OneToMany(mappedBy = "order", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JsonIgnore
-    private List<OrderItem> orderItem;
+    private List<OrderItem> orderItems;
 
     @ManyToOne
     @ToString.Exclude
     @JsonIgnore
+    @EqualsAndHashCode.Exclude
     private User user;
-
-    @Override
-    public boolean equals(Object object) {
-        if (this == object) return true;
-        if (!(object instanceof Order order)) return false;
-        return Objects.equals(idOrder, order.idOrder);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hashCode(idOrder);
-    }
 }
