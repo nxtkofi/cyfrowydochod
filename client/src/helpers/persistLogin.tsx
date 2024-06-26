@@ -7,6 +7,7 @@ function PersistLogin() {
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const { auth, persist } = useAuth();
   const refresh = useRefreshToken();
+  
   useEffect(() => {
     let isMounted = true;
     const verifyRefreshToken = async () => {
@@ -18,8 +19,8 @@ function PersistLogin() {
         isMounted && setIsLoading(false);
       }
     };
+    !auth?.preferences.avatar ? verifyRefreshToken() : setIsLoading(false);
     console.log(auth);
-    !auth?.accessToken ? verifyRefreshToken() : setIsLoading(false);
     return () => {
       isMounted = false;
     };

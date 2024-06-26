@@ -9,16 +9,20 @@ import { Input } from "../input";
 import axios from "@/helpers/axios";
 import useNavigation from "@/hooks/useNavigation";
 import { userInputType, handleInputChangeType } from "@/types";
+import { useToast } from "../use-toast";
 
 interface RegisterFormProps {}
 
 const RegisterForm: FunctionComponent<RegisterFormProps> = () => {
+  const [registrationStatus, setRegistrationStatus] = useState<
+    "success" | "error" | null
+  >(null);
+  const { toast } = useToast();
   const navigate = useNavigation();
   const [userInput, setUserInput] = useState<userInputType>({
     username: "",
     email: "",
     password: "",
-    avatar: "axolotl",
   });
 
   const handleInputChange: handleInputChangeType = (inputValue, inputName) => {
@@ -30,8 +34,20 @@ const RegisterForm: FunctionComponent<RegisterFormProps> = () => {
     try {
       const response = axios.post("/api/auth/register", userInput);
       console.log((await response).data);
+      if ((await response).status == 201) {
+        toast({
+          title: "Registered",
+          description: "Registration succesfull. You can now log in!",
+        });
+        setRegistrationStatus("success");
+      }
     } catch (error) {
-      console.log(error);
+      toast({
+        title: "Error",
+        description: "Couldn't register. Try again later.",
+        variant: "destructive",
+      });
+      setRegistrationStatus("error");
     }
   };
   return (
@@ -65,7 +81,13 @@ const RegisterForm: FunctionComponent<RegisterFormProps> = () => {
         preset="password"
       />
       <div className="flex flex-row items-center  justify-between">
-        <Button onClick={handleRegister}>Register</Button>
+        <Button onClick={handleRegister}>
+          {registrationStatus==null
+            ? "Register"
+            : registrationStatus == "success"
+            ? "Success!" 
+            : "Try again"}
+        </Button>
         <HoverCard>
           <HoverCardTrigger className="w-1/2">
             <div

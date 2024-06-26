@@ -9,12 +9,8 @@ function AdminPage() {
   const [tickets, setTickets] = useState(undefined);
   useEffect(() => {
     const getTickets = async () => {
-      const { response, err } = await sendReq("/api/tickets", "GET", {
-        title: "Tickets fetched",
-        description: "Succesfully found all tickets in database.",
-      });
+      const { response, err } = await sendReq("/api/tickets", "GET");
       setTickets((await response!).data);
-      
     };
     getTickets();
   }, []);

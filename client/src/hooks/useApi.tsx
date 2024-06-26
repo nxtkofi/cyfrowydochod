@@ -19,9 +19,9 @@ function useApi() {
   async function sendReq(
     url: string,
     method: HttpMethod,
+    reqBody?: any,
     successToast?: ToastType,
-    reqBody?: any
-  ) {
+) {
     setApiLoading(true);
     let response;
     let err;

@@ -8,7 +8,7 @@ function AccessFirst() {
   const { auth } = useAuth();
   const navigate = useNavigation();
 
-  return auth?.role == ("commonUser" || "admin") ? (
+  return auth?.role == "commonUser" ||auth?.role=="admin" ? (
     <Outlet />
   ) : (
     <>

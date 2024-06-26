@@ -19,11 +19,11 @@ function TicketCard({ ticket }: TicketCardProps) {
     const { response, err } = await sendReq(
       `/api/tickets/${ticket.id}`,
       "PUT",
+      answer,
       {
         title: "Message sent!",
         description: "Your message was submitted successfully",
       },
-      answer
     );
     console.log({ response, err });
   };

@@ -39,9 +39,9 @@ const Footer: FunctionComponent = () => {
   return (
     <div className="flex flex-col bg-slate-900 p-8 w-screen">
       <Wrapper>
-        <div className="flex flex-col md:flex-row md:mb-32">
+        <div className="flex flex-col md:flex-row md:justify-between md:mb-32">
           <CompanyAddress />
-          <img src="/MainLogoWhite.png" className="w-2/3 self-center my-8" alt="" />
+          <img src="/MainLogoWhite.png" className="w-2/3 self-center my-8 md:w-1/3" alt="" />
         </div>
         <NavigationOptions />
         <div className="flex flex-row mt-4">

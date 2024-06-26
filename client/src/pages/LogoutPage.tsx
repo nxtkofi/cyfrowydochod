@@ -6,8 +6,11 @@ function LogoutPage() {
   const logout = useLogout();
   const navigate = useNavigation();
   useEffect(() => {
-    logout();
-    navigate({ path: "/" });
+    const tryLogout = async ()=>{
+      await logout();
+      navigate({ path: "/" });
+    }
+    tryLogout()
   }, []);
   return <></>;
 }

@@ -35,8 +35,8 @@ function EditCard() {
     const { response, err } = await sendReq(
       `/api/users/id/${auth?.id}`,
       "PUT",
+      user,
       { title: "Success!", description: "Data update success!" },
-      user
     );
     if (response?.status === 200) {
       setAuth((prev) => {

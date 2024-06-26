@@ -30,8 +30,8 @@ function ContactUsForm({ accessDisabled }: ContactUsFormProps) {
       await sendReq(
       "/api/tickets",
       "POST",
+      ticket,
       { title: "Success!", description: "Ticket submission successfull!" },
-      ticket
     );
   };
 

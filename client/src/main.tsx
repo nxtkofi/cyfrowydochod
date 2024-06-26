@@ -30,14 +30,14 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
       <AuthProvider>
         <Navbar />
         <Routes>
-          <Route path="/" element={<HomePage />} />
-          <Route path="/access" element={<AccessPage />} />
-          <Route element={<AccessFirst />}>
-            <Route path="/contact" element={<ContactPage />} />
-          </Route>
-          <Route path="/offer" element={<OfferPage />} />
-          <Route path="/offer/book/:id" element={<BookPage />} />
           <Route element={<PersistLogin />}>
+            <Route path="/" element={<HomePage />} />
+            <Route path="/access" element={<AccessPage />} />
+            <Route element={<AccessFirst />}>
+              <Route path="/contact" element={<ContactPage />} />
+            </Route>
+            <Route path="/offer" element={<OfferPage />} />
+            <Route path="/offer/book/:id" element={<BookPage />} />
             <Route
               element={<RequireAuth allowedRoles={["commonUser", "admin"]} />}
             >
@@ -45,10 +45,11 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
               <Route path="/profile/billing" element={<BillingPage />} />
               <Route path="/profile/orders" element={<OrdersPage />} />
               <Route path="/profile/settings" element={<SettingsPage />} />
+            </Route>
+
+            <Route element={<RequireAuth allowedRoles={["commonUser"]} />}>
               <Route path="/profile/support" element={<SupportPage />} />
             </Route>
-          </Route>
-          <Route element={<PersistLogin />}>
             <Route element={<RequireAuth allowedRoles={["admin"]} />}>
               <Route path="/profile/adminpanel" element={<AdminPage />} />
             </Route>

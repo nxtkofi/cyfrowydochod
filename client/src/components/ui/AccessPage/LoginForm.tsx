@@ -14,10 +14,12 @@ import useNavigation from "@/hooks/useNavigation";
 import { useLocation, useNavigate } from "react-router-dom";
 import { Checkbox } from "../checkbox";
 import { handleInputChangeType, userInputType } from "@/types";
+import { useToast } from "../use-toast";
 
 interface LoginFormProps {}
 
 const LoginForm: FunctionComponent<LoginFormProps> = () => {
+  const { toast } = useToast();
   const location = useLocation();
   const { persist, setPersist, setAuth } = useAuth();
   const [userInput, setUserInput] = useState<userInputType>({
@@ -33,6 +35,7 @@ const LoginForm: FunctionComponent<LoginFormProps> = () => {
       const response = axios.post("/api/auth/login", userInput, {
         withCredentials: true,
       });
+
       const accessToken = (await response).data;
       const decodedToken = jwtDecode(accessToken);
       const userId = decodedToken.sub;
@@ -53,11 +56,16 @@ const LoginForm: FunctionComponent<LoginFormProps> = () => {
         ogNavigation(from, { replace: true });
       }
     } catch (error) {
+        
       if (error instanceof AxiosError) {
+        if(error.response!.status===401){
+          toast({ title: "Error", description: error.response!.data,variant:"destructive" });
+
+        }
         if (!error?.response) {
           console.log("No server response.");
         } else {
-          console.log(error);
+          
         }
       }
     }

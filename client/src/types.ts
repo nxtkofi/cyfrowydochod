@@ -46,6 +46,7 @@ export type ValidationRulesType = {
   min: number;
   max: number;
   spaceAllowed: boolean;
+  mustBeEmail:boolean;
   mustContain: {
     bigLetter: boolean;
     number: boolean;
@@ -77,13 +78,13 @@ export type HeroBookType = {
 export type avatarType =
   | "axolotl"
   | "koza"
-  | "moneymouse"
+  | "mouse"
   | "panda"
   | "rooster"
   | "snake"
   | "turtle"
   | "kodi"
-  | "shark";
+  | "octopus";
 
 export type TrustReviewsType = {
   username: string;
@@ -127,7 +128,7 @@ export type UserPreferences = {
   getNewsLetter: boolean;
   getPriceDrops: boolean;
   getTrendingEbooks: boolean;
-  theme: "light" | "dark";
+  darkMode:boolean;
 };
 export type UserPreferencesChecks = {
   getNewsLetter: boolean;

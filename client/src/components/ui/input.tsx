@@ -4,24 +4,26 @@ import { ValidationPresetsType, ValidationRulesType } from "@/types";
 
 const ValidationPresets: ValidationPresetsType = {
   email: {
-    min: 5,
-    max: 30,
+    min: 4,
+    max: 40,
     spaceAllowed: false, // Spacje nie są dozwolone w emailach
     mustContain: {
       bigLetter: false,
       number: false,
       specialChar: true,
     },
+    mustBeEmail: true
   },
   username: {
     min: 4,
-    max: 15,
+    max: 20,
     spaceAllowed: false, // Spacje nie są dozwolone w nazwach użytkowników
     mustContain: {
       bigLetter: false,
       number: false,
       specialChar: false,
     },
+    mustBeEmail: false
   },
   password: {
     min: 8,
@@ -32,6 +34,7 @@ const ValidationPresets: ValidationPresetsType = {
       number: true,
       specialChar: true,
     },
+    mustBeEmail: false
   },
 };
 

@@ -3,6 +3,7 @@ import {
   MenuOptionsType,
   TicketType,
   TrustReviewsType,
+  avatarType,
 } from "./types";
 
 export const commonUserCredentials = {
@@ -168,7 +169,7 @@ export const MenuOptions: MenuOptionsType[] = [
     path: "/profile/adminpanel",
   },
   {
-    access: ["commonUser", "admin"],
+    access: ["commonUser"],
     optionName: "Support",
     iconName: "smile",
     path: "/profile/support",
@@ -201,14 +202,14 @@ export const Tickets: TicketType[] = [
     status: "Waiting for support response",
   },
 ];
-export const avatars: string[] = [
+export const avatars: avatarType[] = [
   "axolotl",
   "koza",
-  "moneymouse",
+  "mouse",
   "panda",
   "rooster",
   "snake",
   "turtle",
   "kodi",
-  "shark",
+  "octopus",
 ];

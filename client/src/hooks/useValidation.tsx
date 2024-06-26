@@ -1,5 +1,6 @@
 import { ValidationRulesType } from "@/types";
 import { useEffect, useState } from "react";
+import validator from 'validator';
 
 function useValidation(
   initialValue: string,
@@ -16,8 +17,9 @@ function useValidation(
   const validate = (text: string) => {
     setIsLoading(true);
     setError(null);
-
-    if (text.length < validationRules.min) {
+    if(validationRules.mustBeEmail){
+    validator.isEmail(text);
+    } else if (text.length < validationRules.min) {
       setError("Value is too short!");
     } else if (text.length > validationRules.max) {
       setError("Value is too long!");

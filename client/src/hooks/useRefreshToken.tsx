@@ -16,9 +16,10 @@ function useRefreshToken() {
         ...prev,
         accessToken: newAccessToken,
         role: decoded.role,
-        id: decoded.sub,
+        id: decoded.sub as string,
         username: decoded.username,
         email: decoded.email,
+        preferences:decoded.userPrefs,
       };
     });
 

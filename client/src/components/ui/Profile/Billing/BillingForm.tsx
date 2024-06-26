@@ -59,8 +59,8 @@ function BillingForm({ setBilling, billing }: BillingFormProps) {
     const { response } = await sendReq(
       `api/billingAddresses/${auth?.id}`,
       "PUT",
+      input,
       { title: "Success!", description: "Address updated successfully!" },
-      input
     );
     if (response?.status === 200) {
       setBilling(input!);
@@ -71,8 +71,8 @@ function BillingForm({ setBilling, billing }: BillingFormProps) {
     const { response } = await sendReq(
       `/api/billingAddresses/${auth?.id}`,
       "POST",
+      input,
       { title: "Success!", description: "Address added successfully!" },
-      input
     );
     if (response?.status === 200) {
       setBilling(input);
