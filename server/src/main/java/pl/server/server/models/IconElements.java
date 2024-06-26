@@ -1,8 +1,18 @@
 package pl.server.server.models;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import jakarta.persistence.*;
-import lombok.*;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.Table;
+import lombok.AllArgsConstructor;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
 import org.hibernate.annotations.UuidGenerator;
 
 @Entity
@@ -26,6 +36,8 @@ public class IconElements {
     @ManyToOne
     @JsonIgnore
     @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    @JoinColumn(name = "book_id")
     private Book book;
 
     public IconElements(String iconProps, String text) {
