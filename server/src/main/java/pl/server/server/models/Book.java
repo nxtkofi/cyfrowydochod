@@ -2,6 +2,7 @@ package pl.server.server.models;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -69,15 +70,15 @@ public class Book {
         this.checksTableTextBlack = checksTableTextBlack;
     }
     @JsonIgnore
-    @OneToMany(mappedBy = "book",fetch = FetchType.LAZY) //require tests
+    @OneToMany(mappedBy = "book",fetch = FetchType.EAGER, cascade = CascadeType.ALL) //require tests
     private Set<OrderItem> orderItems;
 
     @OneToMany(mappedBy = "book",fetch = FetchType.LAZY) //require tests
     private Set<IconElements> iconElements;
 
-    @OneToMany(mappedBy = "book",fetch = FetchType.LAZY) //require tests
+    @OneToMany(mappedBy = "book",fetch = FetchType.EAGER) //require tests
     private Set<BookFeatures> bookFeatures;
 
     @OneToMany(fetch = FetchType.LAZY) //require tests
-    private Set<Reviews> reviews;
+    private Set<Review> reviews;
 }
