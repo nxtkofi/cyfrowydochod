@@ -6,6 +6,4 @@ import pl.server.server.models.BookFeatures;
 
 @Repository
 public interface BookFeaturesRepository extends JpaRepository<BookFeatures,String> {
-
-    BookFeatures findByBookIdAndFeatureId(String bookId, String featureId);
 }
