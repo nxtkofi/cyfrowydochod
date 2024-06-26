@@ -19,6 +19,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.Email;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -43,6 +44,7 @@ public class User implements UserDetails {
     private String username;
 
     @Column(nullable = false)
+    @Email
     private String email;
 
     @Column(nullable = false)
@@ -53,7 +55,6 @@ public class User implements UserDetails {
 
     private String role;
 
-    private String avatar;
 
     @OneToMany(mappedBy = "user", fetch = FetchType.EAGER)
     private Set<Order> orders;

@@ -5,6 +5,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 
@@ -15,6 +16,7 @@ import pl.server.server.models.User;
 import pl.server.server.repositories.UserRepository;
 
 @Service
+@Validated 
 public class UserService {
 
     @Autowired
@@ -34,28 +36,29 @@ public class UserService {
     
     public ResponseEntity<String> updateUser(@PathVariable String id, @RequestBody User updatedUser,
             HttpServletRequest request) {
-        
+    
+        String newUserEmail = updatedUser.getEmail();
         Boolean passwordsMatch = authService.verifyUserPassword(updatedUser.getPassword(),id);
         if (passwordsMatch.equals(false)) {
-            System.out.println("Passwords don't match:" + updatedUser.getPassword());
             return ResponseEntity.status(HttpStatus.FORBIDDEN).body("Wrong password!");
         }
         String token = jwtAuth.extractTokenFromHeader(request);
-        if (token == null || !jwtAuth.getUserIdFromToken(token).equals(id)) {
-            System.out.println(
-                    "token:" + token + "\n jwtAuthTokenId:" + jwtAuth.getUserIdFromToken(token) + "\nYourId:" + id);
+        if (token == null || !jwtAuth.getUserIdFromToken(token).equals(id)) {            
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Unauthorized");
         }
-        if (userRepository.findByEmail(updatedUser.getEmail()) != null) {
-            System.out.println("User found in db:" + userRepository.findByEmail(updatedUser.getEmail()));
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Bad request");
+        String ogUserEmail = userRepository.findById(id).orElse(null).getEmail();
+        if(ogUserEmail==null){
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("User not found");
         }
-        System.out.println("User found in db:" + userRepository.findByEmail(updatedUser.getEmail()));
-        System.out.println("Email of updatedUser" + updatedUser.getEmail());
-        User userToUpdate = userRepository.findById(id)
+
+        if ( !ogUserEmail.equals(newUserEmail) && userRepository.findByEmail(newUserEmail) != null) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Email taken!");
+        }
+
+        User userToUpdate = userRepository.findById(id) 
                 .orElseThrow(() -> new ResourceNotFoundException("User not found with id: " + id));
         userToUpdate.setUserPreferences(updatedUser.getUserPreferences());                
-        userToUpdate.setEmail(updatedUser.getEmail());
+        userToUpdate.setEmail(newUserEmail);
         userToUpdate.setUsername(updatedUser.getUsername());
         userToUpdate.setPassword(passwordEncoder.encode(updatedUser.getPassword()));
         userRepository.save(userToUpdate);

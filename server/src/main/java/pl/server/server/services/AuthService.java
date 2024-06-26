@@ -107,7 +107,7 @@ public class AuthService {
             userPrefs.setGetNewsLetter(false);
             userPrefs.setGetPriceDrops(false);
             userPrefs.setGetTrendingEbooks(false);
-            userPrefs.setTheme("light");
+            userPrefs.setDarkMode(false);
             userPrefs.setUser(user); // Set user in preferences
     
             user.setUserPreferences(userPrefs);

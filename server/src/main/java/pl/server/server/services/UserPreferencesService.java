@@ -30,7 +30,7 @@ public class UserPreferencesService {
             oldPreferences.setGetNewsLetter(newUserPreferences.isGetNewsLetter());
             oldPreferences.setGetPriceDrops(newUserPreferences.isGetPriceDrops());
             oldPreferences.setGetTrendingEbooks(newUserPreferences.isGetTrendingEbooks());
-            oldPreferences.setTheme(newUserPreferences.getTheme());
+            oldPreferences.setDarkMode(newUserPreferences.isDarkMode());
     
             userPreferencesRepository.save(oldPreferences);
     

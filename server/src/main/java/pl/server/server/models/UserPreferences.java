@@ -26,7 +26,7 @@ public class UserPreferences {
     private boolean getNewsLetter;
     private boolean getPriceDrops;
     private boolean getTrendingEbooks;
-    private String theme;
+    private boolean darkMode;
 
     @OneToOne
     @JoinColumn(name = "user_id")
