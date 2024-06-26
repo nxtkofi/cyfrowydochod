@@ -34,7 +34,6 @@ public class Ticket {
     private String email;
     private String status;
     private long date;
-    private String keyWord;
     private Boolean isUser;
 
 @OneToMany(mappedBy = "ticket", cascade = CascadeType.ALL, orphanRemoval = true)
@@ -44,11 +43,10 @@ public class Ticket {
     @JoinColumn(name = "user_id")
     private User user;
 
-    public Ticket(String subject, String status, String keyWord) {
+    public Ticket(String subject, String status) {
         this.subject = subject;
         this.status = status;
         this.date = System.currentTimeMillis();
-        this.keyWord = keyWord;
         this.isUser = true;
     }
 }
