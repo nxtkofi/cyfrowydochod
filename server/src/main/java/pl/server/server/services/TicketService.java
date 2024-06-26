@@ -29,7 +29,7 @@ public class TicketService {
             ticket.setDate(System.currentTimeMillis()) ;
             ticket.setStatus(Status.WAITING_FOR_SUPP_RES);
 
-            User user = userRepository.findByEmail(ticket.getEmail());
+            User user = userRepository.findByEmail(ticket.getEmail()).orElseThrow(null);
             if(user == null){
                 return ResponseEntity.notFound().build();
             }
@@ -58,7 +58,6 @@ public class TicketService {
     public Ticket updateTicket(String id, Ticket UpdateTicket) {
         Ticket ticket = ticketRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException(""));
         ticket.setMessages(UpdateTicket.getMessages());
-        ticket.setKeyWord(UpdateTicket.getKeyWord());
         return ticketRepository.save(ticket);
     }
 

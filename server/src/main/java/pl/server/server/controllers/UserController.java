@@ -5,12 +5,17 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
-import org.springframework.web.bind.annotation.*;
 
 import jakarta.servlet.http.HttpServletRequest;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 import pl.server.server.helpers.ResourceNotFoundException;
 import pl.server.server.models.User;
-import pl.server.server.repositories.UserRepository;
 import pl.server.server.services.UserService;
 
 @RestController
@@ -19,37 +24,54 @@ import pl.server.server.services.UserService;
 public class UserController {
 
     @Autowired
-    private UserRepository userRepository;
-    @Autowired
     UserService userService;
 
     @GetMapping("/{id}")
-    public User getUserById(@PathVariable String id) {
-        return userRepository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("User not found with id: " + id));
+    public ResponseEntity<User> getUserById(@PathVariable String id) {
+        try {
+            User user = userService.getUserById(id);
+            return ResponseEntity.ok(user);
+        } catch (ResourceNotFoundException notFoundException) {
+            return ResponseEntity.notFound().build();
+        } catch (RuntimeException exception) {
+            System.err.println(exception);
+            return ResponseEntity.badRequest().build();
+        }
+
     }
 
     @GetMapping
-    public List<User> getAllUsers() {
-        return userRepository.findAll();
+    public ResponseEntity<List<User>> getAllUsers() {
+        try {
+            return ResponseEntity.ok(userService.getAllUsers());
+        } catch (RuntimeException exception) {
+            System.err.println(exception);
+            return ResponseEntity.badRequest().build();
+        }
     }
 
     @GetMapping("/username/{username}")
-    public List<User> findByUsername(@PathVariable String username) { // Optional
-        List<User> users = userRepository.findByUsername(username);
-        if (users == null || users.isEmpty()) {
-            throw new ResourceNotFoundException("User not found with username: " + username);
+    public ResponseEntity<List<User>> getUserByUsername(@PathVariable String username) { // Optional
+        try {
+            List<User> allUsers = userService.getUsersByUsername(username);
+            return ResponseEntity.ok(allUsers);
+        } catch (RuntimeException exception) {
+            System.err.println(exception);
+            return ResponseEntity.badRequest().build();
         }
-        return users;
     }
 
     @GetMapping("/email/{email}")
-    public User findByEmail(@PathVariable String email) {
-        User user = userRepository.findByEmail(email);
-        if (user == null) {
-            throw new ResourceNotFoundException("User not found with email: " + email);
+    public ResponseEntity<User> getUserByEmail(@PathVariable String email) {
+        try {
+            User user = userService.getUserByEmail(email);
+            return ResponseEntity.ok(user);
+        } catch (ResourceNotFoundException notFoundException) {
+            return ResponseEntity.notFound().build();
+        } catch (RuntimeException exception) {
+            System.err.println(exception);
+            return ResponseEntity.badRequest().build();
         }
-        return user;
     }
 
     @PutMapping("/id/{id}")
@@ -61,10 +83,16 @@ public class UserController {
     }
 
     @DeleteMapping("/id/{id}")
-    public void deleteUser(@PathVariable String id) {
-        User user = userRepository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("User not found with id: " + id));
-        userRepository.delete(user);
+    public ResponseEntity<?> deleteUser(@PathVariable String id, @RequestBody String password) {
+        try {
+            userService.deleteUser(id, password);
+            return ResponseEntity.ok().build();
+        } catch (ResourceNotFoundException notFoundException) {
+            return ResponseEntity.notFound().build();
+        } catch (RuntimeException exception) {
+            System.err.println(exception);
+            return ResponseEntity.badRequest().build();
+        }
     }
 
 }

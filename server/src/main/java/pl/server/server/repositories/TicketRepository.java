@@ -9,6 +9,5 @@ import pl.server.server.models.Ticket;
 
 @Repository
 public interface TicketRepository extends JpaRepository<Ticket,String> {
-    List<Ticket> findByKeyWord(String KeyWord);
     List<Ticket> findByDate(long localDateTime);
 }

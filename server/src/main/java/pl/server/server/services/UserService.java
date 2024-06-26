@@ -14,6 +14,9 @@ import pl.server.server.helpers.ResourceNotFoundException;
 import pl.server.server.models.User;
 import pl.server.server.repositories.UserRepository;
 
+import java.nio.file.AccessDeniedException;
+import java.util.List;
+
 @Service
 public class UserService {
 
@@ -25,6 +28,49 @@ public class UserService {
     PasswordEncoder passwordEncoder;
     @Autowired
     JwtAuthenticationFilter jwtAuth;
+
+    public User getUserById(String userId) {
+        try {
+            return userRepository.findById(userId)
+                    .orElseThrow(() -> new ResourceNotFoundException("User not found"));
+
+        } catch (ResourceNotFoundException notFoundException) {
+            throw notFoundException;
+        }catch (Exception ex) {
+            System.err.println(ex);
+            throw new RuntimeException(ex);
+        }
+    }
+
+    public List<User> getAllUsers() {
+        try {
+            return userRepository.findAll();
+        }catch (Exception ex) {
+            System.err.println(ex);
+            throw new RuntimeException(ex);
+        }
+    }
+
+    public List<User> getUsersByUsername(String username) {
+        try {
+            return userRepository.findByUsername(username);
+        }catch (Exception ex) {
+            System.err.println(ex);
+            throw new RuntimeException(ex);
+        }
+    }
+
+    public User getUserByEmail(String email) {
+        try {
+            return userRepository.findByEmail(email)
+                    .orElseThrow(() -> new ResourceNotFoundException("User not found"));
+        } catch (ResourceNotFoundException notFoundException) {
+            throw notFoundException;
+        }catch (Exception ex) {
+            System.err.println(ex);
+            throw new RuntimeException(ex);
+        }
+    }
 
     public User registerUser(User user) {
         String encodedSaltedPassword = passwordEncoder.encode(user.getPassword());
@@ -60,4 +106,21 @@ public class UserService {
         return ResponseEntity.status(HttpStatus.OK).body("User updated!");
     }
 
+    public void deleteUser(String userId, String password) {
+        try {
+            User user = userRepository.findById(userId)
+                    .orElseThrow(() -> new ResourceNotFoundException("User not found"));
+
+            if (!user.getPassword().equals(password)) {
+                throw new AccessDeniedException("Wrong password");
+            }
+
+            userRepository.delete(user);
+        } catch (ResourceNotFoundException notFoundException) {
+            throw notFoundException;
+        }catch (Exception ex) {
+            System.err.println(ex);
+            throw new RuntimeException(ex);
+        }
+    }
 }
