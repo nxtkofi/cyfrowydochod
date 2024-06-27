@@ -98,9 +98,6 @@ public class AuthService {
             if (userRepository.findByEmail(newUserEmail) != null) {
                 return ResponseEntity.status(HttpStatus.CONFLICT).body("Email is taken!");
             }
-            if (!userRepository.findByUsername(newUserUsername).isEmpty()) {
-                return ResponseEntity.status(HttpStatus.CONFLICT).body("Username is taken!");
-            }
             User user = new User();
             UserPreferences userPrefs = new UserPreferences();
             userPrefs.setAvatar("axolotl");

@@ -5,8 +5,10 @@ import Wrapper from "@/components/ui/wrapper";
 import { BookType } from "@/types";
 import ColorPicker, { useColorPicker } from "react-best-gradient-color-picker";
 import { ChangeEvent, useEffect, useState } from "react";
+import useApi from "@/hooks/useApi";
 
 function AddBookPage() {
+  const {sendReq,err} = useApi();
   const [color, setColor] = useState(
     "linear-gradient(90deg, rgba(96,93,93,1) 0%, rgba(255,255,255,1) 100%)"
   );
@@ -34,7 +36,15 @@ function AddBookPage() {
       },
     ],
   });
-  useEffect(() => {
+  const submitBook = async()=>{
+
+    try {
+      await sendReq('/api/books',"POST",input,{title:"Book submitted.",description:"Book submitted successfully!"})
+    } catch (error) {
+      
+    }
+  } 
+   useEffect(() => {
     console.log(color);
   }, [color, setColor]);
   const handleShowColorPicker = () => {
@@ -82,10 +92,13 @@ function AddBookPage() {
         />
         <div className="flex-col">
           <div className="flex flex-row">
-          <Button className="relative" onClick={handleShowColorPicker}>
-            Set gradient
-          </Button>
-            <div style={{background:color}} className="w-10 h-10 ml-12 rounded-sm"></div>
+            <Button className="relative" onClick={handleShowColorPicker}>
+              Set gradient
+            </Button>
+            <div
+              style={{ background: color }}
+              className="w-10 h-10 ml-12 rounded-sm"
+            ></div>
           </div>
           {showColorPicker && (
             <div className="p-4 bg-[#FBFBFB] rounded-md absolute z-30">
@@ -93,31 +106,29 @@ function AddBookPage() {
             </div>
           )}
           <div className="text-sm my-2">{color}</div>
-          
         </div>
-        
+
         <Input
-        
           onChange={handleChange("imagePath")}
           value={input?.imagePath}
           guiName="Image path url"
         />
         <Input
-        accessDisabled={true}
+          accessDisabled={true}
           // onChange={handleChange("iconGradient")}
           // value={input?.iconGradient}
           guiName="Icon gradient"
         />
 
-        <div className="flex flex-col">          
+        <div className="flex flex-col">
           <Input
-          accessDisabled={true}
+            accessDisabled={true}
             // onChange={handleChange("icon")}
             // value={input?.iconElements}
             guiName="Icon"
           />
           <Input
-          accessDisabled={true}
+            accessDisabled={true}
             // onChange={handleChange("text")}
             // value={input?.text}
             guiName="Icon text"
@@ -127,7 +138,7 @@ function AddBookPage() {
         <div className="flex flex-col">
           {/* <p>Book features</p> */}
           <Input
-          accessDisabled={true}
+            accessDisabled={true}
             // onChange={handleChange("features")}
             // value={input?.features}
             guiName="Feature"
@@ -159,12 +170,12 @@ function AddBookPage() {
           className="my-2"
         />
         <Textarea
-          placeholder="longDescription"
+          placeholder="semiLongDescription"
           value={input?.semiLongDescription}
-          onChange={handleChange("longDescription")}
+          onChange={handleChange("semiLongDescription")}
           className="my-2"
         />
-        <Button>Add eBook</Button>
+        <Button onClick={submitBook}>Add eBook</Button>
       </div>
     </Wrapper>
   );
