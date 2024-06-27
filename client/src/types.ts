@@ -54,9 +54,9 @@ export type ValidationRulesType = {
   };
 };
 export type RoleType = "commonUser" | "admin";
-export type HeroBookType = {
+export type BookType = {
   semiLongDescription: string;
-  bookId: string;
+  bookId?: string;
   shortDescription: string;
   subTitle: string;
   firstText: string;
@@ -74,7 +74,6 @@ export type HeroBookType = {
     text: string;
   }[];
 };
-
 export type avatarType =
   | "axolotl"
   | "koza"

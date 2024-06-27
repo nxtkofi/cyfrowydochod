@@ -15,7 +15,7 @@ import SettingsPage from "./pages/Profile/SettingsPage";
 import ProfilePage from "./pages/Profile/ProfilePage";
 import { AuthProvider } from "./context/AuthProvider";
 import RequireAuth from "./helpers/requireAuth";
-import AdminPage from "./pages/Profile/AdminPage";
+import AdminPage from "./pages/Profile/Admin/AdminPage";
 import UnauthPage from "./pages/UnauthPage";
 import BookPage from "./pages/BookPage";
 import PersistLogin from "./helpers/persistLogin";
@@ -23,6 +23,7 @@ import LogoutPage from "./pages/LogoutPage";
 import ContactPage from "./pages/ContactPage";
 import AccessFirst from "./helpers/accessFirst";
 import { Toaster } from "./components/ui/toaster";
+import AddBookPage from "./pages/Profile/Admin/AddBookPage";
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
@@ -52,6 +53,7 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
             </Route>
             <Route element={<RequireAuth allowedRoles={["admin"]} />}>
               <Route path="/profile/adminpanel" element={<AdminPage />} />
+              <Route path="/profile/addbook" element={<AddBookPage />} />
             </Route>
           </Route>
           <Route path="/unauthorized" element={<UnauthPage />} />

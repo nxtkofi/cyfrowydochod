@@ -1,5 +1,5 @@
 import {
-  HeroBookType,
+  BookType,
   MenuOptionsType,
   TicketType,
   TrustReviewsType,
@@ -11,7 +11,7 @@ export const commonUserCredentials = {
   password: "test123",
 };
 
-export const HeroBooks: HeroBookType[] = [
+export const HeroBooks: BookType[] = [
   {
     semiLongDescription:
       "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec sed tincidunt augue, vitae pharetra purus. Ut semper orci justo, sit amet consequat neque iaculis eu. Nam elit sapien, finibus sit amet libero in, varius luctus lorem. Donec lobortis, est consequat facilisis vestibulum, nulla dolor tincidunt nibh, nec fringilla eros justo et ligula. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Etiam at sapien ornare, tempus quam eu at sapien ornare, tempus quam eu",
@@ -169,6 +169,12 @@ export const MenuOptions: MenuOptionsType[] = [
     path: "/profile/adminpanel",
   },
   {
+    access: ["admin"],
+    optionName: "Add eBook",
+    path: "/profile/addbook",
+    iconName: "book-plus"
+  },
+  {
     access: ["commonUser"],
     optionName: "Support",
     iconName: "smile",
@@ -189,13 +195,15 @@ export const Tickets: TicketType[] = [
     messages: [
       {
         sender: "User",
-        message:
-          "Hi I'm having trouble with Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam sit amet vestibulum mi, eget efficitur odio. Sed porta turpis quis erat gravida, eu lobortis ligula tincidunt. Phasellus iaculis lorem in eros maximus, ac ullamcorper nibh sagittis. Mauris ultricies malesuada sem, eget malesuada diam scelerisque imperdiet. Quisque at vehicula mi. Fusce ac fringilla libero. Sed sed auctor felis. Vestibulum elementum lorem magna, eget aliquam orci dapibus ut. Cras ultrices justo a eleifend blandit. Praesent quis nunc et magna ultricies sodales. Quisque sapien diam, fringilla vel egestas at, congue ut massa. Quisque justo nulla, pretium placerat elementum a, semper nec mauris. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. ",
+        message: "Hi I'm having trouble with Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam sit amet vestibulum mi, eget efficitur odio. Sed porta turpis quis erat gravida, eu lobortis ligula tincidunt. Phasellus iaculis lorem in eros maximus, ac ullamcorper nibh sagittis. Mauris ultricies malesuada sem, eget malesuada diam scelerisque imperdiet. Quisque at vehicula mi. Fusce ac fringilla libero. Sed sed auctor felis. Vestibulum elementum lorem magna, eget aliquam orci dapibus ut. Cras ultrices justo a eleifend blandit. Praesent quis nunc et magna ultricies sodales. Quisque sapien diam, fringilla vel egestas at, congue ut massa. Quisque justo nulla, pretium placerat elementum a, semper nec mauris. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. ",
+        id: "",
+        createdAt: undefined
       },
       {
         sender: "Support",
-        message:
-          "Hi! Thanks for reaching out. Could you please describe your problem in details so that I could proceed with helping you? This ticket will automatically close within 4 days of no response. ",
+        message: "Hi! Thanks for reaching out. Could you please describe your problem in details so that I could proceed with helping you? This ticket will automatically close within 4 days of no response. ",
+        id: "",
+        createdAt: undefined
       },
     ],
     creationDate: 1718726671,

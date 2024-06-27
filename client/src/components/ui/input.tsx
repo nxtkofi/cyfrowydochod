@@ -1,6 +1,10 @@
 import * as React from "react";
 import useValidation from "@/hooks/useValidation";
 import { ValidationPresetsType, ValidationRulesType } from "@/types";
+import { InfoIcon } from "lucide-react";
+import { ChangeEvent, useState } from "react";
+import { Button } from "./button";
+import { HoverCard } from "./hover-card";
 
 const ValidationPresets: ValidationPresetsType = {
   email: {
@@ -12,7 +16,7 @@ const ValidationPresets: ValidationPresetsType = {
       number: false,
       specialChar: true,
     },
-    mustBeEmail: true
+    mustBeEmail: true,
   },
   username: {
     min: 4,
@@ -23,7 +27,7 @@ const ValidationPresets: ValidationPresetsType = {
       number: false,
       specialChar: false,
     },
-    mustBeEmail: false
+    mustBeEmail: false,
   },
   password: {
     min: 8,
@@ -34,7 +38,7 @@ const ValidationPresets: ValidationPresetsType = {
       number: true,
       specialChar: true,
     },
-    mustBeEmail: false
+    mustBeEmail: false,
   },
 };
 
@@ -44,17 +48,35 @@ export interface InputProps
   accessDisabled?: boolean;
   preset?: keyof ValidationPresetsType;
   validationRules?: ValidationRulesType;
-  handleChange: (value: string) => void; // Zmieniono nazwę z onChange na handleChange
+  handleChange?: (value: string) => void; // Zmieniono nazwę z onChange na handleChange
   initValue?: string;
+  infoElement?: infoElementType;
 }
 
 const getValidationRules = (
-  presetName: keyof ValidationPresetsType,
+  presetName?: keyof ValidationPresetsType,
   customRules?: ValidationRulesType
 ): ValidationRulesType => {
-  return customRules || ValidationPresets[presetName];
+  if (customRules) return customRules;
+  if (presetName && ValidationPresets[presetName])
+    return ValidationPresets[presetName];
+  return {
+    min: 1,
+    max: 10000,
+    spaceAllowed: true,
+    mustContain: {
+      bigLetter: false,
+      number: false,
+      specialChar: false,
+    },
+    mustBeEmail: false,
+  };
 };
 
+type infoElementType = {
+  title?: string;
+  description: string;
+};
 const Input = React.forwardRef<HTMLInputElement, InputProps>(
   ({
     className,
@@ -65,11 +87,11 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
     preset,
     handleChange,
     initValue,
+    infoElement,
     ...props
   }) => {
-    const rules = preset
-      ? getValidationRules(preset, validationRules)
-      : (validationRules as ValidationRulesType);
+    const [showHoverCard, setShowHoverCard] = useState<boolean>();
+    const rules = getValidationRules(preset, validationRules);
     const { value, error, handleUseNavigationChange } = useValidation(
       initValue ? initValue : "",
       rules
@@ -80,8 +102,13 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
         inputRef.current.focus();
       }
     };
+    const handleHoverCard = () => {
+      setShowHoverCard((prev) => !prev);
+    };
     const handleChanges = (e: React.ChangeEvent<HTMLInputElement>) => {
-      handleChange(e.target.value);
+      if (handleChange) {
+        handleChange(e.target.value);
+      }
       handleUseNavigationChange(e.target.value);
     };
     return (
@@ -115,6 +142,20 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
         </span>
         {value.length > 0 && error && (
           <span className="text-red-400 absolute right-0 z-10">{error}</span>
+        )}
+        {infoElement && (
+          <div
+            className="bg-white absolute right-2 top-2"
+            onClick={handleHoverCard}
+          >
+            <InfoIcon className=" text-slate-400" />
+            {showHoverCard && (
+              <div className="absolute z-10 bg-white rounded-md border-slate-200 border p-4 w-40 right-0 flex flex-col">
+                <p className="font-semibold">{infoElement?.title}</p>
+                <p className="text-sm w-fit">{infoElement?.description}</p>
+              </div>
+            )}
+          </div>
         )}
       </div>
     );
