@@ -41,7 +41,7 @@ public class TicketController {
         if (ticket == null) {
             return ResponseEntity.notFound().build();
         }
-        
+
         return ResponseEntity.ok(ticket);
     }
 
@@ -52,7 +52,7 @@ public class TicketController {
     }
 
     @PostMapping
-    public ResponseEntity createTicket(@RequestBody TicketRequest TicketRequest, HttpServletRequest request){        
+    public ResponseEntity createTicket(@RequestBody TicketRequest TicketRequest, HttpServletRequest request){
         return ticketService.createTicket(TicketRequest,request);
     }
 }

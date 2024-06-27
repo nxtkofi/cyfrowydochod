@@ -1,10 +1,19 @@
 package pl.server.server.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+import pl.server.server.DTOs.BookRequest;
 import pl.server.server.helpers.ResourceNotFoundException;
 import pl.server.server.models.Book;
-import pl.server.server.repositories.BookRepository;
+import pl.server.server.services.BookService;
 
 import java.util.List;
 
@@ -13,44 +22,66 @@ import java.util.List;
 public class BookController {
 
     @Autowired
-    private BookRepository bookRepository;
+    BookService bookService;
 
     @GetMapping("/{id}")
-    public Book getBookById(@PathVariable String id) {
-        return bookRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Book not found with id: " + id));
+    public ResponseEntity<Book> getBookById(@PathVariable String id) {
+        try {
+            Book book = bookService.getBookById(id);
+            return ResponseEntity.ok(book);
+        } catch (ResourceNotFoundException notFoundException) {
+            return ResponseEntity.notFound().build();
+        } catch (RuntimeException exception) {
+            System.err.println(exception);
+            return ResponseEntity.badRequest().build();
+        }
     }
 
     @GetMapping
-    public List<Book> getAllBooks() {
-        return bookRepository.findAll();
-    }
-
-    @GetMapping("/{title}")
-    public List<Book> findByTitle(@PathVariable String title) {
-        List<Book> books = bookRepository.findByTitle(title);
-        if (books == null || books.isEmpty()) {
-            throw new ResourceNotFoundException("Book not found with title: " + title);
+    public ResponseEntity<List<Book>> getAllBooks() {
+        try {
+            List<Book> books = bookService.getAllBooks();
+            return ResponseEntity.ok(books);
+        } catch (RuntimeException exception) {
+            System.err.println(exception);
+            return ResponseEntity.badRequest().build();
         }
-        return books;
     }
 
     @PostMapping
-    public Book createBook(@RequestBody Book book) {
-        return bookRepository.save(book);
+    public ResponseEntity<Book> createBook(@RequestBody BookRequest request) {
+        try {
+            Book newBook = bookService.createBook(request);
+            return ResponseEntity.ok(newBook);
+        } catch (RuntimeException exception) {
+            System.err.println(exception);
+            return ResponseEntity.badRequest().build();
+        }
     }
 
-    @PutMapping("{id}")
-    public Book updateBook(@PathVariable String id, @RequestBody Book updatedBook) {
-        Book bookToUpdate = bookRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Book not found with id: " + id));
-        bookToUpdate.setTitle(updatedBook.getTitle());
-        bookToUpdate.setTopic(updatedBook.getTopic());
-        bookToUpdate.setAuthor(updatedBook.getAuthor());
-        return bookRepository.save(updatedBook);
+    @PutMapping("/{id}")
+    public ResponseEntity<Book> updateBook(@PathVariable String id, @RequestBody Book updatedBook) { //To update
+        try {
+            Book book = bookService.updateBook(id,updatedBook);
+            return ResponseEntity.ok(book);
+        } catch (ResourceNotFoundException notFoundException) {
+            return ResponseEntity.notFound().build();
+        } catch (RuntimeException exception) {
+            System.err.println(exception);
+            return ResponseEntity.badRequest().build();
+        }
     }
 
-    @DeleteMapping("{id}")
-    public void deleteUser(@PathVariable String id) {
-        Book book = bookRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Book not found with id: " + id));
-        bookRepository.delete(book);
+    @DeleteMapping("/{id}")
+    public ResponseEntity<?> deleteBook(@PathVariable String id) {
+        try {
+            bookService.deleteBook(id);
+            return ResponseEntity.ok().build();
+        } catch (ResourceNotFoundException notFoundException) {
+            return ResponseEntity.notFound().build();
+        } catch (RuntimeException exception) {
+            System.err.println(exception);
+            return ResponseEntity.badRequest().build();
+        }
     }
 }
