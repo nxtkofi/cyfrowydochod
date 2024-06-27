@@ -23,7 +23,6 @@ import pl.server.server.DTOs.LoginRequest;
 import pl.server.server.DTOs.RegistrationRequest;
 import pl.server.server.config.JwtAuthenticationFilter;
 import pl.server.server.config.JwtTokenProvider;
-import pl.server.server.helpers.ResourceNotFoundException;
 import pl.server.server.models.User;
 import pl.server.server.models.UserPreferences;
 import pl.server.server.models.UserRole;
