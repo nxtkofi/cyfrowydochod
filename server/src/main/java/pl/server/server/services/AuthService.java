@@ -54,7 +54,7 @@ public class AuthService {
                             loginRequest.getEmail(),
                             loginRequest.getPassword()));
             UserDetails userDetails = (UserDetails) authentication.getPrincipal();
-            User user = (User) userRepository.findByEmail(loginRequest.getEmail()).orElseThrow(() -> new ResourceNotFoundException("User not found"));
+            User user = (User) userRepository.findByEmail(loginRequest.getEmail());
             String username = user.getUsername();
             UserPreferences userPrefs = userPreferencesRepository.findByUserId(user.getId());
             String jwtAccessToken = tokenProvider.generateToken(userDetails, user.getId(), user.getEmail(),
