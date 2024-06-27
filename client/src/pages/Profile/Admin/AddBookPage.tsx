@@ -2,33 +2,35 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import Wrapper from "@/components/ui/wrapper";
-import { BookType } from "@/types";
+import { BookType, BookTypeRequest } from "@/types";
 import ColorPicker, { useColorPicker } from "react-best-gradient-color-picker";
 import { ChangeEvent, useEffect, useState } from "react";
 import useApi from "@/hooks/useApi";
 
 function AddBookPage() {
-  const {sendReq,err} = useApi();
+  const { sendReq, err } = useApi();
   const [color, setColor] = useState(
     "linear-gradient(90deg, rgba(96,93,93,1) 0%, rgba(255,255,255,1) 100%)"
   );
   const [showColorPicker, setShowColorPicker] = useState(false);
   const { setSolid, setGradient } = useColorPicker(color, setColor);
   const [iconElements, setIconElements] = useState();
-  const [input, setInput] = useState<BookType>({
-    semiLongDescription: "",
-    shortDescription: "",
-    subTitle: "",
-    firstText: "",
-    secondText: "",
-    title: "",
-    author: "",
-    price: 0,
+  const [input, setInput] = useState<BookTypeRequest>({
+    newBook: {
+      semiLongDescription: "",
+      shortDescription: "",
+      subTitle: "",
+      firstText: "",
+      secondText: "",
+      title: "",
+      author: "",
+      price: 0,
+      gradient: "",
+      imagePath: "",
+      emojiGradientUrl: "",
+      checksTableTextBlack: false,
+    },
     bookFeatures: [""],
-    gradient: "",
-    imagePath: "",
-    emojiGradientUrl: "",
-    checksTableTextBlack: false,
     iconElements: [
       {
         icon: "target",
@@ -36,15 +38,15 @@ function AddBookPage() {
       },
     ],
   });
-  const submitBook = async()=>{
-
+  const submitBook = async () => {
     try {
-      await sendReq('/api/books',"POST",input,{title:"Book submitted.",description:"Book submitted successfully!"})
-    } catch (error) {
-      
-    }
-  } 
-   useEffect(() => {
+      await sendReq("/api/books", "POST", input, {
+        title: "Book submitted.",
+        description: "Book submitted successfully!",
+      });
+    } catch (error) {}
+  };
+  useEffect(() => {
     console.log(color);
   }, [color, setColor]);
   const handleShowColorPicker = () => {
@@ -54,9 +56,13 @@ function AddBookPage() {
     (name: string) =>
     (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
       const value = e.target.value;
-      setInput((prev) => {
-        return { ...prev, [name]: value };
-      });
+      setInput((prev) => ({
+        ...prev,
+        newBook: {
+          ...prev.newBook,
+          [name]: name === "price" ? parseFloat(value) : value,
+        },
+      }));
       console.log(input);
     };
 

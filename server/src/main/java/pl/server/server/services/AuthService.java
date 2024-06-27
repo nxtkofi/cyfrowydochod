@@ -53,7 +53,7 @@ public class AuthService {
                             loginRequest.getEmail(),
                             loginRequest.getPassword()));
             UserDetails userDetails = (UserDetails) authentication.getPrincipal();
-            User user = (User) userRepository.findByEmail(loginRequest.getEmail());
+            User user = (User) userRepository.findByEmail(loginRequest.getEmail()).orElseThrow(null);
             String username = user.getUsername();
             UserPreferences userPrefs = userPreferencesRepository.findByUserId(user.getId());
             String jwtAccessToken = tokenProvider.generateToken(userDetails, user.getId(), user.getEmail(),
@@ -95,9 +95,11 @@ public class AuthService {
             @Email
             String newUserEmail = registrationRequest.getEmail();
     
-            if (userRepository.findByEmail(newUserEmail) != null) {
+            if (userRepository.findByEmail(newUserEmail).isPresent()) {
+                System.out.println(userRepository.findByEmail(newUserEmail));
                 return ResponseEntity.status(HttpStatus.CONFLICT).body("Email is taken!");
             }
+            
             User user = new User();
             UserPreferences userPrefs = new UserPreferences();
             userPrefs.setAvatar("axolotl");

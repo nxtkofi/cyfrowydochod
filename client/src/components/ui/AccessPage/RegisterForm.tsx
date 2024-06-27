@@ -28,6 +28,7 @@ const RegisterForm: FunctionComponent<RegisterFormProps> = () => {
   const handleInputChange: handleInputChangeType = (inputValue, inputName) => {
     const value = inputValue.trim();
     setUserInput((prev) => ({ ...prev, [inputName]: value }));
+    console.log(userInput);
   };
 
   const handleRegister = async () => {
@@ -82,10 +83,10 @@ const RegisterForm: FunctionComponent<RegisterFormProps> = () => {
       />
       <div className="flex flex-row items-center  justify-between">
         <Button onClick={handleRegister}>
-          {registrationStatus==null
+          {registrationStatus == null
             ? "Register"
             : registrationStatus == "success"
-            ? "Success!" 
+            ? "Success!"
             : "Try again"}
         </Button>
         <HoverCard>

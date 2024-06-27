@@ -46,7 +46,7 @@ export type ValidationRulesType = {
   min: number;
   max: number;
   spaceAllowed: boolean;
-  mustBeEmail:boolean;
+  mustBeEmail: boolean;
   mustContain: {
     bigLetter: boolean;
     number: boolean;
@@ -54,6 +54,28 @@ export type ValidationRulesType = {
   };
 };
 export type RoleType = "commonUser" | "admin";
+export type BookTypeRequest = {
+  newBook: {
+    semiLongDescription: string;
+    bookId?: string;
+    shortDescription: string;
+    subTitle: string;
+    firstText: string;
+    secondText: string;
+    title: string;
+    author: string;
+    price: number; //int
+    gradient: string;
+    imagePath: string;
+    emojiGradientUrl?: string;
+    checksTableTextBlack?: boolean;
+  };
+  bookFeatures: string[];
+  iconElements?: {
+    icon: IconProps["name"]; //czytaj to jako string
+    text: string;
+  }[];
+};
 export type BookType = {
   semiLongDescription: string;
   bookId?: string;
@@ -127,13 +149,13 @@ export type UserPreferences = {
   getNewsLetter: boolean;
   getPriceDrops: boolean;
   getTrendingEbooks: boolean;
-  darkMode:boolean;
+  darkMode: boolean;
 };
 export type UserPreferencesChecks = {
   getNewsLetter: boolean;
   getPriceDrops: boolean;
   getTrendingEbooks: boolean;
-}
+};
 export type AuthType = {
   id: string;
   email: string;
