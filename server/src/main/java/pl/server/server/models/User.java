@@ -2,6 +2,7 @@ package pl.server.server.models;
 
 import java.util.Collection;
 import java.util.Collections;
+import java.util.Objects;
 import java.util.Set;
 
 import org.hibernate.annotations.UuidGenerator;
@@ -19,9 +20,9 @@ import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
+
 import jakarta.validation.constraints.Email;
 import lombok.AllArgsConstructor;
-import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -34,7 +35,6 @@ import lombok.ToString;
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
-@EqualsAndHashCode
 public class User implements UserDetails {
     @Id
     @UuidGenerator
@@ -50,23 +50,37 @@ public class User implements UserDetails {
     @Column(nullable = false)
     private String password;
 
+    @Override
+    public boolean equals(Object object) {
+        if (this == object) return true;
+        if (!(object instanceof User user)) return false;
+        return Objects.equals(id, user.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hashCode(id);
+    }
+
     @Column(name = "refresh_token", columnDefinition = "TEXT")
     private String refreshToken;
 
     private String role;
 
-
-    @OneToMany(mappedBy = "user", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "user", fetch = FetchType.EAGER, cascade = CascadeType.ALL)//require tests
     private Set<Order> orders;
 
     @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
     private UserPreferences userPreferences;
 
-    @OneToOne(mappedBy = "user", fetch = FetchType.EAGER)
+    @OneToOne(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.ALL)//require tests
     private BillingAddress billingAddress;
 
-    @OneToMany(mappedBy = "user", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.ALL) //require tests
     private Set<Ticket> tickets;
+
+    @OneToMany(mappedBy = "user",fetch = FetchType.LAZY, cascade = CascadeType.ALL) //require tests
+    private Set<Review> reviews;
 
     public User(String username, String email, String password) {
         this.username = username;

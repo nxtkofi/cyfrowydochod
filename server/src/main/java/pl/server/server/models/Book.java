@@ -2,14 +2,23 @@ package pl.server.server.models;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
-import jakarta.annotation.Nullable;
-
-import jakarta.persistence.*;
-
-import lombok.*;
-
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
+import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.Table;
+import lombok.AllArgsConstructor;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
 import org.hibernate.annotations.UuidGenerator;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -24,6 +33,7 @@ public class Book {
 
     @Id
     @UuidGenerator
+    @EqualsAndHashCode.Include
     private String id;
     @Column(nullable = false)
     private String title;
@@ -61,15 +71,21 @@ public class Book {
         this.imagePath = imagePath;
         this.emojiGradientUrl = emojiGradientUrl;
         this.checksTableTextBlack = checksTableTextBlack;
+        this.iconElements = new ArrayList<>();
+        this.bookFeatures = new ArrayList<>();
     }
     @JsonIgnore
-    @OneToMany(mappedBy = "book",fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "book",fetch = FetchType.LAZY,cascade = CascadeType.ALL) //require tests
     private Set<OrderItem> orderItems;
 
-    @OneToMany(mappedBy = "book",fetch = FetchType.EAGER)
-    @Nullable
-    private Set<IconElements> iconElements;
+    @OneToMany(mappedBy = "book",fetch = FetchType.LAZY,cascade = CascadeType.ALL) //require tests
+    private List<IconElements> iconElements ;
 
-    @OneToMany(mappedBy = "book",fetch = FetchType.EAGER)
-    private Set<BookFeatures> bookFeatures;
+    @OneToMany(mappedBy = "book",fetch = FetchType.LAZY,cascade = CascadeType.ALL) //require tests
+    private List<BookFeatures> bookFeatures;
+
+    @OneToMany(fetch = FetchType.LAZY) //require tests
+    private Set<Review> reviews;
+
+
 }

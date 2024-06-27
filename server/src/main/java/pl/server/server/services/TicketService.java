@@ -37,7 +37,7 @@ public class TicketService {
             ticket.setStatus(Status.WAITING_FOR_SUPP_RES);
             ticket.setSubject(TicketRequest.getSubject());
             ticket.setOrderId(TicketRequest.getOrderId());
-            User user = userRepository.findByEmail(TicketRequest.getEmail());
+            User user = userRepository.findByEmail(TicketRequest.getEmail()).orElseThrow(null);
             if (user == null) {
                 return ResponseEntity.notFound().build();
             }

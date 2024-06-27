@@ -16,32 +16,42 @@ import lombok.ToString;
 import org.hibernate.annotations.UuidGenerator;
 
 @Entity
-@Table(name = "iconElements")
-@Getter
+@Table(name = "reviews")
 @Setter
+@Getter
 @AllArgsConstructor
 @NoArgsConstructor
-@EqualsAndHashCode
 @ToString
-public class IconElements {
+public class Review {
+
     @Id
     @UuidGenerator
-    @JsonIgnore
     private String id;
     @Column(nullable = false)
-    private String iconProps;
+    private String username;
     @Column(nullable = false)
+    private Long purchaseDate;
+    @Column(nullable = false)
+    private String avatarType;
+    @Column(nullable = false,columnDefinition = "TEXT")
     private String text;
 
-    @ManyToOne
-    @JsonIgnore
-    @ToString.Exclude
-    @EqualsAndHashCode.Exclude
-    @JoinColumn(name = "book_id")
-    private Book book;
-
-    public IconElements(String iconProps, String text) {
-        this.iconProps = iconProps;
+    public Review(String username, Long purchaseDate, String avatarType, String text) {
+        this.username = username;
+        this.purchaseDate = purchaseDate;
+        this.avatarType = avatarType;
         this.text = text;
     }
+
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    @JsonIgnore
+    @EqualsAndHashCode.Exclude
+    User user;
+
+    @ManyToOne
+    @JoinColumn(name = "book_id")
+    @JsonIgnore
+    @EqualsAndHashCode.Exclude
+    Book book;
 }
