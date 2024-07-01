@@ -70,8 +70,8 @@ export type BookTypeRequest = {
     emojiGradientUrl?: string;
     checksTableTextBlack?: boolean;
   };
-  bookFeatures: string[];
-  iconElements?: {
+  bookFeaturesList: string[];
+  bookIconElementsList?: {
     icon: IconProps["name"]; //czytaj to jako string
     text: string;
   }[];

@@ -57,7 +57,7 @@ public class BookService {
         for (IconElements elementDTO : request.getBookIconElementsList()) {
 
             IconElements newIconElement = new IconElements();
-            newIconElement.setIconProps(elementDTO.getIconProps());
+            newIconElement.setIcon(elementDTO.getIcon());
             newIconElement.setText(elementDTO.getText());
             newIconElement.setBook(newBook);
 

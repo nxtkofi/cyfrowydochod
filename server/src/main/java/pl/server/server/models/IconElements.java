@@ -29,7 +29,7 @@ public class IconElements {
     @JsonIgnore
     private String id;
     @Column(nullable = false)
-    private String iconProps;
+    private String icon;
     @Column(nullable = false)
     private String text;
 
@@ -40,8 +40,8 @@ public class IconElements {
     @JoinColumn(name = "book_id")
     private Book book;
 
-    public IconElements(String iconProps, String text) {
-        this.iconProps = iconProps;
+    public IconElements(String icon, String text) {
+        this.icon = icon;
         this.text = text;
     }
 }

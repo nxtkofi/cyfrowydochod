@@ -56,9 +56,8 @@ public class Book {
     private String emojiGradientUrl;
     private boolean checksTableTextBlack;
 
-    public Book(String title, String topic, String author, int price, String shortDescription, String subTitle, String firstText, String secondText, String gradient, String imagePath, String emojiGradientUrl, boolean checksTableTextBlack) {
+    public Book(String title, String author, int price, String shortDescription, String subTitle, String firstText, String secondText, String gradient, String imagePath, String emojiGradientUrl, boolean checksTableTextBlack) {
         this.title = title;
-        this.topic = topic;
         this.author = author;
         this.price = price;
         this.shortDescription = shortDescription;

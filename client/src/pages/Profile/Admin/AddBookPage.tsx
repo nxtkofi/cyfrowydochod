@@ -30,11 +30,11 @@ function AddBookPage() {
       emojiGradientUrl: "",
       checksTableTextBlack: false,
     },
-    bookFeatures: [""],
-    iconElements: [
+    bookFeaturesList: ["very good book"],
+    bookIconElementsList: [
       {
         icon: "target",
-        text: "",
+        text: "This book hits the perfect niche!",
       },
     ],
   });
@@ -70,7 +70,7 @@ function AddBookPage() {
     <Wrapper>
       <div className="flex flex-col">
         <Input
-          value={input?.title}
+          value={input?.newBook.title}
           infoElement={{
             title: "Title",
             description: "Enter title of your new eBook!",
@@ -84,7 +84,7 @@ function AddBookPage() {
             description: "Enter author of your new eBook!",
           }}
           guiName="Author"
-          value={input?.author}
+          value={input?.newBook.author}
           onChange={handleChange("author")}
         />
         <Input
@@ -93,7 +93,7 @@ function AddBookPage() {
             title: "Price",
             description: "How much is your book going to sell for?",
           }}
-          value={input?.price}
+          value={input?.newBook.price}
           onChange={handleChange("price")}
         />
         <div className="flex-col">
@@ -116,7 +116,7 @@ function AddBookPage() {
 
         <Input
           onChange={handleChange("imagePath")}
-          value={input?.imagePath}
+          value={input?.newBook.imagePath}
           guiName="Image path url"
         />
         <Input
@@ -153,31 +153,31 @@ function AddBookPage() {
         </div>
         <Textarea
           placeholder="subTitle"
-          value={input?.subTitle}
+          value={input?.newBook.subTitle}
           onChange={handleChange("subTitle")}
           className="my-2"
         />
         <Textarea
           placeholder="firstText"
-          value={input?.firstText}
+          value={input?.newBook.firstText}
           onChange={handleChange("firstText")}
           className="my-2"
         />
         <Textarea
           placeholder="secondText"
-          value={input?.secondText}
+          value={input?.newBook.secondText}
           onChange={handleChange("secondText")}
           className="my-2"
         />
         <Textarea
           placeholder="shortDescription"
-          value={input?.shortDescription}
+          value={input?.newBook.shortDescription}
           onChange={handleChange("shortDescription")}
           className="my-2"
         />
         <Textarea
           placeholder="semiLongDescription"
-          value={input?.semiLongDescription}
+          value={input?.newBook.semiLongDescription}
           onChange={handleChange("semiLongDescription")}
           className="my-2"
         />
