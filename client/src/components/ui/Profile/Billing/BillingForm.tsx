@@ -31,7 +31,6 @@ function BillingForm({ setBilling, billing }: BillingFormProps) {
           houseNumber: "",
           zipCode: "",
           city: "",
-          addressId: "",
           [name]: value,
         };
       }
@@ -41,7 +40,6 @@ function BillingForm({ setBilling, billing }: BillingFormProps) {
   useEffect(() => {
     if (billing && input) {
       if (
-        input.addressId !== billing.addressId ||
         input.city !== billing.city ||
         input.fullName !== billing.fullName ||
         input.houseNumber !== billing.houseNumber ||
@@ -83,6 +81,7 @@ function BillingForm({ setBilling, billing }: BillingFormProps) {
       <Input
         initValue={billing && input?.fullName}
         validationRules={{
+          mustBeEmail:false,
           min: 2,
           max: 30,
           spaceAllowed: true,
@@ -100,6 +99,7 @@ function BillingForm({ setBilling, billing }: BillingFormProps) {
       <Input
         initValue={billing && input?.streetName}
         validationRules={{
+          mustBeEmail:false,
           min: 2,
           max: 30,
           spaceAllowed: true,
@@ -117,6 +117,7 @@ function BillingForm({ setBilling, billing }: BillingFormProps) {
       <Input
         initValue={billing && input?.houseNumber.toString()}
         validationRules={{
+          mustBeEmail:false,
           min: 0,
           max: 4,
           spaceAllowed: true,
@@ -134,6 +135,7 @@ function BillingForm({ setBilling, billing }: BillingFormProps) {
       <Input
         initValue={billing && input?.zipCode}
         validationRules={{
+          mustBeEmail:false,
           min: 3,
           max: 8,
           spaceAllowed: false,
@@ -151,6 +153,7 @@ function BillingForm({ setBilling, billing }: BillingFormProps) {
       <Input
         initValue={billing && input?.city}
         validationRules={{
+          mustBeEmail:false,
           min: 2,
           max: 30,
           spaceAllowed: true,

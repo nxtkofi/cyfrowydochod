@@ -1,19 +1,18 @@
 package pl.server.server.services;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
 import pl.server.server.DTOs.BookRequest;
 import pl.server.server.helpers.ResourceNotFoundException;
 import pl.server.server.models.Book;
-import pl.server.server.models.BookFeatures;
 import pl.server.server.models.IconElements;
-import pl.server.server.repositories.BookFeaturesRepository;
 import pl.server.server.repositories.BookRepository;
 import pl.server.server.repositories.IconElementsRepository;
-
-import java.util.ArrayList;
-import java.util.List;
 
 @Service
 public class BookService {
@@ -23,9 +22,6 @@ public class BookService {
 
     @Autowired
     IconElementsRepository iconElementsRepository;
-
-    @Autowired
-    BookFeaturesRepository bookFeaturesRepository;
 
     public List<Book> getAllBooks() {
         try {
@@ -50,7 +46,7 @@ public class BookService {
     public Book createBook(BookRequest request) {
         try {
         Book newBook = request.getNewBook();
-
+        System.out.println("Is a hero book: " +request.getNewBook().isHeroBook());
         newBook = bookRepository.save(newBook);
 
         List<IconElements> iconElementsList = new ArrayList<>();
@@ -69,19 +65,7 @@ public class BookService {
         newBook.setIconElements(iconElementsList);
 
         newBook = bookRepository.save(newBook);
-
-        List<BookFeatures> bookFeaturesList = new ArrayList<>();
-        for (BookFeatures elementDTO : request.getBookFeaturesList()) {
-
-            BookFeatures newBookFeature = new BookFeatures();
-            newBookFeature.setDescription(elementDTO.getDescription());
-            newBookFeature.setBook(newBook);
-
-            bookFeaturesList.add(newBookFeature);
-        }
-        bookFeaturesRepository.saveAll(bookFeaturesList);
-
-        newBook.setBookFeatures(bookFeaturesList);
+        newBook.setBookFeatures(request.getBookFeaturesList());
 
         bookRepository.save(newBook);
         return newBook;

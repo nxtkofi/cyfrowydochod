@@ -15,10 +15,11 @@ function BillingPage() {
 
   useEffect(() => {
     const getBilling = async () => {
-      const { response } = await sendReq(
+      const {response} = await sendReq(
         `/api/billingAddresses/${auth?.id}`,
         "GET",
       );
+      console.log(response);
       setBilling(await response!.data);
     };
     getBilling();

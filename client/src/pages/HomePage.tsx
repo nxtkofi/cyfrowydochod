@@ -2,21 +2,22 @@ import HeroBook from "@/components/ui/HomePage/HeroBook";
 import TextDefault from "@/components/ui/HomePage/textDefault";
 import TrustSection from "@/components/ui/HomePage/TrustSection";
 import Wrapper from "@/components/ui/wrapper";
-import { HeroBooks } from "@/constants.ts";
 import { TrustReviews } from "@/constants";
-import { useEffect } from "react";
-import useAuth from "@/hooks/useAuth";
+import useBooksContext from "@/hooks/useBooksContext";
 
 function HomePage() {
-  const {auth} = useAuth()
-  useEffect(() => {
-    console.log(auth);
-  }, []);
+  const {books} = useBooksContext();
+
   return (
     <>
       <section>
         <Wrapper className="text-slate-900">
-          <TextDefault variant="default" bigTitle center className="leading-[3.5rem]">
+          <TextDefault
+            variant="default"
+            bigTitle
+            center
+            className="leading-[3.5rem]"
+          >
             Have you ever dreamed about online money-making?
           </TextDefault>
           <TextDefault variant={"secondary"} center>
@@ -39,11 +40,12 @@ function HomePage() {
         </Wrapper>
       </section>
       <Wrapper>
-        {HeroBooks.map((Book, index) => (
-          <section key={index}>
-            <HeroBook book={Book} />
-          </section>
-        ))}
+          {books &&
+            books.map((Book, index) => (
+              <section key={index}>
+                <HeroBook book={Book} />
+              </section>
+            ))}
       </Wrapper>
       <section>
         <Wrapper>

@@ -1,12 +1,15 @@
 package pl.server.server.DTOs;
 
-import lombok.*;
-import pl.server.server.models.Book;
-import pl.server.server.models.BookFeatures;
-import pl.server.server.models.IconElements;
-
 import java.util.List;
-import java.util.Set;
+
+import lombok.AllArgsConstructor;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
+import pl.server.server.models.Book;
+import pl.server.server.models.IconElements;
 
 @Getter
 @Setter
@@ -16,6 +19,6 @@ import java.util.Set;
 @ToString
 public class BookRequest {
    private Book newBook;
-   List<BookFeatures> bookFeaturesList;
+   List<String> bookFeaturesList;
    List<IconElements> bookIconElementsList;
 }

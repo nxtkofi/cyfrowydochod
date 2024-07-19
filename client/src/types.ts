@@ -2,7 +2,7 @@ import { LucideProps } from "lucide-react";
 import dynamicIconImports from "lucide-react/dynamicIconImports";
 
 export interface IconProps extends Omit<LucideProps, "ref"> {
-  name: keyof typeof dynamicIconImports;
+  name: keyof typeof dynamicIconImports | "";
 }
 export type BillingType = {
   fullName: string;
@@ -52,11 +52,13 @@ export type ValidationRulesType = {
     number: boolean;
     specialChar: boolean;
   };
+  isIcon?: boolean;
 };
+
 export type RoleType = "commonUser" | "admin";
 export type BookTypeRequest = {
   newBook: {
-    semiLongDescription: string;
+    longDescription: string;
     bookId?: string;
     shortDescription: string;
     subTitle: string;
@@ -69,16 +71,26 @@ export type BookTypeRequest = {
     imagePath: string;
     emojiGradientUrl?: string;
     checksTableTextBlack?: boolean;
+    isHeroBook: boolean;
   };
   bookFeaturesList: string[];
-  bookIconElementsList?: {
-    icon: IconProps["name"]; //czytaj to jako string
-    text: string;
-  }[];
+  bookIconElementsList: iconElementsType[];
 };
+
+export type infoElementDetailsType = {
+  description: string;
+  title?: string;
+  imgSrc?:string;
+
+};
+export type iconElementsType = {
+  icon: IconProps["name"]; //czytaj to jako string
+  text: string;
+};
+
 export type BookType = {
-  semiLongDescription: string;
-  bookId?: string;
+  longDescription: string;
+  id: string;
   shortDescription: string;
   subTitle: string;
   firstText: string;
@@ -91,10 +103,7 @@ export type BookType = {
   imagePath: string;
   emojiGradientUrl?: string;
   checksTableTextBlack?: boolean;
-  iconElements?: {
-    icon: IconProps["name"]; //czytaj to jako string
-    text: string;
-  }[];
+  iconElements?: iconElementsType[];
 };
 export type avatarType =
   | "axolotl"

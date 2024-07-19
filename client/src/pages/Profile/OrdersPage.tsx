@@ -1,7 +1,6 @@
 import OrderCard from "@/components/ui/Profile/Orders/OrderCard";
 import ProfileHeader from "@/components/ui/Profile/ProfileHeader";
 import Wrapper from "@/components/ui/wrapper";
-import { HeroBooks } from "@/constants";
 
 function OrdersPage() {
   return (

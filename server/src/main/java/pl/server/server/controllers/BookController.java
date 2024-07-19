@@ -51,8 +51,8 @@ public class BookController {
 
     @PostMapping
     public ResponseEntity<Book> createBook(@RequestBody BookRequest request) {
+        System.out.println(request.getNewBook().isHeroBook());
         try {
-            System.out.println(request);
             Book newBook = bookService.createBook(request);
             return ResponseEntity.ok(newBook);
         } catch (RuntimeException exception) {

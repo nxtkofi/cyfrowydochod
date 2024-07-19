@@ -31,7 +31,7 @@ function PersistLogin() {
     console.log(`aT: ${auth?.accessToken}`);
   }, [isLoading]);
   return (
-    <>{!persist ? <Outlet /> : isLoading ? <p>Loading...</p> : <Outlet />}</>
+    <>{!persist ? <div className="pt-20"><Outlet /></div> : isLoading ? <p>Loading...</p> : <div className="pt-20"><Outlet /></div>}</>
   );
 }
 

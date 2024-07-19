@@ -23,6 +23,7 @@ function Navbar() {
 
   return (
     <>
+    <div className="fixed w-screen bg-white z-50">
       <div className="flex flex-row justify-between m-8 md:mx-[25%] items-center">
         <div onMouseDown={() => navigate({ path: "/" })}>
           <HomeIcon />
@@ -47,6 +48,7 @@ function Navbar() {
         <SideBar showSideBar={showSideBar} shown={sideBarVisible} />
       </div>
       <div className=" border-b-2"></div>
+      </div>
     </>
   );
 }

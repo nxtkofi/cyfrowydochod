@@ -1,9 +1,12 @@
 package pl.server.server.services;
 
-import jakarta.transaction.Transactional;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+
+import jakarta.transaction.Transactional;
 import pl.server.server.helpers.ResourceNotFoundException;
 import pl.server.server.models.BillingAddress;
 import pl.server.server.models.User;
@@ -22,7 +25,7 @@ public class BillingAddressService {
 
     public BillingAddress getBillingAddress(String userId){
         try {
-            return billingAddressRepository.findById(userId)
+            return billingAddressRepository.findByUserId(userId)
                     .orElseThrow(() -> new ResourceNotFoundException("User not found"));
         } catch (ResourceNotFoundException notFoundException) {
             throw notFoundException;
@@ -32,16 +35,14 @@ public class BillingAddressService {
         }
     }
 
-    @Transactional
-    public BillingAddress createBillingAddress(String userId, BillingAddress newBillingAddress) {
+    public ResponseEntity<?> createBillingAddress(String userId, BillingAddress newBillingAddress) {
         try {
             User user = userRepository.findById(userId)
                     .orElseThrow(() -> new ResourceNotFoundException("User not found"));
 
             user.setBillingAddress(newBillingAddress);
-            newBillingAddress.setUser(user);
             userRepository.save(user);
-            return billingAddressRepository.save(newBillingAddress);
+            return ResponseEntity.status(HttpStatus.CREATED).build();
         } catch (ResourceNotFoundException notFoundException) {
             throw notFoundException;
         }catch (Exception ex) {

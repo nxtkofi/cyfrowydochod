@@ -1,6 +1,13 @@
 package pl.server.server.models;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Set;
+
+import org.hibernate.annotations.UuidGenerator;
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
@@ -15,11 +22,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
-import org.hibernate.annotations.UuidGenerator;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Set;
 
 @Entity
 @Table(name = "books")
@@ -43,6 +45,8 @@ public class Book {
     private int price;
     @Column(nullable = false)
     private String shortDescription;
+    @Column(length=1500)
+    private String longDescription;
     @Column(nullable = false)
     private String subTitle;
     @Column(nullable = false)
@@ -53,10 +57,14 @@ public class Book {
     private String gradient;
     @Column(nullable = false)
     private String imagePath;
-    private String emojiGradientUrl;
+    @Column(name="is_hero_book", nullable=false)
+    @JsonProperty("isHeroBook")
+    private boolean isHeroBook;
+    @Column(name="checks_table_text_black",nullable=false)
+    @JsonProperty("checksTableTextBlack")
     private boolean checksTableTextBlack;
 
-    public Book(String title, String author, int price, String shortDescription, String subTitle, String firstText, String secondText, String gradient, String imagePath, String emojiGradientUrl, boolean checksTableTextBlack) {
+    public Book(String title, String author, int price, String shortDescription, String subTitle, String firstText, String secondText, String gradient, String imagePath, boolean checksTableTextBlack, boolean isHeroBook) {
         this.title = title;
         this.author = author;
         this.price = price;
@@ -65,9 +73,9 @@ public class Book {
         this.firstText = firstText;
         this.secondText = secondText;
         this.gradient = gradient;
-        this.imagePath = imagePath;
-        this.emojiGradientUrl = emojiGradientUrl;
+        this.imagePath = imagePath;        
         this.checksTableTextBlack = checksTableTextBlack;
+        this.isHeroBook = isHeroBook;
         this.iconElements = new ArrayList<>();
         this.bookFeatures = new ArrayList<>();
     }
@@ -78,8 +86,7 @@ public class Book {
     @OneToMany(mappedBy = "book",fetch = FetchType.LAZY,cascade = CascadeType.ALL) //require tests
     private List<IconElements> iconElements ;
 
-    @OneToMany(mappedBy = "book",fetch = FetchType.LAZY,cascade = CascadeType.ALL) //require tests
-    private List<BookFeatures> bookFeatures;
+    private List<String> bookFeatures;
 
     @OneToMany(fetch = FetchType.LAZY) //require tests
     private Set<Review> reviews;

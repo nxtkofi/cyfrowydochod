@@ -39,6 +39,7 @@ function HeroBookTile({
         gradient={gradient}
         features={bookFeatures}
         textBlack={textBlack}
+        forAdmin={false}
       />
     </div>
   );

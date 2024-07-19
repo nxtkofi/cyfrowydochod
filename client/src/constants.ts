@@ -1,5 +1,6 @@
+import dynamicIconImports from "lucide-react/dynamicIconImports";
 import {
-  BookType,
+  BookTypeRequest,
   MenuOptionsType,
   TicketType,
   TrustReviewsType,
@@ -10,12 +11,12 @@ export const commonUserCredentials = {
   email: "test123@gmail",
   password: "test123",
 };
+export const iconNames = Object.keys(dynamicIconImports);
 
-export const HeroBooks: BookType[] = [
-  {
-    semiLongDescription:
+export const book1Request: BookTypeRequest = {
+  newBook: {
+    longDescription:
       "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec sed tincidunt augue, vitae pharetra purus. Ut semper orci justo, sit amet consequat neque iaculis eu. Nam elit sapien, finibus sit amet libero in, varius luctus lorem. Donec lobortis, est consequat facilisis vestibulum, nulla dolor tincidunt nibh, nec fringilla eros justo et ligula. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Etiam at sapien ornare, tempus quam eu at sapien ornare, tempus quam eu",
-    bookId: "12345",
     shortDescription:
       "Great starter. This book contains every important money-making concept that’s out there!",
     subTitle:
@@ -27,19 +28,23 @@ export const HeroBooks: BookType[] = [
     author: "@idslw",
     price: 49,
     imagePath: "/LaptopWheel.jpg",
-    bookFeatures: [
-      "Unique 5 step learning process",
-      "Find multiple niches",
-      "Attract new customers",
-      "10 ready-to-implement ideas",
-    ],
+
     gradient:
-      "var(--BlueGradient, linear-gradient(180deg, #2B769D 0%, #276E98 34%, #174E84 100%))",
+      "linear-gradient(0deg, rgba(78,133,155,1) 0%, RGB(116, 193, 226) 100%)",
+    isHeroBook: true,
   },
-  {
-    semiLongDescription:
+  bookFeaturesList: [
+    "Unique 5 step learning process",
+    "Find multiple niches",
+    "Attract new customers",
+    "10 ready-to-implement ideas",
+  ],
+  bookIconElementsList: [],
+};
+export const book2Request: BookTypeRequest = {
+  newBook: {
+    longDescription:
       "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec sed tincidunt augue, vitae pharetra purus. Ut semper orci justo, sit amet consequat neque iaculis eu. Nam elit sapien, finibus sit amet libero in, varius luctus lorem. Donec lobortis, est consequat facilisis vestibulum, nulla dolor tincidunt nibh, nec fringilla eros justo et ligula. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Etiam at sapien ornare, tempus quam eu at sapien ornare, tempus quam eu",
-    bookId: "12346",
     shortDescription:
       "This book will take you straight to action. We’re saying it’s gonna allow you to leave your 9-5.",
     subTitle:
@@ -48,38 +53,39 @@ export const HeroBooks: BookType[] = [
       "With all the unique benefits this book will help you gain financial freedom in less than a year!",
     secondText:
       "Let us show you the easiest way to escape the office-hours job. This book features:",
-    title: "Easy way to escape",
+    title: "Earn money online!",
     author: "@idslw",
     price: 79,
-    bookFeatures: [
-      "Unique 5 step learning process",
-      "Find multiple niches",
-      "Attract customers",
-      "10 ready-to-implement ideas",
-    ],
-    gradient:
-      "var(--OrangeGradient, linear-gradient(180deg, #ED5100 20%, #C25200 100%))",
-    emojiGradientUrl: "url(#orange-gradient)",
-    iconElements: [
-      {
-        icon: "compass",
-        text: "Navigate your way to freedom!",
-      },
-      {
-        icon: "codesandbox",
-        text: "Bright ideas on time management",
-      },
-      {
-        icon: "circle-dollar-sign",
-        text: "Rise your income leves!",
-      },
-    ],
     imagePath: "/EbookMoney.jpg",
+    gradient:
+      "linear-gradient(25deg, rgba(219,105,43,1) 0%, RGB(255, 206, 159) 100%)",
+    isHeroBook: true,
   },
-  {
-    semiLongDescription:
+  bookFeaturesList: [
+    "Unique 5 step learning process",
+    "Find multiple niches",
+    "Attract new customers",
+    "10 ready-to-implement ideas",
+  ],
+  bookIconElementsList: [
+    {
+      icon: "compass",
+      text: "Navigate your way to freedom!",
+    },
+    {
+      icon: "codesandbox",
+      text: "Bright ideas on time management",
+    },
+    {
+      icon: "circle-dollar-sign",
+      text: "Rise your income leves!",
+    },
+  ],
+};
+export const book3Request: BookTypeRequest = {
+  newBook: {
+    longDescription:
       "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec sed tincidunt augue, vitae pharetra purus. Ut semper orci justo, sit amet consequat neque iaculis eu. Nam elit sapien, finibus sit amet libero in, varius luctus lorem. Donec lobortis, est consequat facilisis vestibulum, nulla dolor tincidunt nibh, nec fringilla eros justo et ligula. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Etiam at sapien ornare, tempus quam eu at sapien ornare, tempus quam eu",
-    bookId: "12347",
     shortDescription:
       "We call it The Bible of online money making. Infinite knowledge awaits within.",
     subTitle:
@@ -88,31 +94,31 @@ export const HeroBooks: BookType[] = [
       "This book is our utlimate guide. Our all in one product. Our most loved, spoiled child. We have put our everything into it. Why the name? Buy this absolute gem and find out!",
     secondText: "This book has unique features such as:",
     title: "Monkey Business",
-    checksTableTextBlack: true,
     author: "@idslw",
-    price: 99,
-    bookFeatures: [
-      "Unique 5 step learning process",
-      "Find multiple niches",
-      "Attract customers",
-      "10 ready-to-implement ideas",
-    ],
+    price: 109,
     gradient:
-      "var(--PlatinumGradient, linear-gradient(256deg, #F2D7FF 20%, #A2E3FF 100%))",
-    emojiGradientUrl: "url(#platinum-gradient)",
-    iconElements: [
-      {
-        icon: "banknote",
-        text: "Ninja-Style money earning technique",
-      },
-      {
-        icon: "gem",
-        text: "Transfer your business into kingdom!",
-      },
-    ],
+      "linear-gradient(60deg, rgba(224,152,236,0.8) 0%, RGBA(166, 226, 245, 0.86) 100%)",
     imagePath: "/PlatinumEbook.jpg",
+    isHeroBook: true,
   },
-];
+  bookFeaturesList: [
+    "Unique 5 step learning process",
+    "Find multiple niches",
+    "Attract new customers",
+    "10 ready-to-implement ideas",
+  ],
+  bookIconElementsList: [
+    {
+      icon: "banknote",
+      text: "Ninja-Style money earning technique",
+    },
+    {
+      icon: "gem",
+      text: "Transfer your business into kingdom!",
+    },
+  ],
+};
+
 export const TrustReviews: TrustReviewsType[] = [
   {
     username: "aniafata",
@@ -172,7 +178,7 @@ export const MenuOptions: MenuOptionsType[] = [
     access: ["admin"],
     optionName: "Add eBook",
     path: "/profile/addbook",
-    iconName: "book-plus"
+    iconName: "book-plus",
   },
   {
     access: ["commonUser"],
@@ -195,15 +201,17 @@ export const Tickets: TicketType[] = [
     messages: [
       {
         sender: "User",
-        message: "Hi I'm having trouble with Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam sit amet vestibulum mi, eget efficitur odio. Sed porta turpis quis erat gravida, eu lobortis ligula tincidunt. Phasellus iaculis lorem in eros maximus, ac ullamcorper nibh sagittis. Mauris ultricies malesuada sem, eget malesuada diam scelerisque imperdiet. Quisque at vehicula mi. Fusce ac fringilla libero. Sed sed auctor felis. Vestibulum elementum lorem magna, eget aliquam orci dapibus ut. Cras ultrices justo a eleifend blandit. Praesent quis nunc et magna ultricies sodales. Quisque sapien diam, fringilla vel egestas at, congue ut massa. Quisque justo nulla, pretium placerat elementum a, semper nec mauris. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. ",
+        message:
+          "Hi I'm having trouble with Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam sit amet vestibulum mi, eget efficitur odio. Sed porta turpis quis erat gravida, eu lobortis ligula tincidunt. Phasellus iaculis lorem in eros maximus, ac ullamcorper nibh sagittis. Mauris ultricies malesuada sem, eget malesuada diam scelerisque imperdiet. Quisque at vehicula mi. Fusce ac fringilla libero. Sed sed auctor felis. Vestibulum elementum lorem magna, eget aliquam orci dapibus ut. Cras ultrices justo a eleifend blandit. Praesent quis nunc et magna ultricies sodales. Quisque sapien diam, fringilla vel egestas at, congue ut massa. Quisque justo nulla, pretium placerat elementum a, semper nec mauris. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. ",
         id: "",
-        createdAt: undefined
+        createdAt: undefined,
       },
       {
         sender: "Support",
-        message: "Hi! Thanks for reaching out. Could you please describe your problem in details so that I could proceed with helping you? This ticket will automatically close within 4 days of no response. ",
+        message:
+          "Hi! Thanks for reaching out. Could you please describe your problem in details so that I could proceed with helping you? This ticket will automatically close within 4 days of no response. ",
         id: "",
-        createdAt: undefined
+        createdAt: undefined,
       },
     ],
     creationDate: 1718726671,

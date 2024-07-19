@@ -1,6 +1,7 @@
+import { iconNames } from "@/constants";
 import { ValidationRulesType } from "@/types";
 import { useEffect, useState } from "react";
-import validator from 'validator';
+import validator from "validator";
 
 function useValidation(
   initialValue: string,
@@ -17,8 +18,12 @@ function useValidation(
   const validate = (text: string) => {
     setIsLoading(true);
     setError(null);
-    if(validationRules.mustBeEmail){
-    validator.isEmail(text);
+    if (validationRules.isIcon) {
+      if (!iconNames.includes(text)) {
+        setError("Must be a valid Lucide Icon name.");
+      }
+    } else if (validationRules.mustBeEmail) {
+      validator.isEmail(text);
     } else if (text.length < validationRules.min) {
       setError("Value is too short!");
     } else if (text.length > validationRules.max) {

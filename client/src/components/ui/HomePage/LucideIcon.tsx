@@ -6,10 +6,10 @@ const fallback = <div style={{ background: '#ddd', width: 24, height: 24 }}/>
 
 
 
-function LucideIcon({name, ...props}:IconProps) {
+function LucideIcon({name,style, ...props}:IconProps) {
     const LucideIcon = lazy(dynamicIconImports[name]);
     return ( <Suspense fallback={fallback}>
-        <LucideIcon {...props}/>
+        <LucideIcon style={style} {...props}/>
     </Suspense> );
 }
 

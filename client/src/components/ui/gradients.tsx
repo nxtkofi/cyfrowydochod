@@ -1,24 +1,76 @@
+import useBooksContext from "@/hooks/useBooksContext";
+import { useEffect, useState } from "react";
+
+ type gradientType = {
+  gradient: string;
+  id: string;
+};
+type parsedGradientType ={
+  stopColor:string;
+  offset:string;
+}
+function parseGradient(gradient: string) {
+  const regex = /rgba?\((\d+),\s*(\d+),\s*(\d+),?\s*(\d*\.?\d+)?\)\s(\d+)%/gi;
+  let match;
+  const stops = [];
+  while ((match = regex.exec(gradient)) !== null) {
+    const [_, r, g, b, a, offset] = match;
+    const color = a ? `rgba(${r},${g},${b},${a})` : `rgb(${r},${g},${b})`;
+    stops.push({ stopColor: color, offset: `${offset}%` });
+  }
+  return stops;
+}
+
 function Gradients() {
-    return (<><svg width="0" height="0">
-    <linearGradient id="blue-gradient" x1="100%" y1="100%" x2="0%" y2="0%">
-      <stop stopColor="#2B769D" offset="0%" />
-      <stop stopColor="#276E98" offset={"34%"}/>
-      <stop stopColor="#174E84" offset="100%" />
-    </linearGradient>
-  </svg> 
-  <svg width="0" height="0">
-    <linearGradient id="orange-gradient" x1="100%" y1="100%" x2="0%" y2="0%">
-      <stop stopColor="#ED5100" offset="20%" />    
-      <stop stopColor="#C25200" offset="100%" />
-    </linearGradient>
-  </svg> 
-  <svg width="0" height="0">
-    <linearGradient id="platinum-gradient" x1="100%" y1="100%" x2="0%" y2="0%">
-      <stop stopColor="#F2D7FF" offset="20%" />    
-      <stop stopColor="#A2E3FF" offset="100%" />
-    </linearGradient>
-  </svg> 
-    </>);
+  const [gradients, setGradients] = useState<gradientType[] | null>(null);
+  const [parsedGradients, setParsedGradients] = useState<parsedGradientType[][] | null>(null);
+  const { books } = useBooksContext();
+  useEffect(() => {
+    if (books) {
+      const gradientsArray = books.map((book) => {
+        return { id: book.id, gradient: book.gradient };
+      });
+      setGradients(gradientsArray);
+    }
+  }, [books]);
+
+  useEffect(() => {
+    if (gradients) {
+      const parsed = gradients.map((element) =>
+        parseGradient(element.gradient)
+      );
+      setParsedGradients(parsed);
+    }
+  }, [gradients]);
+
+  useEffect(() => {
+    console.log(parsedGradients);
+    console.log(gradients);
+  }, [books,gradients]);
+  return (
+    <>
+      {parsedGradients &&
+        parsedGradients.map((stops, index) => (
+          <svg key={index} width="0" height="0">
+            <linearGradient
+              id={`gradient-${gradients![index].id}`}
+              x1="100%"
+              y1="100%"
+              x2="0%"
+              y2="0%"
+            >
+              {stops.map((stop, stopIndex) => (
+                <stop
+                  key={stopIndex}
+                  stopColor={stop.stopColor}
+                  offset={stop.offset}
+                />
+              ))}
+            </linearGradient>
+          </svg>
+        ))}
+    </>
+  );
 }
 
 export default Gradients;

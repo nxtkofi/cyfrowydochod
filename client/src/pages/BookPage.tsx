@@ -1,12 +1,13 @@
 import Wrapper from "@/components/ui/wrapper";
 import { useParams } from "react-router-dom";
-import { HeroBooks, TrustReviews } from "@/constants";
+import { TrustReviews } from "@/constants";
 import TextDefault from "@/components/ui/HomePage/textDefault";
 import HeroBookTile from "@/components/ui/HomePage/HeroBookTile";
 import { Button } from "@/components/ui/button";
 import ReviewTile from "@/components/ui/HomePage/ReviewTile";
 import { ComboBoxResponsive } from "@/components/ui/comboBox";
 import { useEffect, useState } from "react";
+import useBooksContext from "@/hooks/useBooksContext";
 
 export type Status = {
   value: string;
@@ -34,11 +35,12 @@ export const statuses: Status[] = [
 
 function BookPage() {
   const [selectedStatus, setSelectedStatus] = useState<Status | null>(null);
+  const {books} = useBooksContext();
   useEffect(() => {
     console.log(selectedStatus);
   }, [selectedStatus]);
   let { id } = useParams();
-  const book = HeroBooks.find((book) => book.bookId == id);
+  const book = books!.find((book) => book.id == id);
   if (book == undefined) {
     return (
       <Wrapper>
@@ -75,7 +77,7 @@ function BookPage() {
         <p className="text-xl font-semibold border-b-2 border-b-slate-300 self-center w-fit mb-4  px-4">
           Description
         </p>
-        <p>{book.semiLongDescription}</p>
+        <p>{book.longDescription}</p>
       </div>
       <Wrapper>
         {TrustReviews && (

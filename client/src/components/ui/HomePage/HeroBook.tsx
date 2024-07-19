@@ -1,17 +1,19 @@
-import { HeroBookType } from "@/types";
+import { BookType } from "@/types";
 import HeroBookTile from "./HeroBookTile";
 import TextDefault from "./textDefault";
 import { Button } from "../button";
 import LucideIcon from "./LucideIcon";
-import Gradients from "@/components/ui/gradients";
+import { useEffect } from "react";
 
 type HeroBookProps = {
-  book: HeroBookType;
+  book: BookType;
 };
 function HeroBook({ book }: HeroBookProps) {
+  useEffect(() => {
+    console.log(book);
+  }, []);
   return (
     <>
-      <Gradients />
       <TextDefault title variant="default" center>
         {book.title}
       </TextDefault>
@@ -27,12 +29,15 @@ function HeroBook({ book }: HeroBookProps) {
 
       {book.iconElements &&
         book.iconElements.map((element, index) => (
-          <div key={index + element.icon} className="flex flex-col py-[2px] self-center">
+          <div
+            key={index + element.icon}
+            className="flex flex-col py-[2px] self-center"
+          >
             <div className="flex flex-row">
-              {book.emojiGradientUrl && (
+              {book.iconElements && (
                 <LucideIcon
                   className="mr-2"
-                  style={{ stroke: book.emojiGradientUrl }}
+                  style={{ stroke: `url(#gradient-${book.id})` }}
                   name={element.icon}
                 />
               )}

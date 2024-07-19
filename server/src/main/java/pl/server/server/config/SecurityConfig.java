@@ -3,6 +3,7 @@ package pl.server.server.config;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -33,15 +34,16 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
-            .csrf(csrf -> csrf.disable())
-            .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-            .authorizeHttpRequests((authorize) -> authorize
-                .requestMatchers("/api/auth/logout", "/api/auth/register", "/api/auth/login", "/api/auth/refresh").permitAll() 
-                .anyRequest().authenticated()
-            )
-            .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
+        .csrf(csrf -> csrf.disable())
+        .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+        .authorizeHttpRequests((authorize) -> authorize
+            .requestMatchers("/api/auth/logout", "/api/auth/register", "/api/auth/login", "/api/auth/refresh").permitAll()
+            .requestMatchers(HttpMethod.GET, "/api/books").permitAll() // Umożliwia dostęp do GET /api/books dla każdego użytkownika
+            .anyRequest().authenticated()
+        )
+        .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
 
-        return http.build();
+    return http.build();
     }
 
     @Bean

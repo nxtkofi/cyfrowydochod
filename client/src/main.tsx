@@ -24,44 +24,49 @@ import ContactPage from "./pages/ContactPage";
 import AccessFirst from "./helpers/accessFirst";
 import { Toaster } from "./components/ui/toaster";
 import AddBookPage from "./pages/Profile/Admin/AddBookPage";
+import Gradients from "./components/ui/gradients";
+import { BookProvider } from "./context/BookProvider";
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
     <BrowserRouter>
       <AuthProvider>
-        <Navbar />
-        <Routes>
-          <Route element={<PersistLogin />}>
-            <Route path="/" element={<HomePage />} />
-            <Route path="/access" element={<AccessPage />} />
-            <Route element={<AccessFirst />}>
-              <Route path="/contact" element={<ContactPage />} />
-            </Route>
-            <Route path="/offer" element={<OfferPage />} />
-            <Route path="/offer/book/:id" element={<BookPage />} />
-            <Route
-              element={<RequireAuth allowedRoles={["commonUser", "admin"]} />}
-            >
-              <Route path="/profile" element={<ProfilePage />} />
-              <Route path="/profile/billing" element={<BillingPage />} />
-              <Route path="/profile/orders" element={<OrdersPage />} />
-              <Route path="/profile/settings" element={<SettingsPage />} />
-            </Route>
+        <BookProvider>
+          <Navbar />
+          <Routes>
+            <Route element={<PersistLogin />}>
+              <Route path="/" element={<HomePage />} />
+              <Route path="/access" element={<AccessPage />} />
+              <Route element={<AccessFirst />}>
+                <Route path="/contact" element={<ContactPage />} />
+              </Route>
+              <Route path="/offer" element={<OfferPage />} />
+              <Route path="/offer/book/:id" element={<BookPage />} />
+              <Route
+                element={<RequireAuth allowedRoles={["commonUser", "admin"]} />}
+              >
+                <Route path="/profile" element={<ProfilePage />} />
+                <Route path="/profile/billing" element={<BillingPage />} />
+                <Route path="/profile/orders" element={<OrdersPage />} />
+                <Route path="/profile/settings" element={<SettingsPage />} />
+              </Route>
 
-            <Route element={<RequireAuth allowedRoles={["commonUser"]} />}>
-              <Route path="/profile/support" element={<SupportPage />} />
+              <Route element={<RequireAuth allowedRoles={["commonUser"]} />}>
+                <Route path="/profile/support" element={<SupportPage />} />
+              </Route>
+              <Route element={<RequireAuth allowedRoles={["admin"]} />}>
+                <Route path="/profile/adminpanel" element={<AdminPage />} />
+                <Route path="/profile/addbook" element={<AddBookPage />} />
+              </Route>
             </Route>
-            <Route element={<RequireAuth allowedRoles={["admin"]} />}>
-              <Route path="/profile/adminpanel" element={<AdminPage />} />
-              <Route path="/profile/addbook" element={<AddBookPage />} />
-            </Route>
-          </Route>
-          <Route path="/unauthorized" element={<UnauthPage />} />
-          <Route path="/logout" element={<LogoutPage />} />
-          <Route path="*" element={<ErrorPage />} />
-        </Routes>
-        <Footer />
-        <Toaster />
+            <Route path="/unauthorized" element={<UnauthPage />} />
+            <Route path="/logout" element={<LogoutPage />} />
+            <Route path="*" element={<ErrorPage />} />
+          </Routes>
+          <Footer />
+          <Toaster />
+          <Gradients />
+        </BookProvider>
       </AuthProvider>
     </BrowserRouter>
   </React.StrictMode>

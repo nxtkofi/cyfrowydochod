@@ -2,9 +2,10 @@ import TextDefault from "@/components/ui/HomePage/textDefault";
 import SearchBar from "@/components/ui/OfferPage/SearchBar";
 import { Button } from "@/components/ui/button";
 import Wrapper from "@/components/ui/wrapper";
-import { HeroBooks } from "@/constants";
+import useBooksContext from "@/hooks/useBooksContext";
 import useNavigation from "@/hooks/useNavigation";
 function OfferPage() {
+  const {books} = useBooksContext();
   const navigate = useNavigation()
   const handleNavigate = (path:string)=>{
     navigate({path:path})
@@ -17,7 +18,7 @@ function OfferPage() {
         </TextDefault>
         <SearchBar className="mb-4"/>
         <div className="grid grid-cols-1 md:grid-cols-3">
-          {HeroBooks.map((book) => (
+          {books && books.map((book) => (
             <div className="flex flex-col">
               <div className="bg-[#FBFBFB] rounded-md shadow-md p-4 my-4">
                 <div className="flex flex-row">
@@ -31,7 +32,7 @@ function OfferPage() {
                       alt=""
                       className="w-28 rounded-lg"
                     />
-                    <Button onClick={()=>handleNavigate(`/offer/book/${book.bookId}`)} size={"sm"} className=" self-center w-fit mt-4">
+                    <Button onClick={()=>handleNavigate(`/offer/book/${book.id}`)} size={"sm"} className=" self-center w-fit mt-4">
                       More info
                     </Button>
                   </div>

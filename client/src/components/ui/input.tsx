@@ -1,10 +1,12 @@
 import * as React from "react";
 import useValidation from "@/hooks/useValidation";
-import { ValidationPresetsType, ValidationRulesType } from "@/types";
-import { InfoIcon } from "lucide-react";
-import { ChangeEvent, useState } from "react";
-import { Button } from "./button";
-import { HoverCard } from "./hover-card";
+import {
+  ValidationPresetsType,
+  ValidationRulesType,
+  infoElementDetailsType,
+} from "@/types";
+import { useEffect } from "react";
+import InfoElement from "../InfoElement";
 
 const ValidationPresets: ValidationPresetsType = {
   email: {
@@ -50,7 +52,8 @@ export interface InputProps
   validationRules?: ValidationRulesType;
   handleChange?: (value: string) => void; // Zmieniono nazwę z onChange na handleChange
   initValue?: string;
-  infoElement?: infoElementType;
+  setParentError?: (hasError: boolean) => void;
+  infoElementDetails?: infoElementDetailsType;
 }
 
 const getValidationRules = (
@@ -73,10 +76,6 @@ const getValidationRules = (
   };
 };
 
-type infoElementType = {
-  title?: string;
-  description: string;
-};
 const Input = React.forwardRef<HTMLInputElement, InputProps>(
   ({
     className,
@@ -86,11 +85,11 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
     validationRules,
     preset,
     handleChange,
+    setParentError,
     initValue,
-    infoElement,
+    infoElementDetails,
     ...props
   }) => {
-    const [showHoverCard, setShowHoverCard] = useState<boolean>();
     const rules = getValidationRules(preset, validationRules);
     const { value, error, handleUseNavigationChange } = useValidation(
       initValue ? initValue : "",
@@ -102,15 +101,18 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
         inputRef.current.focus();
       }
     };
-    const handleHoverCard = () => {
-      setShowHoverCard((prev) => !prev);
-    };
+
     const handleChanges = (e: React.ChangeEvent<HTMLInputElement>) => {
       if (handleChange) {
         handleChange(e.target.value);
       }
       handleUseNavigationChange(e.target.value);
     };
+    useEffect(() => {
+      if (setParentError) {
+        setParentError(!!error);
+      }
+    }, [error, setParentError]);
     return (
       <div
         className={`relative my-4 ${
@@ -141,21 +143,12 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
           {guiName}
         </span>
         {value.length > 0 && error && (
-          <span className="text-red-400 absolute right-0 z-10">{error}</span>
+          <span className="text-red-400 absolute right-0 z-10 text-sm">
+            {error}
+          </span>
         )}
-        {infoElement && (
-          <div
-            className="bg-white absolute right-2 top-2"
-            onClick={handleHoverCard}
-          >
-            <InfoIcon className=" text-slate-400" />
-            {showHoverCard && (
-              <div className="absolute z-10 bg-white rounded-md border-slate-200 border p-4 w-40 right-0 flex flex-col">
-                <p className="font-semibold">{infoElement?.title}</p>
-                <p className="text-sm w-fit">{infoElement?.description}</p>
-              </div>
-            )}
-          </div>
+        {infoElementDetails && (
+          <InfoElement className="right-2 top-2" infoElementDetails={infoElementDetails} />
         )}
       </div>
     );
