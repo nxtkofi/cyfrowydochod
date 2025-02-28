@@ -1,30 +1,112 @@
-# React + TypeScript + Vite
+# Project Backlog - Digital Income Platform
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## Core Features
 
-Currently, two official plugins are available:
+### Authentication & Authorization
+- [x] User registration
+- [x] User login
+- [x] JWT token authentication
+- [x] Role-based access control (Admin/User)
+- [x] Password encryption
+- [ ] Password reset functionality
+- [ ] Email verification
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+### User Management
+- [x] User profiles
+- [x] Avatar selection
+- [x] User preferences
+- [ ] Profile editing
+- [ ] Account deletion
+- [ ] User activity history
 
-## Expanding the ESLint configuration
+### E-Book Management
+- [x] Add new e-books (Admin)
+- [x] E-book listing
+- [x] E-book details view
+- [ ] E-book editing
+- [ ] E-book deletion
+- [ ] E-book search functionality
+- [ ] E-book categories/tags
+- [ ] E-book preview functionality
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+### Shopping & Orders
+- [x] Shopping cart functionality
+- [x] Order creation
+- [x] Order history
+- [ ] Payment integration
+- [ ] Download purchased e-books
+- [ ] Order status tracking
+- [ ] Order cancellation
+- [ ] Refund processing
 
-- Configure the top-level `parserOptions` property like this:
+### Support System
+- [x] Create support tickets
+- [x] Ticket messaging
+- [x] Ticket status tracking
+- [ ] Ticket categories
+- [ ] File attachments in tickets
+- [ ] Automated ticket routing
+- [ ] Ticket prioritization
 
-```js
-export default {
-  // other rules...
-  parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-  },
-}
-```
+### Reviews & Ratings
+- [ ] Add book reviews
+- [ ] Rate books
+- [ ] Review moderation
+- [ ] Review filtering
+- [ ] Review reporting
 
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+### UI/UX Improvements
+- [x] Responsive design
+- [x] Dark mode support
+- [ ] Accessibility improvements
+- [ ] Loading states
+- [ ] Error handling improvements
+- [ ] Form validation enhancements
+- [ ] UI animations
+- [ ] Mobile optimization
+
+### Admin Features
+- [x] Admin dashboard
+- [x] Book management interface
+- [ ] User management interface
+- [ ] Sales analytics
+- [ ] Revenue reports
+- [ ] Content moderation tools
+- [ ] System settings management
+
+### Marketing & Engagement
+- [x] Newsletter subscription
+- [ ] Email notifications
+- [ ] Price drop alerts
+- [ ] Featured books
+- [ ] Promotional campaigns
+- [ ] Referral system
+- [ ] Social sharing
+
+### Technical Improvements
+- [ ] API documentation
+- [ ] Performance optimization
+- [ ] Security enhancements
+- [ ] Automated testing
+- [ ] CI/CD pipeline
+- [ ] Logging system
+- [ ] Backup system
+- [ ] Error monitoring
+
+### Future Enhancements
+- [ ] Multi-language support
+- [ ] Affiliate program
+- [ ] Author portal
+- [ ] Bulk import/export
+- [ ] API integration with external services
+- [ ] Mobile app development
+- [ ] Content recommendation system
+
+## Priority Levels
+- **High**: Core functionality, security features, payment integration
+- **Medium**: UI/UX improvements, admin features, marketing tools
+- **Low**: Future enhancements, nice-to-have features
+
+## Status Legend
+- [x] Completed
+- [ ] Pending 
