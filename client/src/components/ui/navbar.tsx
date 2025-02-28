@@ -52,7 +52,7 @@ function Navbar() {
               onMouseDown={handleMenuClick}
             />
           ) : (
-            <UserIcon onMouseDown={handleMenuClick} />
+            <UserIcon className="cursor-pointer" onClick={handleMenuClick} />
           )}
           <SideBar showSideBar={showSideBar} shown={sideBarVisible} />
         </div>

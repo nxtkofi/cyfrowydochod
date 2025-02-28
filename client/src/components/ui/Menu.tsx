@@ -20,8 +20,10 @@ const Menu: FunctionComponent<MenuProps> = ({ withCloseIcon, showSideBar }) => {
   return (
     <div className="flex flex-col m-4">
       <div className="flex flex-row justify-between border-b-2 p-4">
-        <p className="font-bold text-lg">My Account</p>
-        {withCloseIcon && <XIcon onClick={showSideBar} className=" self-end" />}
+        <p className="font-bold text-lg cursor-none">My Account</p>
+        {withCloseIcon && (
+          <XIcon onClick={showSideBar} className="cursor-pointer self-end" />
+        )}
       </div>
       {MenuOptions.map(
         (option, index) =>

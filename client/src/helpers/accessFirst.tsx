@@ -8,14 +8,19 @@ function AccessFirst() {
   const { auth } = useAuth();
   const navigate = useNavigation();
 
-  return auth?.role == "commonUser" ||auth?.role=="admin" ? (
+  return auth?.role == "commonUser" || auth?.role == "admin" ? (
     <Outlet />
   ) : (
     <>
       <Wrapper>
         <TextDefault variant="default" bigTitle center>
           Do you want to contact us?
-          <div className="underline md:no-underline md:hover:underline" onClick={()=>navigate({path:"/access"})}>Login/Register first.</div>
+          <div
+            className="underline md:no-underline md:hover:underline cursor-pointer"
+            onClick={() => navigate({ path: "/access" })}
+          >
+            Login/Register first.
+          </div>
         </TextDefault>
       </Wrapper>
       <Outlet />
