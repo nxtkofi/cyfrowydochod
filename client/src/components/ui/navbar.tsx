@@ -23,31 +23,40 @@ function Navbar() {
 
   return (
     <>
-    <div className="fixed w-screen bg-white z-50">
-      <div className="flex flex-row justify-between m-8 md:mx-[25%] items-center">
-        <div onMouseDown={() => navigate({ path: "/" })}>
-          <HomeIcon />
-        </div>
+      <div className="fixed w-screen bg-white z-50">
+        <div className="flex flex-row justify-between m-8 md:mx-[25%] items-center">
+          <div
+            className="cursor-pointer"
+            onMouseDown={() => navigate({ path: "/" })}
+          >
+            <HomeIcon />
+          </div>
 
-        <div onMouseDown={() => navigate({ path: "/offer" })}>
-          <BookIcon className="ml-16" />
-        </div>
-        <div onMouseDown={() => navigate({ path: "/contact" })}>
-          <PencilIcon />
-        </div>
+          <div
+            className="cursor-pointer"
+            onMouseDown={() => navigate({ path: "/offer" })}
+          >
+            <BookIcon className="ml-16" />
+          </div>
+          <div
+            className="cursor-pointer"
+            onMouseDown={() => navigate({ path: "/contact" })}
+          >
+            <PencilIcon />
+          </div>
 
-        {auth?.preferences ? (
-          <img
-            src={`/avatars/${auth?.preferences.avatar}.jpg`}
-            className="w-10 h-10 rounded-full"
-            onMouseDown={handleMenuClick}
-          />
-        ) : (
-          <UserIcon onMouseDown={handleMenuClick} />
-        )}
-        <SideBar showSideBar={showSideBar} shown={sideBarVisible} />
-      </div>
-      <div className=" border-b-2"></div>
+          {auth?.preferences ? (
+            <img
+              src={`/avatars/${auth?.preferences.avatar}.jpg`}
+              className="w-10 h-10 rounded-full cursor-pointer"
+              onMouseDown={handleMenuClick}
+            />
+          ) : (
+            <UserIcon onMouseDown={handleMenuClick} />
+          )}
+          <SideBar showSideBar={showSideBar} shown={sideBarVisible} />
+        </div>
+        <div className=" border-b-2"></div>
       </div>
     </>
   );

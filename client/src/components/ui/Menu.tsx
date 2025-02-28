@@ -32,7 +32,7 @@ const Menu: FunctionComponent<MenuProps> = ({ withCloseIcon, showSideBar }) => {
               )}
               <div
                 onClick={() => handleMenuItemClick(option.path)}
-                className="m-3 flex flex-row items-center"
+                className="m-3 flex flex-row items-center cursor-pointer"
               >
                 <LucideIcon name={option.iconName} size={20} />
                 <p className="ml-2">{option.optionName}</p>
