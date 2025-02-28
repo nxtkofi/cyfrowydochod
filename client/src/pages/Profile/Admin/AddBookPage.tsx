@@ -6,7 +6,12 @@ import { BookTypeRequest, iconElementsType } from "@/types";
 import ColorPicker from "react-best-gradient-color-picker";
 import { ChangeEvent, useEffect, useState } from "react";
 import useApi from "@/hooks/useApi";
-import { book1Request, book2Request, book3Request, iconNames } from "@/constants";
+import {
+  book1Request,
+  book2Request,
+  book3Request,
+  iconNames,
+} from "@/constants";
 import IconListForm from "@/components/ui/Admin/IconListForm";
 import AddFeatureForm from "@/components/ui/Admin/AddFeatureForm";
 import { Checkbox } from "@/components/ui/checkbox";
@@ -16,7 +21,7 @@ function AddBookPage() {
   const [hasErr, setHasErr] = useState<boolean>(false);
   const { sendReq } = useApi();
   const [color, setColor] = useState(
-    "linear-gradient(20deg, rgba(83,244,234,1) 0%, RGBA(240, 142, 249, 0.72) 100%)"
+    "linear-gradient(20deg, rgba(83,244,234,1) 0%, RGBA(240, 142, 249, 0.72) 100%)",
   );
   const [showColorPicker, setShowColorPicker] = useState(false);
   const [iconElements, setIconElements] = useState<iconElementsType>({

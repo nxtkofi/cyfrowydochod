@@ -8,7 +8,7 @@ type SideBarProps = {
 function SideBar({ shown, showSideBar }: SideBarProps) {
   return (
     <div
-      className={`fixed w-60  top-0 bg-white h-full transition-all
+      className={`fixed w-60 top-0 bg-white h-full transition-all
         z-50 
         transform 
     ${shown ? " right-0 " : " -right-60 "}
