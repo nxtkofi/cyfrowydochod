@@ -8,34 +8,11 @@ import ReviewTile from "@/components/ui/HomePage/ReviewTile";
 import { ComboBoxResponsive } from "@/components/ui/comboBox";
 import { useEffect, useState } from "react";
 import useBooksContext from "@/hooks/useBooksContext";
-
-export type Status = {
-  value: string;
-  label: string;
-};
-
-export const statuses: Status[] = [
-  {
-    value: "latest",
-    label: "Created: Latest to Oldest",
-  },
-  {
-    value: "oldest",
-    label: "Created: Oldest to Latest",
-  },
-  {
-    value: "purchaseDateOld",
-    label: "Purchase date: Latest to Oldest",
-  },
-  {
-    value: "done",
-    label: "Purchase date: Oldest to Latest",
-  },  
-];
+import { Status } from "@/types";
 
 function BookPage() {
   const [selectedStatus, setSelectedStatus] = useState<Status | null>(null);
-  const {books} = useBooksContext();
+  const { books } = useBooksContext();
   useEffect(() => {
     console.log(selectedStatus);
   }, [selectedStatus]);

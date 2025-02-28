@@ -13,8 +13,9 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
+import { statuses } from "@/constants";
 import { useMediaQuery } from "@/hooks/use-media-query";
-import { Status, statuses } from "@/pages/BookPage";
+import { Status } from "@/types";
 import { useState } from "react";
 
 export function ComboBoxResponsive({
@@ -77,7 +78,7 @@ function StatusList({
               value={status.value}
               onSelect={(value) => {
                 setSelectedStatus(
-                  statuses.find((priority) => priority.value === value) || null
+                  statuses.find((priority) => priority.value === value) || null,
                 );
                 setOpen(false);
               }}

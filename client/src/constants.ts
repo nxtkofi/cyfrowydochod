@@ -2,6 +2,7 @@ import dynamicIconImports from "lucide-react/dynamicIconImports";
 import {
   BookTypeRequest,
   MenuOptionsType,
+  Status,
   TicketType,
   TrustReviewsType,
   avatarType,
@@ -12,6 +13,25 @@ export const commonUserCredentials = {
   password: "test123",
 };
 export const iconNames = Object.keys(dynamicIconImports);
+
+export const statuses: Status[] = [
+  {
+    value: "latest",
+    label: "Created: Latest to Oldest",
+  },
+  {
+    value: "oldest",
+    label: "Created: Oldest to Latest",
+  },
+  {
+    value: "purchaseDateOld",
+    label: "Purchase date: Latest to Oldest",
+  },
+  {
+    value: "done",
+    label: "Purchase date: Oldest to Latest",
+  },
+];
 
 export const book1Request: BookTypeRequest = {
   newBook: {

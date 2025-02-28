@@ -30,7 +30,7 @@ export type UserUpdateModel = Pick<
 
 export type handleInputChangeType = (
   e: string,
-  name: "email" | "username" | "password" | "repeatPassword"
+  name: "email" | "username" | "password" | "repeatPassword",
 ) => void;
 export type ValidationPresetsType = {
   email: ValidationRulesType;
@@ -80,8 +80,7 @@ export type BookTypeRequest = {
 export type infoElementDetailsType = {
   description: string;
   title?: string;
-  imgSrc?:string;
-
+  imgSrc?: string;
 };
 export type iconElementsType = {
   icon: IconProps["name"]; //czytaj to jako string
@@ -172,4 +171,9 @@ export type AuthType = {
   role: RoleType;
   username: string;
   preferences: UserPreferences;
+};
+
+export type Status = {
+  value: string;
+  label: string;
 };
