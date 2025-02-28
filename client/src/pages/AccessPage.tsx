@@ -19,8 +19,7 @@ const ADMIN_PASS = {
   password: "admin",
 };
 const AccessPage: FunctionComponent<AccessPageProps> = () => {
-
-  //---------------- TO DELETE BEFORE LAUNCH ----------------------
+  //TODO: remove this before launch
   const ogNavigation = useNavigate();
   const location = useLocation();
 
@@ -31,7 +30,7 @@ const AccessPage: FunctionComponent<AccessPageProps> = () => {
     const response = await axios.post(
       `/api/auth/login`,
       role === "commonUser" ? LOGIN_PASS : ADMIN_PASS,
-      { withCredentials: true }
+      { withCredentials: true },
     );
     const accessToken = (await response!).data;
     const decodedToken = jwtDecode(accessToken);
@@ -52,7 +51,6 @@ const AccessPage: FunctionComponent<AccessPageProps> = () => {
       ogNavigation(from, { replace: true });
     }
   };
-  //---------------- TO DELETE BEFORE LAUNCH ----------------------
   return (
     <>
       <div className="flex flex-col h-screen">
