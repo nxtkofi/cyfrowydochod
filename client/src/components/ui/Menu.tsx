@@ -21,7 +21,7 @@ const Menu: FunctionComponent<MenuProps> = ({ withCloseIcon, showSideBar }) => {
     <div className="flex flex-col m-4">
       <div className="flex flex-row justify-between border-b-2 p-4">
         <p className="font-bold text-lg">My Account</p>
-        {witCloseIcon && <XIcon onClick={showSideBar} className=" self-end" />}
+        {withCloseIcon && <XIcon onClick={showSideBar} className=" self-end" />}
       </div>
       {MenuOptions.map(
         (option, index) =>
@@ -38,7 +38,7 @@ const Menu: FunctionComponent<MenuProps> = ({ withCloseIcon, showSideBar }) => {
                 <p className="ml-2">{option.optionName}</p>
               </div>
             </div>
-          )
+          ),
       )}
     </div>
   );
