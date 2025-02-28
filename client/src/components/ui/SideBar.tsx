@@ -14,7 +14,7 @@ function SideBar({ shown, showSideBar }: SideBarProps) {
     ${shown ? " right-0 " : " -right-60 "}
     `}
     >
-      <Menu wihtCloseIcon showSideBar={showSideBar} />
+      <Menu withCloseIcon showSideBar={showSideBar} />
     </div>
   );
 }

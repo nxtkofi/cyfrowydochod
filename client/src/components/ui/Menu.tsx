@@ -6,11 +6,11 @@ import useNavigation from "@/hooks/useNavigation";
 import useAuth from "@/hooks/useAuth";
 
 interface MenuProps {
-  wihtCloseIcon: boolean;
+  withCloseIcon: boolean;
   showSideBar: () => void;
 }
 
-const Menu: FunctionComponent<MenuProps> = ({ wihtCloseIcon, showSideBar }) => {
+const Menu: FunctionComponent<MenuProps> = ({ withCloseIcon, showSideBar }) => {
   const { auth } = useAuth();
   const navigate = useNavigation();
   const handleMenuItemClick = (path: string) => {
@@ -21,7 +21,7 @@ const Menu: FunctionComponent<MenuProps> = ({ wihtCloseIcon, showSideBar }) => {
     <div className="flex flex-col m-4">
       <div className="flex flex-row justify-between border-b-2 p-4">
         <p className="font-bold text-lg">My Account</p>
-        {wihtCloseIcon && <XIcon onClick={showSideBar} className=" self-end" />}
+        {witCloseIcon && <XIcon onClick={showSideBar} className=" self-end" />}
       </div>
       {MenuOptions.map(
         (option, index) =>
