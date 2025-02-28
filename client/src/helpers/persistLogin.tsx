@@ -7,7 +7,7 @@ function PersistLogin() {
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const { auth, persist } = useAuth();
   const refresh = useRefreshToken();
-  
+
   useEffect(() => {
     let isMounted = true;
     const verifyRefreshToken = async () => {
@@ -31,7 +31,19 @@ function PersistLogin() {
     console.log(`aT: ${auth?.accessToken}`);
   }, [isLoading]);
   return (
-    <>{!persist ? <div className="pt-20"><Outlet /></div> : isLoading ? <p>Loading...</p> : <div className="pt-20"><Outlet /></div>}</>
+    <>
+      {!persist ? (
+        <div className="pt-20 min-h-[100vh]">
+          <Outlet />
+        </div>
+      ) : isLoading ? (
+        <p>Loading...</p>
+      ) : (
+        <div className="pt-20">
+          <Outlet />
+        </div>
+      )}
+    </>
   );
 }
 
