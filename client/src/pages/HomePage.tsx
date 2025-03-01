@@ -33,7 +33,7 @@ function HomePage() {
             one of our eBooks and actually make a decision!
           </TextDefault>
           <img
-            src="public/EmojiBundle.jpg"
+            src="/Emojibundle.jpg"
             className="w-2/3 self-center rounded-xl"
             alt=""
           />
