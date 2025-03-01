@@ -6,7 +6,7 @@ import { TrustReviews } from "@/constants";
 import useBooksContext from "@/hooks/useBooksContext";
 
 function HomePage() {
-  const {books} = useBooksContext();
+  const { books } = useBooksContext();
 
   return (
     <>
@@ -39,13 +39,13 @@ function HomePage() {
           />
         </Wrapper>
       </section>
-      <Wrapper>
-          {books &&
-            books.map((Book, index) => (
-              <section key={index}>
-                <HeroBook book={Book} />
-              </section>
-            ))}
+      <Wrapper className="xl:flex xl:flex-row xl:items-center xl:justify-between gap-x-8">
+        {books &&
+          books.map((Book, index) => (
+            <section key={index}>
+              <HeroBook book={Book} />
+            </section>
+          ))}
       </Wrapper>
       <section>
         <Wrapper>

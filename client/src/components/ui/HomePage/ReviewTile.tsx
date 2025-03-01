@@ -7,15 +7,12 @@ type ReviewTileProps = {
 
 function ReviewTile({ review }: ReviewTileProps) {
   return (
-    <div className="w-full flex flex-row p-4 text-slate-900 bg-[#FFF] border border-[#E5E7EB] rounded-sm shadow-md my-4">
+    <div className="w-96 flex flex-row p-4 text-slate-900 bg-[#FFF] border border-[#E5E7EB] rounded-sm shadow-md my-4">
       <img
         className="bg-black w-10 h-10 rounded-full"
         src={"/avatars/" + review.avatar + ".jpg"}
-      />{" "}
-      {/* Image here */}
+      />
       <div className="flex flex-col ml-4">
-        {" "}
-        {/* Content here */}
         <p className="text-sm font-semibold">{"@" + review.username}</p>
         <p className="text-sm">{review.text}</p>
         <div className="flex flex-row text-slate-400 mt-2">
