@@ -58,6 +58,10 @@
 ### UI/UX Improvements
 - [x] Responsive design
 - [x] Dark mode support
+- [x] HomePage enhancement
+- [ ] OfferPage search implementation
+- [ ] SingleProductPage enhancement
+- [ ] CartPage creation
 - [ ] Accessibility improvements
 - [ ] Loading states
 - [ ] Error handling improvements
