@@ -17,7 +17,6 @@ import { AuthProvider } from "./context/AuthProvider";
 import RequireAuth from "./helpers/requireAuth";
 import AdminPage from "./pages/Profile/Admin/AdminPage";
 import UnauthPage from "./pages/UnauthPage";
-import BookPage from "./pages/BookPage";
 import PersistLogin from "./helpers/persistLogin";
 import LogoutPage from "./pages/LogoutPage";
 import ContactPage from "./pages/ContactPage";
@@ -26,6 +25,7 @@ import { Toaster } from "./components/ui/toaster";
 import AddBookPage from "./pages/Profile/Admin/AddBookPage";
 import Gradients from "./components/ui/gradients";
 import { BookProvider } from "./context/BookProvider";
+import SingleProductPage from "./pages/SingleProductPage";
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
@@ -41,7 +41,7 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
                 <Route path="/contact" element={<ContactPage />} />
               </Route>
               <Route path="/offer" element={<OfferPage />} />
-              <Route path="/offer/book/:id" element={<BookPage />} />
+              <Route path="/offer/book/:id" element={<SingleProductPage />} />
               <Route
                 element={<RequireAuth allowedRoles={["commonUser", "admin"]} />}
               >

@@ -80,6 +80,7 @@ const LoginForm: FunctionComponent<LoginFormProps> = () => {
   useEffect(() => {
     localStorage.setItem("persist", persist.toString());
   }, [persist]);
+
   return (
     <>
       <p className="text-slate-500 mb-4"> Login to your account.</p>

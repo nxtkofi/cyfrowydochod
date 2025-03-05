@@ -1,4 +1,4 @@
-import TextDefault from "@/components/ui/HomePage/textDefault";
+import TextDefault from "@/components/ui/HomePage/TextDefault";
 import Wrapper from "@/components/ui/wrapper";
 import useAuth from "@/hooks/useAuth";
 import useNavigation from "@/hooks/useNavigation";

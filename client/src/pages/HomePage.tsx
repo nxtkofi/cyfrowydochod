@@ -1,5 +1,5 @@
 import HeroBook from "@/components/ui/HomePage/HeroBook";
-import TextDefault from "@/components/ui/HomePage/textDefault";
+import TextDefault from "@/components/ui/HomePage/TextDefault";
 import TrustSection from "@/components/ui/HomePage/TrustSection";
 import Wrapper from "@/components/ui/wrapper";
 import { TrustReviews } from "@/constants";
@@ -12,34 +12,37 @@ function HomePage() {
     <>
       <section>
         <Wrapper className="text-slate-900">
-          <TextDefault
-            variant="default"
-            bigTitle
-            center
-            className="leading-[3.5rem]"
-          >
-            Have you ever dreamed about online money-making?
-          </TextDefault>
-          <TextDefault variant={"secondary"} center>
-            While a lot of people wants to make a change - turns out only 15% of
-            them makes a decision.
-          </TextDefault>
-          <TextDefault variant={"default"} center>
-            With our courses it is easy to start, easy to rise and easy to
-            relax.
-          </TextDefault>
-          <TextDefault variant={"default"} center>
-            ...or not. Because if you want to keep going you absolutely can. Buy
-            one of our eBooks and actually make a decision!
-          </TextDefault>
-          <img
-            src="/Emojibundle.jpg"
-            className="w-2/3 self-center rounded-xl"
-            alt=""
-          />
+          <div className="flex w-full flex-col lg:flex-row lg:justify-between justify-center items-center md:max-w-[720px] lg:max-w-[820px] xl:max-w-[1080px] self-center ">
+            <div className="flex flex-col lg:w-1/2 text-center lg:text-left">
+              <TextDefault
+                variant="default"
+                bigTitle
+                className="leading-[3.5rem]"
+              >
+                Have you ever dreamed about online money-making?
+              </TextDefault>
+              <TextDefault variant={"secondary"}>
+                While a lot of people wants to make a change - turns out only
+                15% of them makes a decision.
+              </TextDefault>
+              <TextDefault variant={"default"}>
+                With our courses it is easy to start, easy to rise and easy to
+                relax.
+              </TextDefault>
+              <TextDefault variant={"default"}>
+                ...or not. Because if you want to keep going you absolutely can.
+                Buy one of our eBooks and actually make a decision!
+              </TextDefault>
+            </div>
+            <img
+              src="/Emojibundle.jpg"
+              className="lg:w-1/2 self-center rounded-xl max-w-[400px]"
+              alt=""
+            />
+          </div>
         </Wrapper>
       </section>
-      <Wrapper className="xl:flex xl:flex-row xl:items-center xl:justify-between gap-x-8">
+      <Wrapper>
         {books &&
           books.map((Book, index) => (
             <section key={index}>

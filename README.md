@@ -58,6 +58,7 @@
 ### UI/UX Improvements
 - [x] Responsive design
 - [x] Dark mode support
+- [ ]
 - [ ] Accessibility improvements
 - [ ] Loading states
 - [ ] Error handling improvements

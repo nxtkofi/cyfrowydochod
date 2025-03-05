@@ -64,7 +64,7 @@ const AccessPage: FunctionComponent<AccessPageProps> = () => {
               <TabsTrigger value="Register">Register</TabsTrigger>
             </TabsList>
             <TabsContent
-              className="border border-slate-200 p-6 rounded-lg w-screen"
+              className="border border-slate-200 p-6 rounded-lg w-screen lg:w-fit min-w-[420px]"
               value="Login"
             >
               <div className="flex flex-col">
@@ -72,7 +72,7 @@ const AccessPage: FunctionComponent<AccessPageProps> = () => {
               </div>
             </TabsContent>
             <TabsContent
-              className="border border-slate-200 p-6 rounded-lg w-screen"
+              className="border border-slate-200 p-6 rounded-lg w-screen lg:w-fit"
               value="Register"
             >
               <div className="flex flex-col">
