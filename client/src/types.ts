@@ -122,9 +122,6 @@ export type TrustReviewsType = {
   avatar: avatarType; //maybe the url?
   text: string;
 };
-export type TrustHeaderType = {
-  text: string;
-};
 export type MenuOptionsType = {
   access: RoleType[];
   optionName: string;

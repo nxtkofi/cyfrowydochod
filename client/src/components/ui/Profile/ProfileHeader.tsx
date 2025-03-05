@@ -1,17 +1,23 @@
-import TextDefault from "../HomePage/textDefault";
+import TextDefault from "../HomePage/TextDefault";
 
 type ProfileHeaderProps = {
-  topText?:string;
-  bottomText:string;
-  bottomOnly?:boolean
+  topText?: string;
+  bottomText: string;
+  bottomOnly?: boolean;
 };
 
-function ProfileHeader({ topText, bottomText,bottomOnly }:ProfileHeaderProps) {
+function ProfileHeader({
+  topText,
+  bottomText,
+  bottomOnly,
+}: ProfileHeaderProps) {
   return (
     <>
-      {!bottomOnly && <TextDefault bigTitle center variant="default">
-        {topText} {""}
-      </TextDefault>}
+      {!bottomOnly && (
+        <TextDefault bigTitle center variant="default">
+          {topText} {""}
+        </TextDefault>
+      )}
       <div className="border-b-2 slate-200">
         <TextDefault variant={"default"} title center>
           {bottomText}

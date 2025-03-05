@@ -161,6 +161,13 @@ export const TrustReviews: TrustReviewsType[] = [
     avatar: "axolotl",
     text: "I managed to efficiently scale my business with techniques provided in the Monkey Business. A real game-changer.",
   },
+  {
+    username: "donald.musk",
+    book: "Monkey Business",
+    purchaseDate: "01.08.2023",
+    avatar: "panda",
+    text: "It was the greatest decision in my life to buy the platinum eBook. It changed everything.",
+  },
 ];
 
 export const MenuOptions: MenuOptionsType[] = [

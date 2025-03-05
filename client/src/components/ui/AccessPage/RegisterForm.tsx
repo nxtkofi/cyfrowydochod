@@ -86,14 +86,14 @@ const RegisterForm: FunctionComponent<RegisterFormProps> = () => {
           {registrationStatus == null
             ? "Register"
             : registrationStatus == "success"
-            ? "Success!"
-            : "Try again"}
+              ? "Success!"
+              : "Try again"}
         </Button>
         <HoverCard>
           <HoverCardTrigger className="w-1/2">
             <div
               onClick={() => navigate({ path: "" })}
-              className="hover:underline relative"
+              className="hover:underline relative cursor-pointer"
             >
               By registering you accept our privacy policy and agreements.
             </div>

@@ -1,7 +1,7 @@
 import Wrapper from "@/components/ui/wrapper";
 import { useParams } from "react-router-dom";
 import { TrustReviews } from "@/constants";
-import TextDefault from "@/components/ui/HomePage/textDefault";
+import TextDefault from "@/components/ui/HomePage/TextDefault";
 import HeroBookTile from "@/components/ui/HomePage/HeroBookTile";
 import { Button } from "@/components/ui/button";
 import ReviewTile from "@/components/ui/HomePage/ReviewTile";
@@ -10,7 +10,7 @@ import { useEffect, useState } from "react";
 import useBooksContext from "@/hooks/useBooksContext";
 import { Status } from "@/types";
 
-function BookPage() {
+function SingleProductPage() {
   const [selectedStatus, setSelectedStatus] = useState<Status | null>(null);
   const { books } = useBooksContext();
   useEffect(() => {
@@ -76,4 +76,4 @@ function BookPage() {
   );
 }
 
-export default BookPage;
+export default SingleProductPage;
