@@ -7,9 +7,6 @@ import ColorPicker from "react-best-gradient-color-picker";
 import { ChangeEvent, useEffect, useState } from "react";
 import useApi from "@/hooks/useApi";
 import {
-  book1Request,
-  book2Request,
-  book3Request,
   iconNames,
 } from "@/constants";
 import IconListForm from "@/components/ui/Admin/IconListForm";
