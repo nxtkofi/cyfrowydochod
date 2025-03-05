@@ -23,7 +23,7 @@ function TextDefault({
         variant == "default"
           ? "text-slate-900 lg:text-lg"
           : "text-slate-500 mb-4 -my-2 lg:text-lg"
-      } ${className ? className : ""} ${title ? "font-semibold text-2xl lg:!text-4xl" : ""} ${bigTitle ? "font-semibold text-4xl lg:text-4xl" : ""}`}
+      } ${className ? className : ""} ${title ? "font-semibold text-2xl lg:!text-4xl" : ""} ${bigTitle ? "font-semibold text-4xl lg:!text-4xl" : ""}`}
     >
       {children}
     </p>
