@@ -24,26 +24,28 @@ function Navbar() {
   return (
     <>
       <div className="fixed w-screen bg-white z-50">
-        <div className="flex flex-row justify-between m-8 md:mx-[10%] items-center font-semibold">
+        <div className="flex flex-row justify-between m-8 md:mx-[10%] items-center ">
           <div
             className="cursor-pointer md:w-1/3"
             onMouseDown={() => navigate({ path: "/" })}
           >
             <HomeIcon className="md:hidden" />
-            <p className="hidden md:flex">Home</p>
+            <p className="hidden md:flex animated-underline w-fit">Home</p>
           </div>
           <div
             className="cursor-pointer"
             onMouseDown={() => navigate({ path: "/offer" })}
           >
             <BookIcon className="ml-16 md:hidden" />
-            <p className="hidden md:flex">All e-books</p>
+            <p className="hidden md:flex animated-underline w-fit">
+              All e-books
+            </p>
           </div>
           <div
             className="cursor-pointer"
             onMouseDown={() => navigate({ path: "/contact" })}
           >
-            <p className="hidden md:flex">Contact</p>
+            <p className="hidden md:flex animated-underline">Contact</p>
             <PencilIcon className="md:hidden" />
           </div>
           {auth?.preferences ? (
@@ -55,7 +57,9 @@ function Navbar() {
           ) : (
             <div className="cursor-pointer" onClick={handleMenuClick}>
               <UserIcon className="md:hidden" />
-              <p className="hidden md:flex">Login/Register</p>
+              <p className="hidden md:flex animated-underline">
+                Login/Register
+              </p>
             </div>
           )}
           <SideBar showSideBar={showSideBar} shown={sideBarVisible} />

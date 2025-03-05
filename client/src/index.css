@@ -1,25 +1,56 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
 html,
 body {
   margin: 0;
   padding: 0;
 }
 
-.uiinput:focus ~ .uiinputspan {
+.uiinput:focus~.uiinputspan {
   @apply transform -translate-y-9 -translate-x-2.5 scale-90;
 }
 
-.uiinput:not(:placeholder-shown) ~ .uiinputspan {
+.uiinput:not(:placeholder-shown)~.uiinputspan {
   @apply transform -translate-y-9 -translate-x-2.5 scale-90;
 }
+
 section {
   @apply mb-20 flex flex-col;
 }
+
 .lucide-badge-check {
   @apply my-[2px] w-5;
 }
+
+.animated-underline {
+  @apply relative px-2 hover:font-semibold duration-300 transition-all;
+}
+
+.animated-underline::after {
+  content: '';
+  @apply absolute bottom-0 right-0 h-[1px] bg-black w-0 transition-all duration-300 ease-in-out;
+}
+
+.animated-underline:hover::after {
+  @apply w-full left-0 right-auto;
+}
+
+.animated-underline:not(:hover)::after {
+  @apply w-0 right-0 left-auto;
+}
+
+/* Niestandardowe grubości dla konkretnych elementów */
+.thicker-underline::after {
+  @apply h-[2px];
+}
+
+.thick-underline::after {
+  @apply h-[3px];
+}
+
+
 @layer base {
   :root {
     --background: 0 0% 100%;
@@ -88,6 +119,7 @@ section {
   * {
     @apply border-border;
   }
+
   body {
     @apply bg-background text-foreground;
   }
@@ -106,6 +138,7 @@ section {
   mask-composite: subtract;
   animation: l3 1s infinite linear;
 }
+
 @keyframes l3 {
   to {
     transform: rotate(1turn);

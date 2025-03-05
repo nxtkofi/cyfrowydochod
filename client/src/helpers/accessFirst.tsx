@@ -15,12 +15,13 @@ function AccessFirst() {
       <Wrapper>
         <TextDefault variant="default" bigTitle center>
           Do you want to contact us?
-          <div
-            className="underline md:no-underline md:hover:underline cursor-pointer"
+          <br />
+          <a
+            className="cursor-pointer animated-underline thicker-underline w-fit leading-[5rem]"
             onClick={() => navigate({ path: "/access" })}
           >
-            Login/Register first.
-          </div>
+            Login or register first
+          </a>
         </TextDefault>
       </Wrapper>
       <Outlet />

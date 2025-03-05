@@ -19,7 +19,7 @@ function TextDefault({
 }: TextDefaultProps) {
   return (
     <p
-      className={`${center ? "text-center " : ""} my-4 ${
+      className={`my-4 ${center ? "text-center " : ""}  ${
         variant == "default"
           ? "text-slate-900 lg:text-lg"
           : "text-slate-500 mb-4 -my-2 lg:text-lg"
