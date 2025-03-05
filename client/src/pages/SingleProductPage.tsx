@@ -10,7 +10,7 @@ import { useEffect, useState } from "react";
 import useBooksContext from "@/hooks/useBooksContext";
 import { Status } from "@/types";
 
-function BookPage() {
+function SingleProductPage() {
   const [selectedStatus, setSelectedStatus] = useState<Status | null>(null);
   const { books } = useBooksContext();
   useEffect(() => {
@@ -76,4 +76,4 @@ function BookPage() {
   );
 }
 
-export default BookPage;
+export default SingleProductPage;
