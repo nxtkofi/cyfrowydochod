@@ -1,4 +1,4 @@
-import TextDefault from "../HomePage/textDefault";
+import TextDefault from "../HomePage/TextDefault";
 
 type ProfileHeaderProps = {
   topText?:string;

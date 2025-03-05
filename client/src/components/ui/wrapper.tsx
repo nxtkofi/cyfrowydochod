@@ -7,7 +7,7 @@ type WrapperProps = {
 function Wrapper({ children, className }: WrapperProps) {
   return (
     <div
-      className={`mx-8 my-8 flex flex-col md:mx-[25%]  ${className ? className : ""} `}
+      className={`mx-8 my-8 flex flex-col md:mx-[10%]  ${className ? className : ""} `}
     >
       {children}
     </div>
@@ -15,4 +15,3 @@ function Wrapper({ children, className }: WrapperProps) {
 }
 
 export default Wrapper;
-
