@@ -22,11 +22,12 @@ const TrustSection: FunctionComponent<TrustSectionProps> = ({
       >
         {trustReviews.map((review, index) => (
           <Slider.Slide key={index}>
-            <ReviewTile
-              review={review}
-
-              key={index + review.book + review.username}
-            />
+            <div className="mx-8">
+              <ReviewTile
+                review={review}
+                key={index + review.book + review.username}
+              />
+            </div>
           </Slider.Slide>
         ))}
       </Slider>
@@ -35,4 +36,3 @@ const TrustSection: FunctionComponent<TrustSectionProps> = ({
 };
 
 export default TrustSection;
-
