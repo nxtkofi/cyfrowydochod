@@ -2,10 +2,11 @@ import TextDefault from "@/components/ui/HomePage/TextDefault";
 import SearchBar from "@/components/ui/OfferPage/SearchBar";
 import { Button } from "@/components/ui/button";
 import Wrapper from "@/components/ui/wrapper";
-import useBooksContext from "@/hooks/useBooksContext";
+import useBooks from "@/hooks/useBooks";
 import useNavigation from "@/hooks/useNavigation";
+
 function OfferPage() {
-  const { books } = useBooksContext();
+  const { books } = useBooks();
   const navigate = useNavigation();
   const handleNavigate = (path: string) => {
     navigate({ path: path });

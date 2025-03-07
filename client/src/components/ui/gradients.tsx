@@ -1,4 +1,4 @@
-import useBooksContext from "@/hooks/useBooksContext";
+import useBooks from "@/hooks/useBooks";
 import { useEffect, useState } from "react";
 
  type gradientType = {
@@ -24,7 +24,7 @@ function parseGradient(gradient: string) {
 function Gradients() {
   const [gradients, setGradients] = useState<gradientType[] | null>(null);
   const [parsedGradients, setParsedGradients] = useState<parsedGradientType[][] | null>(null);
-  const { books } = useBooksContext();
+  const { books } = useBooks();
   useEffect(() => {
     if (books) {
       const gradientsArray = books.map((book) => {

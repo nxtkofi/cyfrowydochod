@@ -3,10 +3,10 @@ import TextDefault from "@/components/ui/HomePage/TextDefault";
 import TrustSection from "@/components/ui/HomePage/TrustSection";
 import Wrapper from "@/components/ui/wrapper";
 import { TrustReviews } from "@/constants";
-import useBooksContext from "@/hooks/useBooksContext";
+import useBooks from "@/hooks/useBooks";
 
 function HomePage() {
-  const { books } = useBooksContext();
+  const { books } = useBooks();
 
   return (
     <>
