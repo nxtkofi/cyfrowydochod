@@ -8,6 +8,11 @@ body {
   padding: 0;
 }
 
+body,
+html {
+  @apply overflow-x-hidden
+}
+
 .uiinput:focus~.uiinputspan {
   @apply transform -translate-y-9 -translate-x-2.5 scale-90;
 }
