@@ -13,12 +13,12 @@ function OfferPage() {
   };
   return (
     <>
-      <Wrapper className="flex flex-col">
+      <Wrapper>
         <TextDefault className="text-center" variant={"default"} bigTitle>
           Explore our offer
         </TextDefault>
         <SearchBar className="mb-4" />
-        <div className="grid grid-cols-1 lg:grid-cols-2 justify-center items-center 2xl:grid-cols-3">
+        <div className="grid grid-cols-1 lg:grid-cols-2 justify-center items-center 2xl:grid-cols-3 gap-x-8">
           {books &&
             books.map((book) => (
               <div className="flex flex-col md:w-96 place-self-center">

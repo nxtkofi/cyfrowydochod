@@ -33,7 +33,7 @@ function PersistLogin() {
   return (
     <>
       {!persist ? (
-        <div className="pt-20 min-h-[100vh]">
+        <div className="pt-20 min-h-[100vh] flex flex-col w-full justify-center">
           <Outlet />
         </div>
       ) : isLoading ? (

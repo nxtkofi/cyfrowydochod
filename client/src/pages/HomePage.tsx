@@ -12,8 +12,8 @@ function HomePage() {
     <>
       <section>
         <Wrapper className="text-slate-900">
-          <div className="flex w-full flex-col lg:flex-row lg:justify-between justify-center items-center md:max-w-[720px] lg:max-w-[820px] xl:max-w-[1080px] self-center ">
-            <div className="flex flex-col lg:w-1/2 text-center lg:text-left">
+          <div className="flex w-full flex-col lg:flex-row lg:justify-between justify-center items-center  xl:max-w-[1080px] self-center ">
+            <div className="flex flex-col lg:w-1/2 text-center lg:text-left px-4 md:px-0">
               <TextDefault
                 variant="default"
                 bigTitle

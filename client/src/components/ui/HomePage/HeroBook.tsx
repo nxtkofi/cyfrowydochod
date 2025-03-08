@@ -4,6 +4,7 @@ import TextDefault from "./TextDefault";
 import LucideIcon from "./LucideIcon";
 import { useEffect } from "react";
 import { Button } from "../button";
+import { IconElements } from "@/components/IconElements";
 
 type HeroBookProps = {
   book: BookType;
@@ -33,24 +34,7 @@ function HeroBook({ book }: HeroBookProps) {
           <TextDefault className="md:text-left" variant="default" center>
             {book.secondText}
           </TextDefault>
-          {book.iconElements &&
-            book.iconElements.map((element, index) => (
-              <div
-                key={index + element.icon}
-                className="flex flex-col py-[2px] self-center md:self-baseline lg:text-lg"
-              >
-                <div className="flex flex-row">
-                  {book.iconElements && (
-                    <LucideIcon
-                      className="mr-2"
-                      style={{ stroke: `url(#gradient-${book.id})` }}
-                      name={element.icon}
-                    />
-                  )}
-                  <p>{element.text}</p>
-                </div>
-              </div>
-            ))}
+          <IconElements iconElements={book.iconElements} bookId={book.id} />
         </div>
         <div className="flex flex-col">
           <HeroBookTile
