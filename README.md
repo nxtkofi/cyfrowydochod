@@ -59,8 +59,8 @@
 - [x] Responsive design
 - [x] Dark mode support
 - [x] HomePage enhancement
+- [x] SingleProductPage enhancement
 - [ ] OfferPage search implementation
-- [ ] SingleProductPage enhancement
 - [ ] CartPage creation
 - [ ] Accessibility improvements
 - [ ] Loading states
