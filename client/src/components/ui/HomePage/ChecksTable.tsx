@@ -35,7 +35,7 @@ function ChecksTable({
     <div
       className={`${
         textBlack ? "text-black" : "text-white"
-      } rounded-xl p-2 w-fit self-center flex flex-col gap-y-2`}
+      } rounded-xl p-2 w-fit self-start flex flex-col gap-y-2`}
       style={{ background: gradient }}
     >
       {features.map((feature, index) => (

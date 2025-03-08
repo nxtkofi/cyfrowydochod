@@ -3,17 +3,17 @@ import TextDefault from "@/components/ui/HomePage/TextDefault";
 import TrustSection from "@/components/ui/HomePage/TrustSection";
 import Wrapper from "@/components/ui/wrapper";
 import { TrustReviews } from "@/constants";
-import useBooksContext from "@/hooks/useBooksContext";
+import useBooks from "@/hooks/useBooks";
 
 function HomePage() {
-  const { books } = useBooksContext();
+  const { books } = useBooks();
 
   return (
     <>
       <section>
         <Wrapper className="text-slate-900">
-          <div className="flex w-full flex-col lg:flex-row lg:justify-between justify-center items-center md:max-w-[720px] lg:max-w-[820px] xl:max-w-[1080px] self-center ">
-            <div className="flex flex-col lg:w-1/2 text-center lg:text-left">
+          <div className="flex w-full flex-col lg:flex-row lg:justify-between justify-center items-center  xl:max-w-[1080px] self-center ">
+            <div className="flex flex-col lg:w-1/2 text-center lg:text-left px-4 md:px-0">
               <TextDefault
                 variant="default"
                 bigTitle

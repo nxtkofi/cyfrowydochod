@@ -2,22 +2,23 @@ import TextDefault from "@/components/ui/HomePage/TextDefault";
 import SearchBar from "@/components/ui/OfferPage/SearchBar";
 import { Button } from "@/components/ui/button";
 import Wrapper from "@/components/ui/wrapper";
-import useBooksContext from "@/hooks/useBooksContext";
+import useBooks from "@/hooks/useBooks";
 import useNavigation from "@/hooks/useNavigation";
+
 function OfferPage() {
-  const { books } = useBooksContext();
+  const { books } = useBooks();
   const navigate = useNavigation();
   const handleNavigate = (path: string) => {
     navigate({ path: path });
   };
   return (
     <>
-      <Wrapper className="flex flex-col">
+      <Wrapper>
         <TextDefault className="text-center" variant={"default"} bigTitle>
           Explore our offer
         </TextDefault>
         <SearchBar className="mb-4" />
-        <div className="grid grid-cols-1 lg:grid-cols-2 justify-center items-center 2xl:grid-cols-3">
+        <div className="grid grid-cols-1 lg:grid-cols-2 justify-center items-center 2xl:grid-cols-3 gap-x-8">
           {books &&
             books.map((book) => (
               <div className="flex flex-col md:w-96 place-self-center">
