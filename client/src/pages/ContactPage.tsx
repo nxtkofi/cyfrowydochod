@@ -6,7 +6,7 @@ import useAuth from "@/hooks/useAuth";
 function ContactPage() {
   const { auth } = useAuth();
   return (
-    <Wrapper>
+    <Wrapper className="md:border-2 md:border-gray-400 md:rounded-lg md:px-16 md:py-8">
       <TextDefault className="" bigTitle center variant="default">
         Contact us
       </TextDefault>
