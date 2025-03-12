@@ -61,6 +61,7 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
               </Route>
             </Route>
             <Route path="/restorePassword" element={<RestorePasswordPage />} />
+            <Route path="/restorePassword/:id" element={<RestorePasswordPage />} />
             <Route path="/unauthorized" element={<UnauthPage />} />
             <Route path="/logout" element={<LogoutPage />} />
             <Route path="*" element={<ErrorPage />} />
