@@ -16,9 +16,11 @@ import { Checkbox } from "../checkbox";
 import { handleInputChangeType, userInputType } from "@/types";
 import { useToast } from "../use-toast";
 
-interface LoginFormProps {}
-
-const LoginForm: FunctionComponent<LoginFormProps> = () => {
+const LoginForm = () => {
+  const [errors, setErrors] = useState({
+    email: true,
+    password: true,
+  });
   const { toast } = useToast();
   const location = useLocation();
   const { persist, setPersist, setAuth } = useAuth();
@@ -56,16 +58,17 @@ const LoginForm: FunctionComponent<LoginFormProps> = () => {
         ogNavigation(from, { replace: true });
       }
     } catch (error) {
-        
       if (error instanceof AxiosError) {
-        if(error.response!.status===401){
-          toast({ title: "Error", description: error.response!.data,variant:"destructive" });
-
+        if (error.response!.status === 401) {
+          toast({
+            title: "Error",
+            description: error.response!.data,
+            variant: "destructive",
+          });
         }
         if (!error?.response) {
           console.log("No server response.");
         } else {
-          
         }
       }
     }
@@ -89,6 +92,9 @@ const LoginForm: FunctionComponent<LoginFormProps> = () => {
         guiName="Email"
         name="email"
         preset="email"
+        setParentError={(hasError) =>
+          setErrors((prev) => ({ ...prev, email: hasError }))
+        }
       />
       <Input
         handleChange={(value: string) => handleInputChange(value, "password")}
@@ -96,7 +102,10 @@ const LoginForm: FunctionComponent<LoginFormProps> = () => {
         guiName="Password"
         name="password"
         type="password"
-      />
+        setParentError={(hasError) =>
+          setErrors((prev) => ({ ...prev, password: hasError }))
+        }
+      />{" "}
       <div className="flex flex-row items-center">
         <Checkbox
           id="persist"
@@ -107,7 +116,17 @@ const LoginForm: FunctionComponent<LoginFormProps> = () => {
         <p className="ml-2">Trust this device.</p>
       </div>
       <div className="flex flex-row items-center justify-between">
-        <Button onClick={handleLogin}>Login</Button>
+        <Button
+          onClick={handleLogin}
+          disabled={
+            errors.email ||
+            errors.password ||
+            !userInput.email ||
+            !userInput.password
+          }
+        >
+          Login
+        </Button>
         <HoverCard>
           <HoverCardTrigger>
             <div
