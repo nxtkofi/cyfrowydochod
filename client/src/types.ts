@@ -41,6 +41,7 @@ export type userInputType = {
   email: string;
   password: string;
   username?: string;
+  repeatPassword?: string;
 };
 export type ValidationRulesType = {
   min: number;

@@ -19,10 +19,17 @@ const RegisterForm: FunctionComponent<RegisterFormProps> = () => {
   >(null);
   const { toast } = useToast();
   const navigate = useNavigation();
+  const [errors, setErrors] = useState({
+    email: true,
+    username: true,
+    password: true,
+    repeatPassword: true,
+  });
   const [userInput, setUserInput] = useState<userInputType>({
     username: "",
     email: "",
     password: "",
+    repeatPassword: "",
   });
 
   const handleInputChange: handleInputChangeType = (inputValue, inputName) => {
@@ -33,7 +40,11 @@ const RegisterForm: FunctionComponent<RegisterFormProps> = () => {
 
   const handleRegister = async () => {
     try {
-      const response = axios.post("/api/auth/register", userInput);
+      const response = axios.post("/api/auth/register", {
+        username: userInput.username,
+        email: userInput.email,
+        password: userInput.password,
+      });
       console.log((await response).data);
       if ((await response).status == 201) {
         toast({
@@ -56,17 +67,26 @@ const RegisterForm: FunctionComponent<RegisterFormProps> = () => {
       <p className="text-slate-500 mb-4">Register new account.</p>
       <Input
         handleChange={(value: string) => handleInputChange(value, "email")}
+        setParentError={(hasError) =>
+          setErrors((prev) => ({ ...prev, email: hasError }))
+        }
         guiName="Email"
         name="email"
         preset="email"
       />
       <Input
+        setParentError={(hasError) => {
+          setErrors((prev) => ({ ...prev, username: hasError }));
+        }}
         handleChange={(value: string) => handleInputChange(value, "username")}
         guiName="Username"
         name="username"
         preset="username"
       />
       <Input
+        setParentError={(hasError) =>
+          setErrors((prev) => ({ ...prev, password: hasError }))
+        }
         handleChange={(value: string) => handleInputChange(value, "password")}
         guiName="Password"
         name="password"
@@ -74,6 +94,12 @@ const RegisterForm: FunctionComponent<RegisterFormProps> = () => {
         preset="password"
       />
       <Input
+        setParentError={(hasError) =>
+          setErrors((prev) => ({
+            ...prev,
+            repeatPassword: hasError,
+          }))
+        }
         handleChange={(value: string) =>
           handleInputChange(value, "repeatPassword")
         }
@@ -82,7 +108,20 @@ const RegisterForm: FunctionComponent<RegisterFormProps> = () => {
         preset="password"
       />
       <div className="flex flex-row items-center  justify-between">
-        <Button onClick={handleRegister}>
+        <Button
+          onClick={handleRegister}
+          disabled={
+            errors.email ||
+            errors.password ||
+            errors.username ||
+            errors.repeatPassword ||
+            !userInput.username ||
+            !userInput.email ||
+            !userInput.password ||
+            !userInput.repeatPassword ||
+            userInput.password !== userInput.repeatPassword
+          }
+        >
           {registrationStatus == null
             ? "Register"
             : registrationStatus == "success"

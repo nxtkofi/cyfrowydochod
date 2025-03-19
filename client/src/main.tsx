@@ -26,6 +26,7 @@ import AddBookPage from "./pages/Profile/Admin/AddBookPage";
 import Gradients from "./components/ui/gradients";
 import { BookProvider } from "./context/BookProvider";
 import SingleProductPage from "./pages/SingleProductPage";
+import { RestorePasswordPage } from "./pages/RestorePasswordPage";
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
@@ -59,6 +60,8 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
                 <Route path="/profile/addbook" element={<AddBookPage />} />
               </Route>
             </Route>
+            <Route path="/restorePassword" element={<RestorePasswordPage />} />
+            <Route path="/restorePassword/:id" element={<RestorePasswordPage />} />
             <Route path="/unauthorized" element={<UnauthPage />} />
             <Route path="/logout" element={<LogoutPage />} />
             <Route path="*" element={<ErrorPage />} />

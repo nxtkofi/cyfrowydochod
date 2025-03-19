@@ -5,7 +5,7 @@ import validator from "validator";
 
 function useValidation(
   initialValue: string,
-  validationRules: ValidationRulesType
+  validationRules: ValidationRulesType,
 ) {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -22,8 +22,8 @@ function useValidation(
       if (!iconNames.includes(text)) {
         setError("Must be a valid Lucide Icon name.");
       }
-    } else if (validationRules.mustBeEmail) {
-      validator.isEmail(text);
+    } else if (validationRules.mustBeEmail && !validator.isEmail(text)) {
+      setError("Must be a valid email address!");
     } else if (text.length < validationRules.min) {
       setError("Value is too short!");
     } else if (text.length > validationRules.max) {
