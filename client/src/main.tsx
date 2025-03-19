@@ -22,11 +22,12 @@ import LogoutPage from "./pages/LogoutPage";
 import ContactPage from "./pages/ContactPage";
 import AccessFirst from "./helpers/accessFirst";
 import { Toaster } from "./components/ui/toaster";
-import AddBookPage from "./pages/Profile/Admin/AddBookPage";
 import Gradients from "./components/ui/gradients";
 import { BookProvider } from "./context/BookProvider";
 import SingleProductPage from "./pages/SingleProductPage";
 import { RestorePasswordPage } from "./pages/RestorePasswordPage";
+import ManageBooksPage from "./pages/Profile/Admin/ManageBooksPage";
+import AddBookPage from "./pages/Profile/Admin/AddBookPage";
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
@@ -58,10 +59,21 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
               <Route element={<RequireAuth allowedRoles={["admin"]} />}>
                 <Route path="/profile/adminpanel" element={<AdminPage />} />
                 <Route path="/profile/addbook" element={<AddBookPage />} />
+                <Route
+                  path="/profile/adminpanel/manage-books"
+                  element={<ManageBooksPage />}
+                />
+                <Route
+                  path="/profile/adminpanel/edit-book/:id"
+                  element={<AddBookPage />}
+                />
               </Route>
             </Route>
             <Route path="/restorePassword" element={<RestorePasswordPage />} />
-            <Route path="/restorePassword/:id" element={<RestorePasswordPage />} />
+            <Route
+              path="/restorePassword/:id"
+              element={<RestorePasswordPage />}
+            />
             <Route path="/unauthorized" element={<UnauthPage />} />
             <Route path="/logout" element={<LogoutPage />} />
             <Route path="*" element={<ErrorPage />} />
@@ -72,5 +84,5 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
         </BookProvider>
       </AuthProvider>
     </BrowserRouter>
-  </React.StrictMode>
+  </React.StrictMode>,
 );
