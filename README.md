@@ -23,8 +23,8 @@
 - [x] Add new e-books (Admin)
 - [x] E-book listing
 - [x] E-book details view
-- [ ] E-book editing
-- [ ] E-book deletion
+- [x] E-book editing
+- [x] E-book deletion
 - [ ] E-book search functionality
 - [ ] E-book categories/tags
 - [ ] E-book preview functionality
