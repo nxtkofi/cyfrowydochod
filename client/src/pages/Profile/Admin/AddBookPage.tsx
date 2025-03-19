@@ -6,14 +6,17 @@ import { BookTypeRequest, iconElementsType } from "@/types";
 import ColorPicker from "react-best-gradient-color-picker";
 import { ChangeEvent, useEffect, useState } from "react";
 import useApi from "@/hooks/useApi";
-import {
-  iconNames,
-} from "@/constants";
+import { iconNames } from "@/constants";
 import IconListForm from "@/components/ui/Admin/IconListForm";
 import AddFeatureForm from "@/components/ui/Admin/AddFeatureForm";
 import { Checkbox } from "@/components/ui/checkbox";
+import { useNavigate, useParams } from "react-router-dom";
+import ProfileHeader from "@/components/ui/Profile/ProfileHeader";
 
 function AddBookPage() {
+  const { id } = useParams();
+  const isEditMode = !!id;
+  const navigate = useNavigate();
   const [textBlack, setTextBlack] = useState<boolean>(false);
   const [hasErr, setHasErr] = useState<boolean>(false);
   const { sendReq } = useApi();
@@ -45,13 +48,62 @@ function AddBookPage() {
     bookIconElementsList: [],
   });
 
-  const submitBook = async () => {
+  // Fetch book data when in edit mode
+  useEffect(() => {
+    if (isEditMode) {
+      const fetchBook = async () => {
+        const { response } = await sendReq(`/api/books/${id}`, "GET");
+
+        if (response) {
+          const bookData = (await response).data;
+
+          setInput({
+            newBook: {
+              longDescription: bookData.longDescription || "",
+              shortDescription: bookData.shortDescription || "",
+              subTitle: bookData.subTitle || "",
+              firstText: bookData.firstText || "",
+              secondText: bookData.secondText || "",
+              title: bookData.title || "",
+              author: bookData.author || "",
+              price: bookData.price || 0,
+              gradient: bookData.gradient || color,
+              imagePath: bookData.imagePath || "",
+              checksTableTextBlack: bookData.checksTableTextBlack || false,
+              isHeroBook: bookData.isHeroBook || false,
+            },
+            bookFeaturesList: bookData.bookFeatures || [],
+            bookIconElementsList: bookData.iconElements || [],
+          });
+
+          setColor(bookData.gradient || color);
+          setTextBlack(bookData.checksTableTextBlack || false);
+        }
+      };
+      
+      fetchBook();
+    }
+  }, [id, isEditMode]);
+
+  const saveBook = async () => {
     try {
-      await sendReq("/api/books", "POST", input, {
-        title: "Book submitted.",
-        description: "Book submitted successfully!",
-      });
-    } catch (error) {}
+      if (isEditMode) {
+        // Update existing book
+        await sendReq(`/api/books/${id}`, "PUT", input, {
+          title: "Book updated",
+          description: "Book updated successfully!",
+        });
+      } else {
+        // Create new book
+        await sendReq("/api/books", "POST", input, {
+          title: "Book submitted",
+          description: "Book submitted successfully!",
+        });
+      }
+      navigate("/profile/adminpanel/manage-books");
+    } catch (error) {
+      console.error("Failed to save book:", error);
+    }
   };
 
   useEffect(() => {
@@ -77,12 +129,14 @@ function AddBookPage() {
       setFeatureInput(value);
     }
   };
+
   useEffect(() => {
     setInput((prev) => {
       return { ...prev, newBook: { ...prev.newBook, gradient: color } };
     });
     console.log(color);
   }, [color]);
+
   const handleChange =
     (name: string) =>
     (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -109,6 +163,7 @@ function AddBookPage() {
     setIconElements({ icon: "", text: "" });
     setHasErr(true);
   };
+
   const handleAddFeature = () => {
     setInput((prev) => {
       return {
@@ -118,18 +173,29 @@ function AddBookPage() {
     });
     setFeatureInput("");
   };
+
   const changeColor = (text: string) => {
     setColor(text);
   };
+
+  // Header text based on mode
+  const headerTopText = isEditMode ? "Edit Book" : "Add Book";
+  const headerBottomText = isEditMode ? "Update your ebook details" : "Create new ebook";
+  const buttonText = isEditMode ? "Update eBook" : "Add eBook";
+
   return (
     <Wrapper>
+      <ProfileHeader
+        topText={headerTopText}
+        bottomText={headerBottomText}
+      />
       <div className="flex flex-col">
         <Input
           value={input?.newBook.title}
           infoElementDetails={{
             imgSrc: "/instructions/title.png",
             title: "Title",
-            description: "Enter title of your new eBook!",
+            description: "Enter title of your ebook",
           }}
           guiName="Title"
           onChange={handleChange("title")}
@@ -144,7 +210,7 @@ function AddBookPage() {
           infoElementDetails={{
             imgSrc: "/instructions/author.png",
             title: "Author",
-            description: "Enter author of your new eBook!",
+            description: "Enter author of your ebook",
           }}
           guiName="Author"
           value={input?.newBook.author}
@@ -253,6 +319,7 @@ function AddBookPage() {
         />
         <div className="flex flex-row my-4">
           <Checkbox
+            checked={input.newBook.isHeroBook}
             onClick={() => {
               setInput((prev) => {
                 return {
@@ -268,7 +335,17 @@ function AddBookPage() {
           />
           <p className="ml-2">I want this eBook to appear on the home page</p>
         </div>
-        <Button onClick={submitBook}>Add eBook</Button>
+        <div className="flex space-x-4">
+          <Button onClick={saveBook}>{buttonText}</Button>
+          {isEditMode && (
+            <Button
+              variant="outline"
+              onClick={() => navigate("/profile/adminpanel/manage-books")}
+            >
+              Cancel
+            </Button>
+          )}
+        </div>
       </div>
     </Wrapper>
   );
