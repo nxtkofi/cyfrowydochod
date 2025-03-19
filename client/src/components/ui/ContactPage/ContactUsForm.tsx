@@ -5,6 +5,14 @@ import { Textarea } from "../textarea";
 import useAxiosPrivate from "@/hooks/useAxiosPrivate";
 import useApi from "@/hooks/useApi";
 import Loader from "../loader";
+import {
+  Card,
+  CardHeader,
+  CardTitle,
+  CardDescription,
+  CardContent,
+  CardFooter,
+} from "../card";
 
 type ContactUsFormProps = {
   accessDisabled: boolean;
@@ -27,12 +35,10 @@ function ContactUsForm({ accessDisabled }: ContactUsFormProps) {
   });
 
   const submitTicket = async () => {
-      await sendReq(
-      "/api/tickets",
-      "POST",
-      ticket,
-      { title: "Success!", description: "Ticket submission successfull!" },
-    );
+    await sendReq("/api/tickets", "POST", ticket, {
+      title: "Success!",
+      description: "Ticket submission successfull!",
+    });
   };
 
   const handleChange = (value: string, name: string) => {
@@ -43,64 +49,81 @@ function ContactUsForm({ accessDisabled }: ContactUsFormProps) {
   };
 
   return (
-    <div className="flex flex-col">
-      <Input
-        validationRules={{
-          min: 4,
-          max: 100,
-          spaceAllowed: true,
-          mustContain: {
-            specialChar: false,
-            number: false,
-            bigLetter: false,
-          },
-        }}
-        handleChange={(v) => handleChange(v, "subject")}
-        guiName="Subject*"
-        required
-        accessDisabled={accessDisabled}
-      />
-      <Input
-        validationRules={{
-          min: 36,
-          max: 36,
-          spaceAllowed: true,
-          mustContain: {
-            specialChar: false,
-            number: false,
-            bigLetter: false,
-          },
-        }}
-        handleChange={(v) => handleChange(v, "orderId")}
-        guiName="OrderId (not required)"
-        accessDisabled={accessDisabled}
-      />
-      <Textarea
-        onChange={(e) => handleChange(e.target.value, "message")}
-        value={ticket?.message}
-        className="my-4"
-        rows={8}
-        placeholder="Please type your message here."
-        required
-        disabled={accessDisabled}
-      />
-      <Input
-        preset="email"
-        handleChange={(v) => handleChange(v, "email")}
-        name="email"
-        guiName="Email*"
-        required
-        accessDisabled={accessDisabled}
-      />
-      <div className="flex">
-        <Button
-          className="ml-auto"
-          onClick={submitTicket}
-          disabled={accessDisabled}
-        >
-          {apiLoading ? <Loader /> : "Send"}
-        </Button>
-      </div>
+    <div className="mt-24">
+      <Card className="max-w-md mx-auto">
+        <CardHeader className="text-center">
+          <CardTitle className="text-2xl">Contact us</CardTitle>
+          <CardDescription>
+            Leave a ticket, we'll respond to you shortly.
+          </CardDescription>
+        </CardHeader>
+        <CardContent>
+          <div className="flex flex-col space-y-4">
+            <div className="flex flex-col space-y-1.5">
+              <label htmlFor="subject">Subject*</label>
+              <Input
+                id="subject"
+                value={ticket.subject}
+                onChange={(e) => handleChange(e.target.value, "subject")}
+                placeholder="Enter subject"
+                disabled={accessDisabled}
+                required
+              />
+            </div>
+
+            <div className="flex flex-col space-y-1.5">
+              <label htmlFor="orderId">OrderId</label>
+              <Input
+                id="orderId"
+                value={ticket.orderId}
+                onChange={(e) => handleChange(e.target.value, "orderId")}
+                placeholder="Enter order ID"
+                disabled={accessDisabled}
+              />
+            </div>
+
+            <div className="flex flex-col space-y-1.5">
+              <label htmlFor="message">Message*</label>
+              <Textarea
+                id="message"
+                value={ticket.message}
+                onChange={(e) => handleChange(e.target.value, "message")}
+                placeholder="Please type your message here."
+                rows={8}
+                disabled={accessDisabled}
+                required
+              />
+            </div>
+
+            <div className="flex flex-col space-y-1.5">
+              <label htmlFor="email">Email*</label>
+              <Input
+                id="email"
+                type="email"
+                value={ticket.email}
+                onChange={(e) => handleChange(e.target.value, "email")}
+                placeholder="Enter your email"
+                disabled={accessDisabled}
+                required
+              />
+            </div>
+          </div>
+        </CardContent>
+
+        <CardFooter className="flex w-full">
+          <Button
+            className="ml-auto"
+            onClick={submitTicket}
+            disabled={accessDisabled}
+          >
+            {apiLoading ? (
+              <Loader className="mr-2 h-4 w-4 animate-spin" />
+            ) : (
+              "Send"
+            )}
+          </Button>
+        </CardFooter>
+      </Card>
     </div>
   );
 }
