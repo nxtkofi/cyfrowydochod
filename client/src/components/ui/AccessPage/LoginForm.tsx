@@ -1,5 +1,5 @@
 import { jwtDecode } from "jwt-decode";
-import { FunctionComponent, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { Input } from "../input";
 import { Button } from "../button";
 import {
