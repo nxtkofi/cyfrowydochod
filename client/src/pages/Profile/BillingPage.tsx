@@ -27,7 +27,7 @@ function BillingPage() {
   
   return (
     <>
-      <Wrapper className="">
+      <Wrapper >
         <ProfileHeader
           topText={"Billing"}
           bottomText={"Review your billing settings"}

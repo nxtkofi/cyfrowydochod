@@ -10,8 +10,8 @@ const TrustSection: FunctionComponent<TrustSectionProps> = ({
   trustReviews,
 }) => {
   return (
-    <div className="flex flex-col justify-center items-center">
-      <p className="text-4xl font-semibold text-slate-900 leading-[3.5rem]">
+    <div className="flex flex-col justify-center items-center max-w-screen">
+      <p className="text-4xl font-semibold text-slate-900 leading-[3.5rem] w-screen text-center p-2 text-wrap">
         Join our community of readers
       </p>
       <Slider

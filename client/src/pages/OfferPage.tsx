@@ -12,7 +12,8 @@ function OfferPage() {
     navigate({ path: path });
   };
   return (
-    <>
+    <section>
+      
       <Wrapper>
         <TextDefault className="text-center" variant={"default"} bigTitle>
           Explore our offer
@@ -59,7 +60,7 @@ function OfferPage() {
             ))}
         </div>
       </Wrapper>
-    </>
+    </section>
   );
 }
 
