@@ -1,5 +1,11 @@
 package com.example.demo.controller;
 
+import com.example.demo.dto.GenerateImageRequestDto;
+import com.example.demo.service.ImageGenerationService;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -7,8 +13,12 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/image")
 public class ImageGenerationController {
 
-	@RequestMapping("/generate")
-	public String generateImage() {
-		return "Image generated";
+	@Autowired
+	ImageGenerationService imageGenerationService;
+
+	@PostMapping("/generate")
+	public String generateImage(@RequestBody GenerateImageRequestDto request) {
+
+		return imageGenerationService.generateImage(request);
 	}
 }
