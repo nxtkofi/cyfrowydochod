@@ -1,14 +1,12 @@
-package com.example.demo.dto;
+package com.example.demo.models;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import com.example.demo.models.Color;
-
 import lombok.Data;
 
 @Data
-public class GenerateImageRequestDto {
+public class ImageProps {
 
 	public String title;
 	public String description;

@@ -1,6 +1,7 @@
 package com.example.demo.service;
 
-import com.example.demo.dto.GenerateImageRequestDto;
+
+import com.example.demo.models.ImageProps;
 
 import org.springframework.ai.image.ImageModel;
 import org.springframework.ai.image.ImagePrompt;
@@ -13,7 +14,7 @@ public class ImageGenerationService {
 	@Autowired
 	ImageModel imageModel;
 
-	public String generateImage(GenerateImageRequestDto request) {
+	public String generateImage(ImageProps request) {
 		String basePrompt = String.format(
 				"Na podstawie poniższych danych:\n"
 						+

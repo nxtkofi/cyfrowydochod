@@ -1,6 +1,6 @@
 package com.example.demo.controller;
 
-import com.example.demo.dto.GenerateImageRequestDto;
+import com.example.demo.models.ImageProps;
 import com.example.demo.service.ImageGenerationService;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +17,7 @@ public class ImageGenerationController {
 	ImageGenerationService imageGenerationService;
 
 	@PostMapping("/generate")
-	public String generateImage(@RequestBody GenerateImageRequestDto request) {
+	public String generateImage(@RequestBody ImageProps request) {
 		return imageGenerationService.generateImage(request);
 	}
 }
