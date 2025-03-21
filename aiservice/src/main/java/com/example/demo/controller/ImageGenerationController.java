@@ -18,7 +18,6 @@ public class ImageGenerationController {
 
 	@PostMapping("/generate")
 	public String generateImage(@RequestBody GenerateImageRequestDto request) {
-
 		return imageGenerationService.generateImage(request);
 	}
 }
