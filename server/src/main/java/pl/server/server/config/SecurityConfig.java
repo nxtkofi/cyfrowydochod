@@ -34,16 +34,19 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
-        .csrf(csrf -> csrf.disable())
-        .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-        .authorizeHttpRequests((authorize) -> authorize
-            .requestMatchers("/api/auth/logout", "/api/auth/register", "/api/auth/login", "/api/auth/refresh").permitAll()
-            .requestMatchers(HttpMethod.GET, "/api/books").permitAll() // Umożliwia dostęp do GET /api/books dla każdego użytkownika
-            .anyRequest().authenticated()
-        )
-        .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
+                .csrf(csrf -> csrf.disable())
+                .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+                .authorizeHttpRequests((authorize) -> authorize
+                        .requestMatchers("/api/auth/logout", "/api/auth/register", "/api/auth/login",
+                                "/api/auth/refresh")
+                        .permitAll()
+                        .requestMatchers(HttpMethod.GET, "/api/books").permitAll() // Umożliwia dostęp do GET /api/books
+                                                                                   // dla każdego użytkownika
+                        .requestMatchers(HttpMethod.POST, "/api/generate/**").hasAuthority("admin")
+                        .anyRequest().authenticated())
+                .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
 
-    return http.build();
+        return http.build();
     }
 
     @Bean
