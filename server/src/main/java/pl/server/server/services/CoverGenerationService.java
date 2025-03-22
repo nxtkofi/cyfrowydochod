@@ -14,8 +14,13 @@ import pl.server.server.models.CoverGenerationRequest;
 @Service
 public class CoverGenerationService {
 
+    private static String apiKey;
+    
     @Value("${cyfrowydochod.valid-api-key}")
-    private static String AUTH_KEY;
+    public void setApiKey(String key) {
+        CoverGenerationService.apiKey = key;
+    }
+    
     private final String AI_SERVICE_URL = "http://localhost:8081/image/generate";
     private final RestTemplate restTemplate = new RestTemplate();
 
@@ -23,17 +28,22 @@ public class CoverGenerationService {
         try {
             HttpHeaders headers = new HttpHeaders();
             headers.setContentType(MediaType.APPLICATION_JSON);
-            headers.set("X-API-KEY", AUTH_KEY);
-            HttpEntity<CoverGenerationService> requestEntity = new HttpEntity(request, headers);
-            ResponseEntity<String> response = restTemplate.exchange(AI_SERVICE_URL, HttpMethod.POST, requestEntity,
-                    String.class);
+            headers.set("X-API-KEY", apiKey);
+            
+            HttpEntity<CoverGenerationRequest> requestEntity = new HttpEntity<>(request, headers);
+            
+            ResponseEntity<String> response = restTemplate.exchange(
+                AI_SERVICE_URL, 
+                HttpMethod.POST, 
+                requestEntity,
+                String.class
+            );
+            
             return response;
-
         } catch (Exception ex) {
             System.err.println("Error while generating image: " + ex.getMessage());
             ex.printStackTrace();
-            return ResponseEntity.status(500).body("Error while generating image");
+            return ResponseEntity.status(500).body("Error while generating image: " + ex.getMessage());
         }
     }
-
 }
