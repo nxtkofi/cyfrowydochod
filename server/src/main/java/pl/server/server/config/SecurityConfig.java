@@ -42,7 +42,7 @@ public class SecurityConfig {
                         .permitAll()
                         .requestMatchers(HttpMethod.GET, "/api/books").permitAll() // Umożliwia dostęp do GET /api/books
                                                                                    // dla każdego użytkownika
-                        .requestMatchers(HttpMethod.POST, "/api/generate/**").hasAuthority("admin")
+                        .requestMatchers("/api/generate/**").hasAuthority("admin")
                         .anyRequest().authenticated())
                 .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
 
