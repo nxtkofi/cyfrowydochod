@@ -15,12 +15,16 @@ public class AuthenticationService {
 
     private static final String AUTH_TOKEN_HEADER_NAME = "X-API-KEY";
 
+    private static String authToken;
+
     @Value("${cyfrowydochod.valid.api.key}")
-    private static String AUTH_TOKEN;
+    public void setAuthToken(String token) {
+        AuthenticationService.authToken = token;
+    }
 
     public static Authentication getAuthentication(HttpServletRequest request) {
         String apiKey = request.getHeader(AUTH_TOKEN_HEADER_NAME);
-        if (apiKey == null || !apiKey.equals(AUTH_TOKEN)) {
+        if (apiKey == null || !apiKey.equals(authToken)) {
             throw new BadCredentialsException("Invalid API Key");
         }
 
