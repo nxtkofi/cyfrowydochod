@@ -12,6 +12,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import pl.server.server.DTOs.LoginRequest;
 import pl.server.server.DTOs.RegistrationRequest;
+import pl.server.server.DTOs.ResetPasswordRequest;
 import pl.server.server.services.AuthService;
 
 @RestController
@@ -23,23 +24,36 @@ public class AuthController {
 
     @PostMapping("/login")
     public ResponseEntity<String> authenticateUser(@RequestBody LoginRequest loginRequest, HttpServletResponse response) {
-
         return authService.loginUser(loginRequest,response);
     }
 
     @PostMapping("/register")
     public ResponseEntity<String> registerUser(@RequestBody RegistrationRequest registrationRequest) {
         return authService.registerUser(registrationRequest);
-        }
+    }
+
     @GetMapping("/refresh")
     public ResponseEntity<String> refreshAccessToken(HttpServletRequest request, HttpServletResponse response) {
-
         return authService.refreshAccessToken(request, response);
     }
+
     @GetMapping("/logout")
-    public ResponseEntity logoutUser(HttpServletRequest request, HttpServletResponse response){
+    public ResponseEntity<?> logoutUser(HttpServletRequest request, HttpServletResponse response){
 
         return authService.handleLogOut(request, response);
+    }
+
+    @PostMapping("/password-reset/request")
+    public ResponseEntity<?> resetPasswordRequest(@RequestBody ResetPasswordRequest request) {
+//        try {
+//            authService.resetPasswordRequest(request.getEmail());
+//        } catch (MessagingException e) {
+//            return ResponseEntity.status(500).body("Error sending email");
+//        } catch (Exception e) {
+//            return ResponseEntity.status(500).body("An unexpected error occurred");
+//        }
+
+        return ResponseEntity.ok().build();
     }
 }
 
