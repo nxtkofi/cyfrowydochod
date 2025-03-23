@@ -82,6 +82,9 @@ public class User implements UserDetails {
     @OneToMany(mappedBy = "user",fetch = FetchType.LAZY, cascade = CascadeType.ALL) //require tests
     private Set<Review> reviews;
 
+    @OneToMany(mappedBy = "user")
+    private Set<PasswordResetToken> resetTokens;
+
     public User(String username, String email, String password) {
         this.username = username;
         this.email = email;
