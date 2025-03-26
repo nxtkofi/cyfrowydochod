@@ -1,9 +1,17 @@
 import { LucideProps } from "lucide-react";
 import dynamicIconImports from "lucide-react/dynamicIconImports";
 
+export type EbookCoverRequestType = {
+  title: string;
+  description: string;
+  styles: string[];
+  color: { main: string; secondary: string };
+};
+
 export interface IconProps extends Omit<LucideProps, "ref"> {
   name: keyof typeof dynamicIconImports | "";
 }
+
 export type BillingType = {
   fullName: string;
   streetName: string;

@@ -2,7 +2,11 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import Wrapper from "@/components/ui/wrapper";
-import { BookTypeRequest, iconElementsType } from "@/types";
+import {
+  BookTypeRequest,
+  EbookCoverRequestType,
+  iconElementsType,
+} from "@/types";
 import ColorPicker from "react-best-gradient-color-picker";
 import { ChangeEvent, useEffect, useState } from "react";
 import useApi from "@/hooks/useApi";
@@ -29,6 +33,13 @@ function AddBookPage() {
     text: "",
   });
   const [featureInput, setFeatureInput] = useState<string>("");
+  const [imageUrl, setImageUrl] = useState<string>("");
+  const [ebookCover, setEbookCover] = useState<EbookCoverRequestType>({
+    title: "",
+    description: "",
+    styles: [],
+    color: { main: "", secondary: "" },
+  });
   const [input, setInput] = useState<BookTypeRequest>({
     newBook: {
       longDescription: "",
@@ -80,7 +91,7 @@ function AddBookPage() {
           setTextBlack(bookData.checksTableTextBlack || false);
         }
       };
-      
+
       fetchBook();
     }
   }, [id, isEditMode]);
@@ -150,6 +161,16 @@ function AddBookPage() {
         },
       }));
     };
+  async function generateCover() {
+    const { response } = await sendReq("/api/generate/ebook-cover", "POST", {
+      title: "Art galleries and how to live off of them?",
+      description:
+        "Book about how to connect to artists, where to find them and how to create Your own art galleries to make money off of.",
+      styles: ["Minimalistic", "Cartoon"],
+      color: { main: "blue", secondary: "golden" },
+    });
+    setImageUrl(response.data);
+  }
 
   const handleAddIconElement = () => {
     setInput((prev) => ({
@@ -180,15 +201,14 @@ function AddBookPage() {
 
   // Header text based on mode
   const headerTopText = isEditMode ? "Edit Book" : "Add Book";
-  const headerBottomText = isEditMode ? "Update your ebook details" : "Create new ebook";
+  const headerBottomText = isEditMode
+    ? "Update your ebook details"
+    : "Create new ebook";
   const buttonText = isEditMode ? "Update eBook" : "Add eBook";
 
   return (
     <Wrapper>
-      <ProfileHeader
-        topText={headerTopText}
-        bottomText={headerBottomText}
-      />
+      <ProfileHeader topText={headerTopText} bottomText={headerBottomText} />
       <div className="flex flex-col">
         <Input
           value={input?.newBook.title}
@@ -266,10 +286,14 @@ function AddBookPage() {
           value={input?.newBook.imagePath}
           guiName="Image path url"
         />
+        <p className="mb-3 text-center">Or</p>
+        <Button onClick={() => generateCover()}>
+          Generate Image with AI &nbsp;✨
+        </Button>
         {input.newBook.imagePath && (
           <img
             src={input.newBook.imagePath}
-            className=" w-1/2 rounded-md mb-4 self-center"
+            className=" w-1/2 rounded-md mb-4 self-center mt-4"
           />
         )}
         <Textarea
