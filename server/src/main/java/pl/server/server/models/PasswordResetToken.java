@@ -13,7 +13,6 @@ import java.time.LocalDateTime;
 @Getter
 @Setter
 @EqualsAndHashCode
-@AllArgsConstructor
 @NoArgsConstructor
 public class PasswordResetToken {
     @Id
@@ -26,6 +25,9 @@ public class PasswordResetToken {
     @JoinColumn(name = "user_id")
     private User user;
 
-
-
+    public PasswordResetToken(String token, LocalDateTime createdAt, User user) {
+        this.token = token;
+        this.createdAt = createdAt;
+        this.user = user;
+    }
 }
