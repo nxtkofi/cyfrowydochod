@@ -44,11 +44,14 @@ function HomePage() {
       </section>
       <Wrapper>
         {books &&
-          books.map((Book, index) => (
-            <section key={index}>
-              <HeroBook book={Book} />
-            </section>
-          ))}
+          books.map(
+            (book, index) =>
+              book.isHeroBook && (
+                <section key={index}>
+                  <HeroBook book={book} />
+                </section>
+              ),
+          )}
       </Wrapper>
       <section>
         <Wrapper>

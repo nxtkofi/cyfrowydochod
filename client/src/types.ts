@@ -111,8 +111,10 @@ export type BookType = {
   imagePath: string;
   emojiGradientUrl?: string;
   checksTableTextBlack?: boolean;
+  isHeroBook: boolean
   iconElements?: iconElementsType[];
 };
+
 export type avatarType =
   | "axolotl"
   | "koza"
