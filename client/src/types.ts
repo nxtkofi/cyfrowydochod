@@ -4,7 +4,7 @@ import dynamicIconImports from "lucide-react/dynamicIconImports";
 export type EbookCoverRequestType = {
   title: string;
   description: string;
-  styles: string[];
+  styles: string;
   color: { main: string; secondary: string };
 };
 
