@@ -1,6 +1,5 @@
 package com.example.demo.service;
 
-
 import com.example.demo.models.ImageProps;
 
 import org.springframework.ai.image.ImageModel;
@@ -23,7 +22,7 @@ public class ImageGenerationService {
 						"- Preferowany styl okładki: %s",
 				request.getTitle(),
 				request.getDescription(),
-				request.getStyles() != null ? request.getStyles().toString() : "brak");
+				request.getStyles() != null ? request.getStyles() : "brak");
 		StringBuilder optionalPrompt = new StringBuilder();
 		if (request.getColor() != null) {
 			optionalPrompt.append(String.format(

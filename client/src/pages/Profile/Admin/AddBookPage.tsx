@@ -12,6 +12,7 @@ import AddFeatureForm from "@/components/ui/Admin/AddFeatureForm";
 import { Checkbox } from "@/components/ui/checkbox";
 import { useNavigate, useParams } from "react-router-dom";
 import ProfileHeader from "@/components/ui/Profile/ProfileHeader";
+import { EbookCoverForm } from "./EbookCoverForm";
 
 function AddBookPage() {
   const { id } = useParams();
@@ -29,6 +30,7 @@ function AddBookPage() {
     text: "",
   });
   const [featureInput, setFeatureInput] = useState<string>("");
+  const [imageUrl, setImageUrl] = useState<string>("");
   const [input, setInput] = useState<BookTypeRequest>({
     newBook: {
       longDescription: "",
@@ -48,7 +50,16 @@ function AddBookPage() {
     bookIconElementsList: [],
   });
 
-  // Fetch book data when in edit mode
+  useEffect(() => {
+    setInput((prev) => ({
+      ...prev,
+      newBook: {
+        ...prev.newBook,
+        imagePath: imageUrl,
+      },
+    }));
+  }, [imageUrl]);
+
   useEffect(() => {
     if (isEditMode) {
       const fetchBook = async () => {
@@ -80,7 +91,7 @@ function AddBookPage() {
           setTextBlack(bookData.checksTableTextBlack || false);
         }
       };
-      
+
       fetchBook();
     }
   }, [id, isEditMode]);
@@ -180,15 +191,14 @@ function AddBookPage() {
 
   // Header text based on mode
   const headerTopText = isEditMode ? "Edit Book" : "Add Book";
-  const headerBottomText = isEditMode ? "Update your ebook details" : "Create new ebook";
+  const headerBottomText = isEditMode
+    ? "Update your ebook details"
+    : "Create new ebook";
   const buttonText = isEditMode ? "Update eBook" : "Add eBook";
 
   return (
     <Wrapper>
-      <ProfileHeader
-        topText={headerTopText}
-        bottomText={headerBottomText}
-      />
+      <ProfileHeader topText={headerTopText} bottomText={headerBottomText} />
       <div className="flex flex-col">
         <Input
           value={input?.newBook.title}
@@ -266,10 +276,13 @@ function AddBookPage() {
           value={input?.newBook.imagePath}
           guiName="Image path url"
         />
+        <p className="mb-3 text-center">Or</p>
+
+        <EbookCoverForm setImageUrl={setImageUrl} />
         {input.newBook.imagePath && (
           <img
             src={input.newBook.imagePath}
-            className=" w-1/2 rounded-md mb-4 self-center"
+            className=" w-1/2 rounded-md mb-4 self-center mt-4"
           />
         )}
         <Textarea

@@ -18,7 +18,7 @@ function ProfileHeader({
           {topText} {""}
         </TextDefault>
       )}
-      <div className="border-b-2 slate-200">
+      <div className="border-b-2 -mt-6 slate-200">
         <TextDefault variant={"default"} title center>
           {bottomText}
         </TextDefault>
