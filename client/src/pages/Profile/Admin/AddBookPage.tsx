@@ -2,11 +2,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import Wrapper from "@/components/ui/wrapper";
-import {
-  BookTypeRequest,
-  EbookCoverRequestType,
-  iconElementsType,
-} from "@/types";
+import { BookTypeRequest, iconElementsType } from "@/types";
 import ColorPicker from "react-best-gradient-color-picker";
 import { ChangeEvent, useEffect, useState } from "react";
 import useApi from "@/hooks/useApi";
@@ -16,6 +12,7 @@ import AddFeatureForm from "@/components/ui/Admin/AddFeatureForm";
 import { Checkbox } from "@/components/ui/checkbox";
 import { useNavigate, useParams } from "react-router-dom";
 import ProfileHeader from "@/components/ui/Profile/ProfileHeader";
+import { EbookCoverForm } from "./EbookCoverForm";
 
 function AddBookPage() {
   const { id } = useParams();
@@ -34,12 +31,6 @@ function AddBookPage() {
   });
   const [featureInput, setFeatureInput] = useState<string>("");
   const [imageUrl, setImageUrl] = useState<string>("");
-  const [ebookCover, setEbookCover] = useState<EbookCoverRequestType>({
-    title: "",
-    description: "",
-    styles: [],
-    color: { main: "", secondary: "" },
-  });
   const [input, setInput] = useState<BookTypeRequest>({
     newBook: {
       longDescription: "",
@@ -59,7 +50,16 @@ function AddBookPage() {
     bookIconElementsList: [],
   });
 
-  // Fetch book data when in edit mode
+  useEffect(() => {
+    setInput((prev) => ({
+      ...prev,
+      newBook: {
+        ...prev.newBook,
+        imagePath: imageUrl,
+      },
+    }));
+  }, [imageUrl]);
+
   useEffect(() => {
     if (isEditMode) {
       const fetchBook = async () => {
@@ -161,16 +161,6 @@ function AddBookPage() {
         },
       }));
     };
-  async function generateCover() {
-    const { response } = await sendReq("/api/generate/ebook-cover", "POST", {
-      title: "Art galleries and how to live off of them?",
-      description:
-        "Book about how to connect to artists, where to find them and how to create Your own art galleries to make money off of.",
-      styles: ["Minimalistic", "Cartoon"],
-      color: { main: "blue", secondary: "golden" },
-    });
-    setImageUrl(response.data);
-  }
 
   const handleAddIconElement = () => {
     setInput((prev) => ({
@@ -287,9 +277,8 @@ function AddBookPage() {
           guiName="Image path url"
         />
         <p className="mb-3 text-center">Or</p>
-        <Button onClick={() => generateCover()}>
-          Generate Image with AI &nbsp;✨
-        </Button>
+
+        <EbookCoverForm setImageUrl={setImageUrl} />
         {input.newBook.imagePath && (
           <img
             src={input.newBook.imagePath}
